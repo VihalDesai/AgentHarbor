@@ -1,25 +1,31 @@
 # Design QA
 
-Status: passed
+## Reference review
 
-## Comparison
+- Reference: the signed-in Skydive workspace in the user’s Edge session at 1528 × 760.
+- Screens reviewed in this pass: Home, Templates, Routines, and an agent profile. The earlier review also covered Agents, Integrations, Account, Workspace, and the agent chat composer.
+- Implementation: AgentHarbor desktop/web preview at `http://localhost:8081`.
+- Visual direction: Skydive’s compact dark workspace, round quick actions, narrow centered feed, quiet borders, settings rail, and edge-to-edge agent cover. AgentHarbor retains its own identity, names, wording, and provider flows.
 
-- Reference: the signed-in Skydive workspace dashboard and template catalog reviewed in Edge at 1528 × 760.
-- Implementation: AgentHarbor Home and Templates preview at `http://localhost:8082/`, reviewed at the same 1528 × 760 viewport.
-- Chosen direction: template-first studio (direction 3).
+## Changes in this revision
 
-## Findings
+- Removed the permanent desktop navigation rail; added an account-style menu on the main screens and a settings rail on the provider screen.
+- Aligned the Home feed and Templates catalog with the reference widths and top navigation placement.
+- Added direct provider choices from Home, with all API setup handled by the provider settings page.
+- Made the agent cover edge-to-edge and added an original, vector sunset landscape.
+- Added visible recovery messages for failed API-key storage and chat requests, and ensured connection loading state always ends.
+- Kept mobile bottom navigation, local-first data, provider API configuration, and the no-pricing scope.
 
-- The Home screen carries over the dark canvas, compact circular quick actions, featured agent starter, template cards, recent activity, and routine context while using AgentHarbor’s own name, copy, colors, and components.
-- The Templates screen uses category filters and a card catalog. Adding a starter creates a local agent and gives it a unique name when a starter already exists.
-- Provider settings are a first-class quick action and include provider selection, endpoint/model fields, secure key entry, save/remove controls, and a connection action.
-- Android keeps a compact bottom navigation; wide layouts use the available width for a main template column and activity/routine rail.
-- No pricing, billing, or payment screens were added.
+## Verification
 
-## Scope checked
+- `npm run lint` — passed.
+- `npx tsc --noEmit` — passed.
+- Reviewed the local Home, Templates, Providers, and Agent profile screens at 1528 × 760.
+- No API key was entered and no provider request was sent.
 
-The source walkthrough covered Skydive Home, Templates, Agents, Integrations, Routines, Account, Workspace People/Settings/Models/Controls, agent Posts/Chats/Routines/Computer, and the agent chat composer. No agents, chats, routines, integrations, account settings, or workspace settings were changed during that review.
+## Known differences
 
-## Limitations
-
-The comparison was made from live browser captures; those captures were not copied into the repository. Provider requests were not exercised because no provider key was entered for this review.
+- This is a clean-room AgentHarbor implementation, not a pixel-for-pixel copy. It uses distinct branding, original copy, seeded agents, and a custom vector cover instead of Skydive’s exact character art and landscape photography.
+- Skydive-only services such as external message channels, computer control, cloud teams, and account/workspace administration are not implemented. AgentHarbor only presents working local features and the supported model-provider API settings.
+- Android uses the same dark visual system with mobile navigation and safe-area-aware layouts; this browser review did not capture a physical Android device.
+- Provider connection behavior was not exercised because no key or model endpoint was supplied.

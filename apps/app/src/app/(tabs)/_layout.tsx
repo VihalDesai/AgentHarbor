@@ -5,7 +5,7 @@ import { palette } from '@/constants/palette';
 
 export default function WorkspaceTabs() {
   const desktop = Platform.OS === 'web';
-  return <Tabs screenOptions={{ headerShown: false, tabBarPosition: desktop ? 'left' : 'bottom', tabBarActiveTintColor: palette.text, tabBarInactiveTintColor: palette.quiet, tabBarStyle: desktop ? { width: 220, backgroundColor: palette.background, borderRightColor: palette.border, borderRightWidth: 1, paddingHorizontal: 10, paddingTop: 20 } : { backgroundColor: palette.surface, borderTopColor: palette.border, height: 62, paddingTop: 6, paddingBottom: 8 }, tabBarLabelStyle: desktop ? { fontSize: 12, fontWeight: '500', marginLeft: 8 } : { fontSize: 10, fontWeight: '600' }, tabBarItemStyle: desktop ? { height: 42, borderRadius: 7, justifyContent: 'flex-start', paddingHorizontal: 10, marginBottom: 3 } : undefined, tabBarIconStyle: desktop ? { width: 21 } : undefined }}>
+  return <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: palette.text, tabBarInactiveTintColor: palette.quiet, tabBarStyle: desktop ? { display: 'none' } : { backgroundColor: palette.surface, borderTopColor: palette.border, height: 62, paddingTop: 6, paddingBottom: 8 }, tabBarLabelStyle: { fontSize: 10, fontWeight: '600' } }}>
     <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={desktop ? 17 : size} color={color} /> }} />
     <Tabs.Screen name="agents" options={{ title: 'Agents', tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={desktop ? 17 : size} color={color} /> }} />
     <Tabs.Screen name="routines" options={{ title: 'Routines', tabBarIcon: ({ color, size }) => <Ionicons name="repeat-outline" size={desktop ? 17 : size} color={color} /> }} />

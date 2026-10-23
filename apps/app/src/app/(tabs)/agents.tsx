@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { AgentAvatar, Brand, Card, Screen } from '@/components/HarborUI';
+import { AgentAvatar, Card, Screen, WorkspaceHeader } from '@/components/HarborUI';
 import { palette } from '@/constants/palette';
 import { useWorkspace } from '@/state/WorkspaceStore';
 
@@ -11,7 +11,7 @@ export default function AgentsScreen() {
   const [query, setQuery] = useState('');
   const filtered = useMemo(() => agents.filter((agent) => `${agent.name} ${agent.role} ${agent.goal}`.toLowerCase().includes(query.trim().toLowerCase())), [agents, query]);
   return <Screen style={styles.page}>
-    <View style={styles.header}><Pressable onPress={() => router.back()} style={styles.back}><Ionicons name="arrow-back" size={16} color={palette.muted} /><Text style={styles.backText}>Back</Text></Pressable><Brand compact /></View>
+    <WorkspaceHeader back />
     <View style={styles.titleRow}><View><Text style={styles.title}>Agents</Text><Text style={styles.subtitle}>Your local agents and their work.</Text></View><Pressable onPress={() => router.push('/create-agent')} style={styles.create}><Ionicons name="add" size={15} color={palette.background} /><Text style={styles.createText}>New agent</Text></Pressable></View>
     <View style={styles.filters}><View style={[styles.filter, styles.filterOn]}><Text style={[styles.filterText, styles.filterTextOn]}>My agents · {agents.length}</Text></View></View>
     <View style={styles.tools}><View style={styles.search}><Ionicons name="search-outline" size={16} color={palette.quiet} /><TextInput value={query} onChangeText={setQuery} placeholder="Search agents" placeholderTextColor={palette.quiet} style={styles.searchInput} /></View><Pressable style={styles.sort}><Text style={styles.sortText}>Newest</Text><Ionicons name="chevron-down" size={13} color={palette.muted} /></Pressable></View>

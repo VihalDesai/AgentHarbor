@@ -1,6 +1,6 @@
 {
   "name": "agentharbor-desktop",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "AgentHarbor desktop application",
   "author": "AgentHarbor contributors",
   "main": "main.cjs",
@@ -16,9 +16,25 @@
   "build": {
     "appId": "org.agentharbor.desktop",
     "productName": "AgentHarbor",
-    "win": { "icon": "assets/icon.ico", "target": ["portable"], "artifactName": "AgentHarbor-${version}-Windows.exe" },
-    "directories": { "output": "../../releases/desktop" },
-    "files": ["main.cjs", "preload.cjs"],
-    "extraResources": [{ "from": "../app/dist", "to": "app" }]
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "portable"
+      ],
+      "artifactName": "AgentHarbor-${version}-Windows.exe"
+    },
+    "directories": {
+      "output": "../../releases/desktop"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs"
+    ],
+    "extraResources": [
+      {
+        "from": "../app/dist",
+        "to": "app"
+      }
+    ]
   }
 }

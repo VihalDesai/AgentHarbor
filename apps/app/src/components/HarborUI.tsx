@@ -1,16 +1,44 @@
 import { Ionicons } from '@expo/vector-icons';
-import { PropsWithChildren } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { PropsWithChildren, useState } from 'react';
+import { Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { router } from 'expo-router';
 import { palette } from '@/constants/palette';
 
-export function Screen({ children, scroll = true, style }: PropsWithChildren<{ scroll?: boolean; style?: ViewStyle }>) {
-  const content = <View style={[styles.content, style]}>{children}</View>;
+export function Screen({ children, scroll = true, style, wide = false }: PropsWithChildren<{ scroll?: boolean; style?: ViewStyle; wide?: boolean }>) {
+  const content = <View style={[styles.content, wide && styles.wideContent, style]}>{children}</View>;
   if (!scroll) return <View style={styles.screen}>{content}</View>;
   return <ScrollView style={styles.screen} contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">{content}</ScrollView>;
 }
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return <View style={styles.brandRow}><View style={styles.brandMark}><Text style={styles.brandMarkText}>AH</Text></View><View><Text style={styles.brandName}>AgentHarbor</Text>{!compact && <Text style={styles.brandCaption}>Your local agent workspace</Text>}</View></View>;
+}
+
+export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boolean; menuOnly?: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const items = [
+    { label: 'Home', icon: 'home-outline' as const, path: '/(tabs)' },
+    { label: 'Agents', icon: 'people-outline' as const, path: '/(tabs)/agents' },
+    { label: 'Routines', icon: 'repeat-outline' as const, path: '/(tabs)/routines' },
+    { label: 'Providers & API', icon: 'hardware-chip-outline' as const, path: '/(tabs)/settings' },
+    { label: 'Templates', icon: 'albums-outline' as const, path: '/(tabs)/templates' },
+  ];
+  return <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader]}>
+    {menuOnly ? <View /> : back ? <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.headerBack}><Ionicons name="arrow-back" size={16} color={palette.muted} /><Text style={styles.headerBackText}>Back</Text></Pressable> : <Brand compact />}
+    <Pressable accessibilityRole="button" accessibilityLabel="Open workspace menu" accessibilityState={{ expanded: menuOpen }} onPress={() => setMenuOpen(true)} style={[styles.profileButton, styles.fixedProfileButton]}><Text style={styles.profileInitials}>AH</Text></Pressable>
+    <Modal transparent visible={menuOpen} animationType="fade" onRequestClose={() => setMenuOpen(false)}>
+      <View style={styles.menuRoot}>
+        <Pressable accessibilityLabel="Close workspace menu" onPress={() => setMenuOpen(false)} style={styles.menuScrim} />
+        <View style={styles.menuPanel}>
+          <View style={styles.menuAccount}><View style={styles.menuAvatar}><Text style={styles.menuAvatarText}>AH</Text></View><View><Text style={styles.menuAccountTitle}>AgentHarbor</Text><Text style={styles.menuAccountDetail}>Local workspace</Text></View></View>
+          <View style={styles.menuDivider} />
+          {items.map((item) => <Pressable key={item.label} accessibilityRole="button" onPress={() => { setMenuOpen(false); router.push(item.path as never); }} style={({ pressed }) => [styles.menuItem, pressed && styles.menuPressed]}><Ionicons name={item.icon} size={16} color={palette.muted} /><Text style={styles.menuLabel}>{item.label}</Text></Pressable>)}
+          <View style={styles.menuDivider} />
+          <Text style={styles.menuNote}>Open source · No pricing</Text>
+        </View>
+      </View>
+    </Modal>
+  </View>;
 }
 
 export function Eyebrow({ children, style }: PropsWithChildren<{ style?: TextStyle }>) {
@@ -46,9 +74,30 @@ export function Hairline() { return <View style={styles.hairline} />; }
 export function StatusPill({ label, color = palette.mint }: { label: string; color?: string }) { return <View style={[styles.statusPill, { borderColor: `${color}55`, backgroundColor: `${color}12` }]}><View style={[styles.statusDot, { backgroundColor: color }]} /><Text style={[styles.statusText, { color }]}>{label}</Text></View>; }
 
 const styles = StyleSheet.create({
+  workspaceHeader: { width: '100%', minHeight: 38, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 10 },
+  menuOnlyHeader: { position: 'absolute', width: 38, right: 24, top: 12 },
+  headerBack: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 40, paddingHorizontal: 2 },
+  headerBackText: { color: palette.muted, fontSize: 12 },
+  profileButton: { width: 38, height: 38, borderRadius: 20, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, alignItems: 'center', justifyContent: 'center' },
+  fixedProfileButton: Platform.OS === 'web' ? { position: 'fixed' as never, top: 16, right: 24, zIndex: 60 } : { position: 'absolute', top: 14, right: 18 },
+  profileInitials: { color: palette.text, fontSize: 10, fontWeight: '700' },
+  menuRoot: { flex: 1, alignItems: 'flex-end' },
+  menuScrim: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(0,0,0,0.34)' },
+  menuPanel: { width: 238, marginTop: Platform.OS === 'web' ? 58 : 54, marginRight: 22, borderRadius: 12, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.surface, padding: 8, shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 14 },
+  menuAccount: { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 10 },
+  menuAvatar: { width: 34, height: 34, borderRadius: 18, alignItems: 'center', justifyContent: 'center', backgroundColor: '#6672C7' },
+  menuAvatarText: { color: '#FFF', fontSize: 10, fontWeight: '800' },
+  menuAccountTitle: { color: palette.text, fontSize: 12, fontWeight: '700' },
+  menuAccountDetail: { color: palette.quiet, fontSize: 10, marginTop: 3 },
+  menuDivider: { height: 1, backgroundColor: palette.border, marginVertical: 5 },
+  menuItem: { minHeight: 40, borderRadius: 7, paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  menuPressed: { backgroundColor: palette.raised },
+  menuLabel: { color: palette.text, fontSize: 12 },
+  menuNote: { color: palette.quiet, fontSize: 10, paddingHorizontal: 10, paddingVertical: 8 },
   screen: { flex: 1, backgroundColor: palette.background },
   scrollContent: { flexGrow: 1, alignItems: 'center', paddingBottom: 38 },
   content: { width: '100%', maxWidth: Platform.OS === 'web' ? 1180 : 680, paddingHorizontal: Platform.OS === 'web' ? 28 : 18, paddingTop: Platform.OS === 'web' ? 22 : 16, gap: 18 },
+  wideContent: { maxWidth: '100%', paddingHorizontal: Platform.OS === 'web' ? 24 : 18 },
   brandRow: { flexDirection: 'row', alignItems: 'center', gap: 11 },
   brandMark: { width: 30, height: 30, backgroundColor: '#F1F1F1', borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
   brandMarkText: { color: palette.background, fontSize: 12, fontWeight: '900', letterSpacing: -0.6 },

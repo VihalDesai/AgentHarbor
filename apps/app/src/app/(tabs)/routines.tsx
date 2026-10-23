@@ -1,12 +1,12 @@
 import { StyleSheet, Switch, Text, View } from 'react-native';
-import { ActionButton, AgentAvatar, Brand, Card, Heading, Screen, SectionTitle } from '@/components/HarborUI';
+import { ActionButton, AgentAvatar, Card, Heading, Screen, SectionTitle, WorkspaceHeader } from '@/components/HarborUI';
 import { palette } from '@/constants/palette';
 import { useWorkspace } from '@/state/WorkspaceStore';
 
 export default function RoutinesScreen() {
   const { routines, agents, toggleRoutine, createRoutine } = useWorkspace();
   return <Screen>
-    <Brand />
+    <WorkspaceHeader back />
     <Heading subtitle="Simple recurring prompts, stored on this device.">Routines</Heading>
     <ActionButton title="Add weekly check-in" icon="add" onPress={() => createRoutine({ name: 'Weekly check-in', description: 'Review priorities and suggest the next step.', schedule: 'Monday · 9:00 AM', agentId: agents[0]?.id ?? 'mara' })} />
     <SectionTitle title="Your schedule" />

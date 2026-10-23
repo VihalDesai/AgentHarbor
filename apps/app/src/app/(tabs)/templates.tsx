@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { AgentAvatar, Brand, Card, Screen } from '@/components/HarborUI';
+import { AgentAvatar, Card, Screen, WorkspaceHeader } from '@/components/HarborUI';
 import { agentTemplates, uniqueTemplateName } from '@/data/templates';
 import { palette } from '@/constants/palette';
 import { useWorkspace } from '@/state/WorkspaceStore';
@@ -18,8 +18,8 @@ export default function TemplatesScreen() {
     const id = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color });
     router.replace(`/agent/${id}`);
   };
-  return <Screen>
-    <View style={styles.header}><Pressable onPress={() => router.back()} style={styles.back}><Ionicons name="arrow-back" size={17} color={palette.muted} /><Text style={styles.backText}>Back</Text></Pressable><Brand compact /></View>
+  return <Screen style={{ maxWidth: 740, paddingTop: 16, gap: 14 }}>
+    <WorkspaceHeader back />
     <View style={styles.titleRow}><View><Text style={styles.title}>Templates</Text><Text style={styles.subtitle}>Choose a starting point, then make it yours.</Text></View><Text style={styles.resultCount}>{entries.length} templates</Text></View>
     <View style={styles.search}><Ionicons name="search-outline" size={16} color={palette.quiet} /><TextInput value={query} onChangeText={setQuery} placeholder="Search templates" placeholderTextColor={palette.quiet} style={styles.searchInput} /></View>
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filters}>{filters.map((item) => <Pressable key={item} onPress={() => setFilter(item)} style={[styles.filter, filter === item && styles.filterOn]}><Text style={[styles.filterText, filter === item && styles.filterTextOn]}>{item}</Text></Pressable>)}</ScrollView>
