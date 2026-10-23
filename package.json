@@ -1,0 +1,22 @@
+{
+  "name": "agentharbor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local-first, open-source agent workspace for desktop and Android.",
+  "license": "MIT",
+  "workspaces": [
+    "apps/app",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "android": "npm --prefix apps/app start -- --lan",
+    "web": "npm --prefix apps/app run web",
+    "web:build": "npm --prefix apps/app run export:web",
+    "desktop": "npm --prefix apps/desktop start",
+    "desktop:build": "npm run web:build && npm --prefix apps/desktop run dist:win"
+  },
+  "allowScripts": {
+    "electron@41.10.7": true,
+    "electron-winstaller@5.4.0": true
+  }
+}

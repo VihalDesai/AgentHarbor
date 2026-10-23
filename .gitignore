@@ -1,0 +1,10 @@
+node_modules/
+apps/app/node_modules/
+apps/desktop/node_modules/
+apps/app/dist/
+apps/app/android-bundle/
+releases/
+work/
+.expo/
+.DS_Store
+*.log
