@@ -8,5 +8,6 @@ export default function WorkspaceTabs() {
     <Tabs.Screen name="agents" options={{ title: 'Agents', tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} /> }} />
     <Tabs.Screen name="routines" options={{ title: 'Routines', tabBarIcon: ({ color, size }) => <Ionicons name="repeat-outline" size={size} color={color} /> }} />
     <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" size={size} color={color} /> }} />
+    <Tabs.Screen name="templates" options={{ href: null }} />
   </Tabs>;
 }

@@ -48,7 +48,7 @@ export function StatusPill({ label, color = palette.mint }: { label: string; col
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: palette.background },
   scrollContent: { flexGrow: 1, alignItems: 'center', paddingBottom: 38 },
-  content: { width: '100%', maxWidth: Platform.OS === 'web' ? 1120 : 680, paddingHorizontal: 22, paddingTop: Platform.OS === 'web' ? 36 : 22, gap: 24 },
+  content: { width: '100%', maxWidth: Platform.OS === 'web' ? 1320 : 680, paddingHorizontal: Platform.OS === 'web' ? 30 : 20, paddingTop: Platform.OS === 'web' ? 28 : 18, gap: 21 },
   brandRow: { flexDirection: 'row', alignItems: 'center', gap: 11 },
   brandMark: { width: 36, height: 36, backgroundColor: palette.lime, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   brandMarkText: { color: palette.background, fontSize: 12, fontWeight: '900', letterSpacing: -0.6 },

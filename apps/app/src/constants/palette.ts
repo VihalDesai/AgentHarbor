@@ -7,7 +7,7 @@ export const palette = {
   text: '#F2F1F6',
   muted: '#9A98A5',
   quiet: '#6F6D79',
-  lime: '#C8FF73',
+  lime: '#E8AD63',
   lavender: '#AA99FF',
   mint: '#7DD9BA',
   amber: '#F0B66D',

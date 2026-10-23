@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { initialWorkspace } from '@/data/seed';
 import type { Agent, AgentMessage, ModelSettings, Routine, WorkspaceData } from '@/model/types';
+import { normalizeModelSettings } from '@/services/providers';
 
 const STORAGE_KEY = 'agent-harbor.workspace.v1';
 type WorkspaceContextValue = WorkspaceData & {
@@ -26,7 +27,10 @@ export function WorkspaceProvider({ children }: PropsWithChildren) {
     AsyncStorage.getItem(STORAGE_KEY).then((saved) => {
       if (!alive) return;
       if (saved) {
-        try { setData({ ...initialWorkspace, ...JSON.parse(saved) }); } catch { /* keep the starter workspace */ }
+        try {
+          const parsed = JSON.parse(saved) as Partial<WorkspaceData>;
+          setData({ ...initialWorkspace, ...parsed, model: normalizeModelSettings(parsed.model) });
+        } catch { /* keep the starter workspace */ }
       }
       hydrated.current = true;
       setReady(true);

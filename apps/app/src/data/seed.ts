@@ -22,5 +22,5 @@ export const initialWorkspace: WorkspaceData = {
     finch: [{ id: 'welcome-finch', role: 'assistant', content: 'I’m Finch. Give me a question and I’ll bring back a concise, source-aware brief.', createdAt: 'Monday' }],
     sol: [{ id: 'welcome-sol', role: 'assistant', content: 'I’m Sol. Send me a rough draft or an idea and we’ll shape it together.', createdAt: 'Monday' }],
   },
-  model: { endpoint: 'http://localhost:11434/v1', model: 'qwen3:8b' },
+  model: { provider: 'ollama', endpoint: 'http://localhost:11434/v1', model: 'qwen3:8b' },
 };

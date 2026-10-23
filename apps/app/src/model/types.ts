@@ -12,7 +12,7 @@ export type AgentMessage = {
   role: 'user' | 'assistant';
   content: string;
   createdAt: string;
-  mode?: 'local' | 'preview';
+  mode?: 'local' | 'provider' | 'preview';
 };
 
 export type Routine = {
@@ -25,9 +25,12 @@ export type Routine = {
 };
 
 export type ModelSettings = {
+  provider: ProviderId;
   endpoint: string;
   model: string;
 };
+
+export type ProviderId = 'openai' | 'anthropic' | 'gemini' | 'openrouter' | 'groq' | 'deepseek' | 'ollama' | 'custom';
 
 export type WorkspaceData = {
   agents: Agent[];

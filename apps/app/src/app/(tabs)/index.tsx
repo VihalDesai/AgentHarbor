@@ -1,100 +1,62 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { ActionButton, AgentAvatar, Brand, Card, Eyebrow, Hairline, Screen, SectionTitle, StatusPill } from '@/components/HarborUI';
+import { ActionButton, AgentAvatar, Brand, Card, Eyebrow, Screen } from '@/components/HarborUI';
 import { palette } from '@/constants/palette';
+import { agentTemplates, uniqueTemplateName } from '@/data/templates';
 import { useWorkspace } from '@/state/WorkspaceStore';
 
 export default function HomeScreen() {
-  const { agents, routines, conversations } = useWorkspace();
+  const { agents, routines, conversations, createAgent } = useWorkspace();
   const goToAgent = (id: string) => router.push({ pathname: '/agent/[id]', params: { id } });
-  const openCreate = () => router.push('/create-agent');
+  const addTemplate = (template: typeof agentTemplates[number]) => {
+    const id = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color });
+    goToAgent(id);
+  };
+  const activity = agents.map((agent) => ({ agent, last: conversations[agent.id]?.slice(-1)[0] })).filter((item) => item.last).slice(0, 5);
+  const featured = agentTemplates[0];
 
   return <Screen>
-    <View style={styles.header}><Brand /><StatusPill label="LOCAL WORKSPACE" color={palette.lime} /></View>
-
-    <View style={styles.intro}>
-      <View style={styles.introCopy}><Eyebrow>YOUR WORKSPACE · READY WHEN YOU ARE</Eyebrow><Text style={styles.title}>Make room for the work that matters.</Text><Text style={styles.subtitle}>A steady crew of focused assistants, working from your computer or phone.</Text></View>
-      <ActionButton title="Create an agent" icon="add" onPress={openCreate} style={styles.createButton} />
+    <View style={styles.header}><Brand /><View style={styles.headerRight}><View style={styles.workspaceDot} /><Text style={styles.workspaceLabel}>MY WORKSPACE</Text><Pressable onPress={() => router.push('/(tabs)/settings')} style={styles.profile}><Ionicons name="person-outline" size={17} color={palette.text} /></Pressable></View></View>
+    <View style={styles.quickActions}>
+      <QuickAction icon="add" title="New agent" caption="Start from scratch" onPress={() => router.push('/create-agent')} />
+      <QuickAction icon="albums-outline" title="Templates" caption="Browse starters" onPress={() => router.push('/(tabs)/templates')} />
+      <QuickAction icon="hardware-chip-outline" title="Provider settings" caption="Connect a model" onPress={() => router.push('/(tabs)/settings')} />
     </View>
 
-    <View style={styles.metrics}>
-      <Metric icon="people-outline" value={String(agents.length).padStart(2, '0')} label="AGENTS" color={palette.lavender} />
-      <Metric icon="repeat-outline" value={String(routines.filter((routine) => routine.enabled).length).padStart(2, '0')} label="ROUTINES ON" color={palette.mint} />
-      <Metric icon="chatbubble-ellipses-outline" value={String(Object.values(conversations).reduce((total, list) => total + list.length, 0)).padStart(2, '0')} label="SAVED NOTES" color={palette.amber} />
-    </View>
+    <View style={styles.welcome}><View style={styles.welcomeMain}><Eyebrow>YOUR AGENT STUDIO</Eyebrow><Text style={styles.title}>Make room for the work that matters.</Text><Text style={styles.subtitle}>Build a focused agent, give it a place to work, and stay close to what it is doing.</Text><View style={styles.welcomeActions}><ActionButton title="Create an agent" icon="arrow-forward" onPress={() => router.push('/create-agent')} /><Text style={styles.localNote}>Private by default · saved on this device</Text></View></View><View style={styles.orbit}><View style={styles.orbitOuter}><View style={styles.orbitInner}><Ionicons name="sparkles" size={28} color={palette.amber} /></View></View><View style={[styles.orbitPoint, styles.pointOne]} /><View style={[styles.orbitPoint, styles.pointTwo]} /><View style={[styles.orbitPoint, styles.pointThree]} /></View></View>
 
-    <Card style={styles.focusCard}>
-      <View style={styles.focusTop}><View style={styles.focusIcon}><Ionicons name="sparkles-outline" size={17} color={palette.lime} /></View><Eyebrow style={styles.focusEyebrow}>A PLACE TO START</Eyebrow></View>
-      <Text style={styles.focusTitle}>Give a task a good first home.</Text>
-      <Text style={styles.focusBody}>Build a specialist for a recurring responsibility, or open a teammate and pick up where you left off.</Text>
-      <View style={styles.focusActions}><ActionButton title="Make your first agent" icon="arrow-forward" onPress={openCreate} /><Text style={styles.localNote}>Your workspace stays on this device.</Text></View>
-    </Card>
+    <View style={styles.columns}>
+      <View style={styles.mainColumn}>
+        <View style={styles.sectionHeading}><View><Eyebrow>CURATED FOR A FIRST RUN</Eyebrow><Text style={styles.sectionTitle}>A good place to start</Text></View><Pressable onPress={() => router.push('/(tabs)/templates')}><Text style={styles.seeAll}>See all templates <Ionicons name="arrow-forward" size={12} color={palette.amber} /></Text></Pressable></View>
+        <Pressable onPress={() => addTemplate(featured)} style={({ pressed }) => [styles.featured, pressed && styles.pressed]}>
+          <View style={styles.featuredCopy}><View style={styles.featureIcon}><Ionicons name="compass-outline" size={20} color={palette.amber} /></View><Text style={styles.featureTag}>FEATURED TEMPLATE · OPERATIONS</Text><Text style={styles.featureTitle}>Chief of staff</Text><Text style={styles.featureDescription}>A calm partner for planning, priorities, and weekly follow-through.</Text><View style={styles.featureButton}><Ionicons name="add" size={16} color={palette.background} /><Text style={styles.featureButtonText}>Add to workspace</Text></View></View>
+          <View style={styles.featureArt}><View style={styles.featureHalo}><View style={styles.featureCore}><Ionicons name="sunny-outline" size={35} color={palette.amber} /></View></View><View style={styles.artSparkle}><Ionicons name="sparkles" size={15} color={palette.mint} /></View></View>
+        </Pressable>
 
-    <View style={styles.sectionBlock}>
-      <SectionTitle title="Your crew" action="See all" onAction={() => router.push('/agents')} />
-      <View style={styles.agentGrid}>{agents.slice(0, 4).map((agent) => <Pressable key={agent.id} onPress={() => goToAgent(agent.id)} style={({ pressed }) => [styles.agentCard, pressed && styles.pressed]}>
-        <View style={styles.agentCardTop}><AgentAvatar name={agent.name} color={agent.color} /><Ionicons name="arrow-up-right-box" color={palette.quiet} size={16} /></View>
-        <Text style={styles.agentName}>{agent.name}</Text><Text style={styles.agentRole}>{agent.role}</Text><Text numberOfLines={2} style={styles.agentGoal}>{agent.goal}</Text>
-      </Pressable>)}</View>
-    </View>
+        <View style={styles.sectionHeading}><View><Eyebrow>MADE TO MAKE PROGRESS</Eyebrow><Text style={styles.sectionTitle}>Explore templates</Text></View></View>
+        <View style={styles.templateGrid}>{agentTemplates.slice(1, 5).map((template) => <Pressable key={template.id} onPress={() => addTemplate(template)} style={({ pressed }) => [styles.templateCard, pressed && styles.pressed]}>
+          <View style={styles.templateTop}><AgentAvatar name={template.name} color={template.color} size={39} /><Ionicons name={template.icon as keyof typeof Ionicons.glyphMap} size={18} color={template.color} /></View><Text style={styles.templateName}>{template.role}</Text><Text numberOfLines={2} style={styles.templateDescription}>{template.description}</Text><View style={styles.templateBottom}><Text style={styles.category}>{template.category}</Text><Ionicons name="add-circle-outline" size={20} color={palette.amber} /></View>
+        </Pressable>)}</View>
+      </View>
 
-    <View style={styles.sectionBlock}>
-      <SectionTitle title="In motion" action="Routines" onAction={() => router.push('/routines')} />
-      <Card style={styles.activityCard}>
-        {routines.filter((routine) => routine.enabled).slice(0, 2).map((routine, index) => {
-          const agent = agents.find((item) => item.id === routine.agentId);
-          return <View key={routine.id}>
-            {index > 0 && <Hairline />}
-            <View style={styles.activityRow}><View style={[styles.activityGlyph, { backgroundColor: `${agent?.color ?? palette.mint}20` }]}><Ionicons name="time-outline" size={17} color={agent?.color ?? palette.mint} /></View><View style={styles.activityCopy}><Text style={styles.activityTitle}>{routine.name}</Text><Text style={styles.activityMeta}>{routine.schedule} · {agent?.name ?? 'Agent'}</Text></View><View style={styles.liveDot} /></View>
-          </View>;
-        })}
-        {routines.filter((routine) => routine.enabled).length === 0 && <Text style={styles.agentGoal}>No routines are running yet. Add one when you’re ready.</Text>}
-      </Card>
+      <View style={styles.sideColumn}>
+        <View style={styles.sideHeading}><View><Eyebrow>YOUR SPACE</Eyebrow><Text style={styles.sectionTitle}>Recent activity</Text></View><Text style={styles.count}>{agents.length} agents</Text></View>
+        <Card style={styles.activityCard}>
+          {activity.map(({ agent, last }, index) => <View key={agent.id}>{index > 0 && <View style={styles.rule} />}<Pressable onPress={() => goToAgent(agent.id)} style={styles.activityRow}><AgentAvatar name={agent.name} color={agent.color} size={36} /><View style={styles.activityCopy}><Text style={styles.activityName}>{agent.name}</Text><Text numberOfLines={1} style={styles.activityText}>{last?.role === 'user' ? 'You: ' : ''}{last?.content}</Text></View><Ionicons name="chevron-forward" size={15} color={palette.quiet} /></Pressable></View>)}
+          {activity.length === 0 && <Text style={styles.empty}>Your agent activity will show up here.</Text>}
+        </Card>
+
+        <View style={styles.sideHeading}><View><Eyebrow>ON YOUR RADAR</Eyebrow><Text style={styles.sectionTitle}>Routines</Text></View><Pressable onPress={() => router.push('/routines')}><Text style={styles.seeAll}>View</Text></Pressable></View>
+        <Card style={styles.routineCard}>{routines.filter((routine) => routine.enabled).slice(0, 3).map((routine) => { const agent = agents.find((item) => item.id === routine.agentId); return <View key={routine.id} style={styles.routineRow}><View style={styles.clock}><Ionicons name="time-outline" size={15} color={palette.amber} /></View><View style={styles.activityCopy}><Text style={styles.activityName}>{routine.name}</Text><Text style={styles.activityText}>{routine.schedule} · {agent?.name ?? 'Agent'}</Text></View></View>; })}{!routines.some((routine) => routine.enabled) && <Text style={styles.empty}>No active routines yet.</Text>}<Pressable onPress={() => router.push('/routines')} style={styles.routineLink}><Ionicons name="add" size={14} color={palette.amber} /><Text style={styles.routineLinkText}>Manage routines</Text></Pressable></Card>
+      </View>
     </View>
-    <View style={styles.footer}><Text style={styles.footerText}>AGENTHARBOR</Text><Text style={styles.footerSub}>Open source · Local first</Text></View>
+    <View style={styles.footer}><Text style={styles.footerText}>AGENTHARBOR</Text><Text style={styles.footerSub}>Open source · Local first · No subscription required</Text></View>
   </Screen>;
 }
 
-function Metric({ icon, value, label, color }: { icon: keyof typeof Ionicons.glyphMap; value: string; label: string; color: string }) {
-  return <View style={styles.metric}><Ionicons name={icon} size={17} color={color} /><Text style={styles.metricValue}>{value}</Text><Text style={styles.metricLabel}>{label}</Text></View>;
+function QuickAction({ icon, title, caption, onPress }: { icon: keyof typeof Ionicons.glyphMap; title: string; caption: string; onPress: () => void }) {
+  return <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => [styles.quickAction, pressed && styles.pressed]}><View style={styles.actionIcon}><Ionicons name={icon} size={19} color={palette.amber} /></View><Text style={styles.actionTitle}>{title}</Text><Text style={styles.actionCaption}>{caption}</Text></Pressable>;
 }
 
-const styles = StyleSheet.create({
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  intro: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginTop: 18 },
-  introCopy: { flex: 1, gap: 10 },
-  title: { color: palette.text, fontSize: 34, fontWeight: '800', letterSpacing: -1.25, lineHeight: 41, maxWidth: 610 },
-  subtitle: { color: palette.muted, fontSize: 14, lineHeight: 21, maxWidth: 520 },
-  createButton: { minWidth: 158 },
-  metrics: { flexDirection: 'row', gap: 11 },
-  metric: { flex: 1, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, paddingVertical: 14, paddingHorizontal: 13, borderRadius: 15, flexDirection: 'row', alignItems: 'center', gap: 9 },
-  metricValue: { color: palette.text, fontSize: 19, fontWeight: '800', marginLeft: 'auto' },
-  metricLabel: { color: palette.quiet, fontSize: 9, fontWeight: '800', letterSpacing: 0.7, marginLeft: 1 },
-  focusCard: { backgroundColor: '#1B1C1C', borderColor: '#393B35', padding: 21, overflow: 'hidden' },
-  focusTop: { flexDirection: 'row', alignItems: 'center', gap: 9 },
-  focusIcon: { width: 30, height: 30, borderRadius: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: `${palette.lime}18` },
-  focusEyebrow: { color: palette.muted },
-  focusTitle: { color: palette.text, fontSize: 22, fontWeight: '800', letterSpacing: -0.6 },
-  focusBody: { color: palette.muted, fontSize: 13, lineHeight: 20, maxWidth: 610 },
-  focusActions: { flexDirection: 'row', alignItems: 'center', gap: 14, flexWrap: 'wrap', marginTop: 2 },
-  localNote: { color: palette.quiet, fontSize: 11 },
-  sectionBlock: { gap: 12 },
-  agentGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  agentCard: { flexGrow: 1, flexBasis: 220, maxWidth: '100%', minHeight: 158, borderRadius: 17, backgroundColor: palette.surface, borderColor: palette.border, borderWidth: 1, padding: 16, gap: 6 },
-  pressed: { opacity: 0.8 },
-  agentCardTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 },
-  agentName: { color: palette.text, fontSize: 16, fontWeight: '800' },
-  agentRole: { color: palette.muted, fontSize: 12 },
-  agentGoal: { color: palette.quiet, fontSize: 11, lineHeight: 17, marginTop: 2 },
-  activityCard: { paddingHorizontal: 16, paddingVertical: 4 },
-  activityRow: { minHeight: 63, flexDirection: 'row', alignItems: 'center', gap: 12 },
-  activityGlyph: { width: 34, height: 34, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  activityCopy: { flex: 1, gap: 4 },
-  activityTitle: { color: palette.text, fontSize: 13, fontWeight: '700' },
-  activityMeta: { color: palette.quiet, fontSize: 10 },
-  liveDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: palette.mint },
-  footer: { borderTopWidth: 1, borderTopColor: palette.border, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15, marginTop: 2 },
-  footerText: { color: palette.quiet, fontSize: 9, letterSpacing: 1.2, fontWeight: '800' },
-  footerSub: { color: palette.quiet, fontSize: 10 },
-});
+const styles = StyleSheet.create({ header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }, headerRight: { flexDirection: 'row', alignItems: 'center', gap: 9 }, workspaceDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: palette.mint }, workspaceLabel: { color: palette.muted, fontSize: 9, fontWeight: '800', letterSpacing: 1 }, profile: { width: 36, height: 36, borderRadius: 18, backgroundColor: palette.raised, borderWidth: 1, borderColor: palette.border, alignItems: 'center', justifyContent: 'center', marginLeft: 6 }, quickActions: { flexDirection: 'row', justifyContent: 'center', gap: 14, flexWrap: 'wrap', marginTop: 6 }, quickAction: { alignItems: 'center', gap: 5, width: 126, paddingVertical: 3 }, actionIcon: { width: 55, height: 55, borderRadius: 28, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, alignItems: 'center', justifyContent: 'center', marginBottom: 3 }, actionTitle: { color: palette.text, fontSize: 11, fontWeight: '700' }, actionCaption: { color: palette.quiet, fontSize: 9 }, welcome: { minHeight: 208, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#1D1B18', borderWidth: 1, borderColor: '#4B3A27', borderRadius: 22, padding: 24, overflow: 'hidden' }, welcomeMain: { maxWidth: 590, gap: 9, zIndex: 2 }, title: { color: palette.text, fontSize: 32, fontWeight: '800', letterSpacing: -1.1, lineHeight: 38 }, subtitle: { color: palette.muted, fontSize: 13, lineHeight: 20, maxWidth: 520 }, welcomeActions: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 13, marginTop: 4 }, localNote: { color: palette.quiet, fontSize: 10 }, orbit: { width: 180, height: 180, alignItems: 'center', justifyContent: 'center', marginRight: 15 }, orbitOuter: { width: 150, height: 150, borderWidth: 1, borderColor: '#66533B', borderRadius: 80, alignItems: 'center', justifyContent: 'center' }, orbitInner: { width: 92, height: 92, borderRadius: 46, backgroundColor: '#32271D', borderWidth: 1, borderColor: '#735A38', alignItems: 'center', justifyContent: 'center' }, orbitPoint: { width: 10, height: 10, borderRadius: 5, position: 'absolute', backgroundColor: palette.amber }, pointOne: { top: 14, right: 42 }, pointTwo: { bottom: 28, left: 18, backgroundColor: palette.mint }, pointThree: { right: 10, bottom: 48, width: 6, height: 6 }, columns: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', gap: 20 }, mainColumn: { flexGrow: 1, flexBasis: 570, gap: 15 }, sideColumn: { flexGrow: 1, flexBasis: 300, gap: 13 }, sectionHeading: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12, marginTop: 4 }, sideHeading: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 4 }, sectionTitle: { color: palette.text, fontSize: 18, fontWeight: '700', marginTop: 3 }, seeAll: { color: palette.amber, fontSize: 10, fontWeight: '700' }, featured: { minHeight: 190, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, borderRadius: 20, flexDirection: 'row', overflow: 'hidden', padding: 19 }, featuredCopy: { flex: 1, gap: 7, zIndex: 1 }, featureIcon: { width: 35, height: 35, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#30271F' }, featureTag: { color: palette.amber, fontSize: 8, fontWeight: '800', letterSpacing: 1 }, featureTitle: { color: palette.text, fontSize: 21, fontWeight: '800' }, featureDescription: { color: palette.muted, fontSize: 11, lineHeight: 17, maxWidth: 360 }, featureButton: { minHeight: 35, paddingHorizontal: 13, borderRadius: 11, backgroundColor: palette.lime, flexDirection: 'row', alignSelf: 'flex-start', alignItems: 'center', gap: 5, marginTop: 2 }, featureButtonText: { color: palette.background, fontSize: 10, fontWeight: '800' }, featureArt: { width: 150, alignItems: 'center', justifyContent: 'center' }, featureHalo: { width: 125, height: 125, borderRadius: 65, borderWidth: 1, borderColor: '#59452D', alignItems: 'center', justifyContent: 'center' }, featureCore: { width: 78, height: 78, borderRadius: 40, backgroundColor: '#2C241D', alignItems: 'center', justifyContent: 'center' }, artSparkle: { position: 'absolute', top: 28, left: 10, width: 32, height: 32, borderRadius: 16, backgroundColor: palette.surface, alignItems: 'center', justifyContent: 'center' }, templateGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 }, templateCard: { flexGrow: 1, flexBasis: 190, maxWidth: '100%', minHeight: 161, padding: 14, borderRadius: 16, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.surface, gap: 7 }, templateTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }, templateName: { color: palette.text, fontSize: 12, fontWeight: '700' }, templateDescription: { color: palette.muted, fontSize: 10, lineHeight: 15, flex: 1 }, templateBottom: { borderTopWidth: 1, borderTopColor: palette.border, paddingTop: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }, category: { color: palette.quiet, fontSize: 9 }, activityCard: { paddingHorizontal: 13, paddingVertical: 4, gap: 0 }, activityRow: { minHeight: 60, flexDirection: 'row', alignItems: 'center', gap: 10 }, activityCopy: { flex: 1, gap: 3 }, activityName: { color: palette.text, fontSize: 11, fontWeight: '700' }, activityText: { color: palette.quiet, fontSize: 9 }, rule: { height: 1, backgroundColor: palette.border }, count: { color: palette.quiet, fontSize: 9, marginBottom: 2 }, empty: { color: palette.muted, fontSize: 11, lineHeight: 17, paddingVertical: 15 }, routineCard: { padding: 14, gap: 13 }, routineRow: { flexDirection: 'row', alignItems: 'center', gap: 10 }, clock: { width: 31, height: 31, borderRadius: 11, backgroundColor: '#30271F', alignItems: 'center', justifyContent: 'center' }, routineLink: { borderTopWidth: 1, borderTopColor: palette.border, paddingTop: 10, flexDirection: 'row', alignItems: 'center', gap: 5 }, routineLinkText: { color: palette.amber, fontSize: 10, fontWeight: '700' }, pressed: { opacity: 0.78 }, footer: { borderTopWidth: 1, borderTopColor: palette.border, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 14, marginTop: 3 }, footerText: { color: palette.quiet, fontSize: 9, letterSpacing: 1.2, fontWeight: '800' }, footerSub: { color: palette.quiet, fontSize: 9 } });

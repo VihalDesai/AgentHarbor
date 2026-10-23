@@ -25,7 +25,7 @@ export default function AgentChatScreen() {
     const userMessage: AgentMessage = { id: `msg-${Date.now()}`, role: 'user', content, createdAt: 'Just now' };
     addMessage(agent.id, userMessage);
     const reply = await askLocalModel(model, `You are ${agent.name}, an agent whose role is ${agent.role}. Your goal is: ${agent.goal}. Be practical, clear, and honest about limitations.`, content);
-    addMessage(agent.id, { id: `msg-${Date.now()}-reply`, role: 'assistant', content: reply.text, createdAt: 'Just now', mode: reply.local ? 'local' : 'preview' });
+    addMessage(agent.id, { id: `msg-${Date.now()}-reply`, role: 'assistant', content: reply.text, createdAt: 'Just now', mode: reply.source });
     setSending(false);
   };
 
@@ -34,7 +34,7 @@ export default function AgentChatScreen() {
       <View style={styles.header}><Pressable onPress={() => router.back()} style={styles.back}><Ionicons name="arrow-back" size={20} color={palette.text} /></Pressable><Brand compact /><View style={styles.spacer} /><StatusPill label="On this device" /></View>
       <View style={styles.profile}><AgentAvatar name={agent.name} color={agent.color} size={54} /><View style={styles.profileText}><Text style={styles.name}>{agent.name}</Text><Text style={styles.role}>{agent.role}</Text></View></View>
       <Text style={styles.goal}>{agent.goal}</Text>
-      {messages.map((message) => <View key={message.id} style={[styles.bubble, message.role === 'user' ? styles.userBubble : styles.agentBubble]}>{message.role === 'assistant' && <Text style={styles.speaker}>{agent.name}{message.mode === 'preview' ? ' · local model unavailable' : ''}</Text>}<Text style={styles.message}>{message.content}</Text></View>)}
+      {messages.map((message) => <View key={message.id} style={[styles.bubble, message.role === 'user' ? styles.userBubble : styles.agentBubble]}>{message.role === 'assistant' && <Text style={styles.speaker}>{agent.name}{message.mode === 'provider' ? ' · API response' : message.mode === 'preview' ? ' · connection needed' : ''}</Text>}<Text style={styles.message}>{message.content}</Text></View>)}
       {sending && <View style={[styles.bubble, styles.agentBubble]}><ActivityIndicator color={palette.lime} /></View>}
     </ScrollView>
     <View style={styles.composer}><TextInput value={draft} onChangeText={setDraft} onSubmitEditing={send} returnKeyType="send" placeholder={`Message ${agent.name}…`} placeholderTextColor={palette.quiet} style={styles.input} multiline /><Pressable onPress={send} disabled={!draft.trim() || sending} style={[styles.send, (!draft.trim() || sending) && styles.sendDisabled]}><Ionicons name="arrow-up" size={19} color={palette.background} /></Pressable></View>
