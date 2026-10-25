@@ -9,7 +9,7 @@ export type AgentTemplate = Pick<Agent, 'name' | 'role' | 'goal' | 'color'> & {
   description: string;
   tagline: string;
   author: string;
-  source: 'From Skydive' | 'Marketplace' | 'Created by me';
+  source: 'From Skydive' | 'Marketplace' | 'Created by me' | 'From my workspace';
   icon: string;
   tools: string[];
   character: CharacterId;
@@ -19,7 +19,15 @@ export type AgentTemplate = Pick<Agent, 'name' | 'role' | 'goal' | 'color'> & {
   isNew: boolean;
 };
 
-export const agentTemplates = catalog as unknown as AgentTemplate[];
+const normalizedCatalog = (catalog as unknown as AgentTemplate[]).map((template) => ({
+  ...template,
+  phases: Array.isArray(template.phases) ? template.phases.filter((phase): phase is string => typeof phase === 'string' && Boolean(phase.trim())) : [],
+  tools: Array.isArray(template.tools) ? template.tools.filter((tool): tool is string => typeof tool === 'string' && Boolean(tool.trim())) : [],
+  skills: Array.isArray(template.skills) ? template.skills.filter((skill) => Boolean(skill?.slug)) : [],
+  benefits: Array.isArray(template.benefits) ? template.benefits.filter((benefit) => Boolean(benefit?.title && benefit?.description)) : [],
+}));
+
+export const agentTemplates = normalizedCatalog.filter((template) => template.id !== 'social-media-post-planner');
 
 export function uniqueTemplateName(name: string, agents: Agent[]) {
   const names = new Set(agents.map((agent) => agent.name.toLocaleLowerCase()));

@@ -926,6 +926,7 @@
       "Patterns before they become incidents"
     ],
     "tools": [
+      "Zoho Desk",
       "Help Scout Mailbox"
     ],
     "benefits": [
@@ -1123,5 +1124,297 @@
     ],
     "skills": [],
     "isNew": false
+  },
+  {
+    "id": "mobile-submission-specialist",
+    "name": "Patches",
+    "role": "Mobile Submission Specialist",
+    "goal": "Your Mobile Submission Specialist pulls the named error from build logs when an iOS or Android publish fails, tells the customer exactly what to fix, and coaches the one next move that gets the app through the store gates. It watches the pipeline so new failures never sit unanswered, and it drafts, never sends.",
+    "category": "Customer Success",
+    "description": "Your Mobile Submission Specialist pulls the named error from build logs when an iOS or Android publish fails, tells the customer exactly what to fix, and coaches the one next move that gets the app through the store gates. It watches the pipeline so new failures never sit unanswered, and it drafts, never sends.",
+    "tagline": "Diagnose iOS and Android store failures and get the app shipped.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "mobile-submission-specialist",
+    "phases": ["Named-error diagnosis", "Customer-safe coaching", "Watches and digests"],
+    "tools": ["Slack", "GitHub"],
+    "benefits": [
+      { "title": "Named-error diagnosis", "description": "Failed or spinning iOS and Android submits get a named cause, not a guess, pulled from the zone that actually ran.", "icon": null },
+      { "title": "Customer-safe coaching", "description": "Plain-language next moves through TestFlight, Play, and review gates, with raw logs and credentials never shared.", "icon": null },
+      { "title": "Watches and digests", "description": "Pipeline watches and cadence digests so new publish failures never sit unanswered.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "asset-expert",
+    "name": "Lola",
+    "role": "Asset Expert",
+    "goal": "Your Asset Expert retrieves before it recreates: the canonical logo variant, the avatar matching a description, the actual source file behind any “the one where...” request. Every handoff is verified on the artifact itself (dimensions, format, transparency, access), and when the library comes up short it generates new on-brand imagery, anchored in your real reference files.",
+    "category": "Design",
+    "description": "Your Asset Expert retrieves before it recreates: the canonical logo variant, the avatar matching a description, the actual source file behind any “the one where...” request. Every handoff is verified on the artifact itself (dimensions, format, transparency, access), and when the library comes up short it generates new on-brand imagery, anchored in your real reference files.",
+    "tagline": "I find, verify, and make your brand assets, ready to use.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "asset-expert",
+    "phases": ["Canonical retrieval", "Verified handoffs", "On-brand generation"],
+    "tools": ["Google Drive", "Slack", "Google Sheet", "Google Docs"],
+    "benefits": [
+      { "title": "Canonical retrieval", "description": "Finds the real source file from your established libraries before recreating anything, and says plainly when it doesn't have it.", "icon": null },
+      { "title": "Verified handoffs", "description": "Every file checked for existence, dimensions, format, and access before it's called done, with the properties stated in the handoff.", "icon": null },
+      { "title": "On-brand generation", "description": "New imagery made with your real reference images as anchors, QA-checked across the whole batch, not a sample.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "frontend-engineer",
+    "name": "Romeo",
+    "role": "Frontend Engineer",
+    "goal": "Your Frontend Specialist starts by mapping your design system: it audits your design layouts, flags non-standard styling and broken constraints, and delivers production-ready components directly to your repository.",
+    "category": "Engineering",
+    "description": "Your Frontend Specialist starts by mapping your design system: it audits your design layouts, flags non-standard styling and broken constraints, and delivers production-ready components directly to your repository.",
+    "tagline": "I take your design system, then ship tested components straight to your repo.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFE7EC",
+    "character": "frontend-engineer",
+    "phases": ["Design files turned into production code", "Complex UI state mapped out for you", "Cross-browser testing on autopilot"],
+    "tools": ["GitHub", "Linear", "Paper"],
+    "benefits": [
+      { "title": "Design files turned into production code", "description": "Figma components translate straight into clean, responsive, and accessible UI code that maps directly to your design system and state logic.", "icon": null },
+      { "title": "Complex UI state mapped out for you", "description": "Messy state management, edge cases, and asynchronous loading/error flows get wired up cleanly so you never have to wrestle with UI bugs.", "icon": null },
+      { "title": "Cross-browser testing on autopilot", "description": "Visual regression, mobile responsiveness, and browser compatibility issues get caught and flagged with exact line-level fixes before code hits staging.", "icon": null }
+    ],
+    "skills": [
+      { "slug": "design-guide", "url": "https://skills.sh/getpaperclipai/paperclip/design-guide" },
+      { "slug": "code-review", "url": "https://skills.sh/mattpocock/skills/code-review" }
+    ],
+    "isNew": false
+  },
+  {
+    "id": "bug-investigator",
+    "name": "Percy",
+    "role": "Bug Investigator",
+    "goal": "Your Bug Investigator digs into failed runs and flaky builds, reproduces the bug, and hands you a root cause with a clean repro. It posts findings where the work already lives, so nobody spends another hour staring at the same stack trace.",
+    "category": "Engineering",
+    "description": "Your Bug Investigator digs into failed runs and flaky builds, reproduces the bug, and hands you a root cause with a clean repro. It posts findings where the work already lives, so nobody spends another hour staring at the same stack trace.",
+    "tagline": "Root cause with evidence, fixes shipped to merge.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "bug-investigator",
+    "phases": ["Root-cause bug investigations", "Fixes shipped as PRs", "PR upkeep on autopilot"],
+    "tools": ["GitHub", "Slack", "Linear", "Sentry"],
+    "benefits": [
+      { "title": "Root-cause bug investigations", "description": "Symptoms traced to the verbatim cause with file and line evidence, never a ranked list of maybes.", "icon": null },
+      { "title": "Fixes shipped as PRs", "description": "Every fix ships with a regression test and is driven through CI and review to merge.", "icon": null },
+      { "title": "PR upkeep on autopilot", "description": "A daily sweep that fixes mechanical issues silently and reports only what is waiting on a human.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "head-of-content",
+    "name": "Zipper",
+    "role": "Head of Content",
+    "goal": "Your Head of Content drafts posts, threads, and launch copy in each person's own voice, and runs the recurring systems that keep content coming: cadence, trend radar, and performance review. It learns what performs and steers the calendar accordingly. Drafts stay drafts until you say go.",
+    "category": "Marketing",
+    "description": "Your Head of Content drafts posts, threads, and launch copy in each person's own voice, and runs the recurring systems that keep content coming: cadence, trend radar, and performance review. It learns what performs and steers the calendar accordingly. Drafts stay drafts until you say go.",
+    "tagline": "I turn your team's real work into posts that reach the right people.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#EEE7FF",
+    "character": "head-of-content",
+    "phases": ["Person-per-person drafts", "Trend calls with receipts", "Content systems that run themselves"],
+    "tools": ["Slack", "X"],
+    "benefits": [
+      { "title": "Person-per-person drafts", "description": "Drafts in each author's voice, with a verify-with-you list and a visual ask.", "icon": null },
+      { "title": "Trend calls with receipts", "description": "Every recommendation backed by the actual post link and real velocity.", "icon": null },
+      { "title": "Content systems that run themselves", "description": "Relay, scoreboard, and trend-radar routines built from what it observes.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "loops-email-assistant",
+    "name": "Flora",
+    "role": "Loops Email Assistant",
+    "goal": "Your Loops Email Assistant builds, audits, and fixes campaigns, workflows, and transactional email end to end, verifying that workflows are published, triggers match live events exactly, and deliverability stays healthy. It tailors itself to you first and never sends or publishes without your sign-off.",
+    "category": "Marketing",
+    "description": "Your Loops Email Assistant builds, audits, and fixes campaigns, workflows, and transactional email end to end, verifying that workflows are published, triggers match live events exactly, and deliverability stays healthy. It tailors itself to you first and never sends or publishes without your sign-off.",
+    "tagline": "I run your Loops email program, from first trigger to sent.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "loops-email-assistant",
+    "phases": ["Campaigns and workflows that actually fire", "Triggers that match, exactly", "Deliverability you can trust"],
+    "tools": ["Loops.so", "PostHog", "Notion", "Google Sheet", "Google Drive"],
+    "benefits": [
+      { "title": "Campaigns and workflows that actually fire", "description": "Every workflow checked for the wiring, not just the shape: published vs. draft, and a trigger that matches a live event exactly.", "icon": null },
+      { "title": "Triggers that match, exactly", "description": "Loops triggers are exact-match. I sample your real events and properties before building logic, so nothing fails silently down a fallback path.", "icon": null },
+      { "title": "Deliverability you can trust", "description": "I watch the signals that matter (spam, unsubscribes, bounces) and keep your domain setup clean, so your sends land.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "project-manager",
+    "name": "Echo",
+    "role": "Project Manager",
+    "goal": "Your Engineering Ops PM keeps your roadmap true: connect your tracker and your code host and it reconciles what's recorded against what merged, deployed, and passed CI, and tells you what's blocked and who owns it, with receipts attached.",
+    "category": "Operations",
+    "description": "Your Engineering Ops PM keeps your roadmap true: connect your tracker and your code host and it reconciles what's recorded against what merged, deployed, and passed CI, and tells you what's blocked and who owns it, with receipts attached.",
+    "tagline": "I catch roadmap drift before your tracker and your repo fall out of sync.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#EEE7FF",
+    "character": "project-manager",
+    "phases": ["A reconciliation with receipts", "Slips caught weeks before the due date", "An operator that learns how your team ships"],
+    "tools": ["GitHub", "Linear", "Jira"],
+    "benefits": [
+      { "title": "A reconciliation with receipts", "description": "Every place the tracker and the repository disagree, named by issue and PR, with what it costs the date.", "icon": null },
+      { "title": "Slips caught weeks before the due date", "description": "It watches the leading indicators: the PR sitting unreviewed, the dependency that landed late, the scope that grew quietly.", "icon": null },
+      { "title": "An operator that learns how your team ships", "description": "Each pass compounds: what your workflow states really mean, your chronic dependencies, and which early signals predict slips here.", "icon": null }
+    ],
+    "skills": [
+      { "slug": "to-issues", "url": "https://skills.sh/mattpocock/skills/to-issues" },
+      { "slug": "triage", "url": "https://skills.sh/mattpocock/skills/triage" }
+    ],
+    "isNew": false
+  },
+  {
+    "id": "stripe-disputes-agent",
+    "name": "April",
+    "role": "Stripe Disputes Agent",
+    "goal": "Connect to Stripe and your operations or product DB to combat disputes, reduce loss and improve win rate.",
+    "category": "Operations",
+    "description": "Connect to Stripe and your operations or product DB to combat disputes, reduce loss and improve win rate.",
+    "tagline": "Monitor and combat disputes, improve revenue recovery, automate early warning for card provider inquiries.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "stripe-disputes-agent",
+    "phases": ["Automate Early Fraud Warnings", "Dispute Packets built to your spec", "Self Improving"],
+    "tools": ["Stripe"],
+    "benefits": [
+      { "title": "Automate Early Fraud Warnings", "description": "Connect to Stripe to allow card provider EFW signals to help you refund and avoid chargebacks automatically.", "icon": null },
+      { "title": "Dispute Packets built to your spec", "description": "The agent will build to suit and improve over time on ideal dispute packet evidence to improve win rate.", "icon": null },
+      { "title": "Self Improving", "description": "Let the agent review your Stripe data to date to formulate its baseline, then it will improve over time as it learns from disputes it handles.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": false
+  },
+  {
+    "id": "personal-assistant-for-outreach",
+    "name": "Seafoam",
+    "role": "Personal Assistant for Outreach",
+    "goal": "Your Personal Assistant for Outreach learns how you run outreach, then drafts creator outreach in human-paced waves under your approval, replies to inbound collab requests in your voice, and sweeps your inbox so only what matters reaches you. Every open thread stays tracked: who's waiting on you, what needs your call.",
+    "category": "Productivity",
+    "description": "Your Personal Assistant for Outreach learns how you run outreach, then drafts creator outreach in human-paced waves under your approval, replies to inbound collab requests in your voice, and sweeps your inbox so only what matters reaches you. Every open thread stays tracked: who's waiting on you, what needs your call.",
+    "tagline": "Creator outreach, reply drafting, and a pipeline you can actually see.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "personal-assistant-for-outreach",
+    "phases": ["A voice with opinions", "Outreach that reads human", "Aging, not absence"],
+    "tools": ["Slack", "Gmail"],
+    "benefits": [
+      { "title": "A voice with opinions", "description": "Warm, sassy, theatrical replies that still know when to drop the act and get serious.", "icon": null },
+      { "title": "Outreach that reads human", "description": "Lists, drafts, and approval flows, with every multi-recipient send paced in small waves so it never looks like a bot.", "icon": null },
+      { "title": "Aging, not absence", "description": "Digests lead with what has been waiting on you for N days, never a padded 'no new replies'.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "sourcing-scout",
+    "name": "Bruno",
+    "role": "Sourcing Scout",
+    "goal": "Your Sourcing Scout finds the creators, leads, companies, and communities that feed your growth work, pulls the engagement and contact data behind them, and ships clean, well-formatted sheets with a ranked shortlist and a reason for every call.",
+    "category": "Research",
+    "description": "Your Sourcing Scout finds the creators, leads, companies, and communities that feed your growth work, pulls the engagement and contact data behind them, and ships clean, well-formatted sheets with a ranked shortlist and a reason for every call.",
+    "tagline": "I find the people and companies that feed your growth work, and hand you a ranked shortlist, not a dump.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFEDDA",
+    "character": "sourcing-scout",
+    "phases": ["Sourcing on demand", "Decision-ready sheets", "Discernment built in"],
+    "tools": ["Google Sheet", "Gmail"],
+    "benefits": [
+      { "title": "Sourcing on demand", "description": "Creators, leads, and communities pulled against your brief, with engagement and audience data attached.", "icon": null },
+      { "title": "Decision-ready sheets", "description": "Meticulous formatting, clickable handles, and one consistent 0-100 creator score across platforms.", "icon": null },
+      { "title": "Discernment built in", "description": "Every list ships ranked, with who to contact first and why.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "sdr-investor-relations",
+    "name": "Honeycomb",
+    "role": "SDR & Investor Relations",
+    "goal": "Your SDR & Investor Relations agent learns your sales motion with a quick intro card, then finds accounts with a real reason to engage, researches and qualifies them with evidence you can check, and drafts outreach in your voice. Nothing sends without your explicit approval, and your pipeline tracker stays current, with aging follow-ups flagged daily.",
+    "category": "Sales",
+    "description": "Your SDR & Investor Relations agent learns your sales motion with a quick intro card, then finds accounts with a real reason to engage, researches and qualifies them with evidence you can check, and drafts outreach in your voice. Nothing sends without your explicit approval, and your pipeline tracker stays current, with aging follow-ups flagged daily.",
+    "tagline": "Qualifies accounts, drafts outreach that earns replies, and keeps every follow-up moving.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "sdr-investor-relations",
+    "phases": ["Tailored from the first message", "Qualification you can verify", "Outreach in your voice, never auto-sent"],
+    "tools": ["Google", "Gmail", "Google Calendar", "Google Sheet", "Google Docs", "Google Drive", "Notion", "Granola"],
+    "benefits": [
+      { "title": "Tailored from the first message", "description": "A quick intro card learns who you sell to, what you sell, and where your leads live before it touches anything.", "icon": null },
+      { "title": "Qualification you can verify", "description": "Every account comes with the evidence stated plainly: what is known, what is not, and why it belongs in or out.", "icon": null },
+      { "title": "Outreach in your voice, never auto-sent", "description": "Drafts match your tone and carry a real reason to reach out. Sending always waits for your explicit go.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "expense-reconciler",
+    "name": "Pink",
+    "role": "Expense Reconciler",
+    "goal": "Your Expense Reconciler runs monthly: calendar events (dinners, travel, events) against Gmail receipts and the card platform, listing spend with no expense and expenses with no receipt. It forwards receipts to ops and drafts the report; the partner only approves.",
+    "category": "Venture Capital",
+    "description": "Your Expense Reconciler runs monthly: calendar events (dinners, travel, events) against Gmail receipts and the card platform, listing spend with no expense and expenses with no receipt. It forwards receipts to ops and drafts the report; the partner only approves.",
+    "tagline": "Watches your inbox for expenses. Submits them. Routes team approvals.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "expense-reconciler",
+    "phases": ["Monthly reconciliation", "Receipts to ops", "Partner only approves"],
+    "tools": ["Gmail", "Google Calendar", "Ramp", "Slack"],
+    "benefits": [
+      { "title": "Monthly reconciliation", "description": "Calendar events matched against Gmail receipts and the card platform, with every gap named.", "icon": null },
+      { "title": "Receipts to ops", "description": "Receipts forwarded as found, so month end is assembly, not archaeology.", "icon": null },
+      { "title": "Partner only approves", "description": "The expense report drafted from calendar, inbox, and card feed; approval is the only manual step.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "fundraise-sheet-watcher",
+    "name": "Avis",
+    "role": "Fundraise Sheet Watcher",
+    "goal": "Your Fundraise Sheet Watcher reads the founders' investor pipeline sheets read-only and delivers a morning diff: who passed and why, who is digging in, new names, moved rows. It never writes to the sheet; the partner never opens the spreadsheet.",
+    "category": "Venture Capital",
+    "description": "Your Fundraise Sheet Watcher reads the founders' investor pipeline sheets read-only and delivers a morning diff: who passed and why, who is digging in, new names, moved rows. It never writes to the sheet; the partner never opens the spreadsheet.",
+    "tagline": "Fills out your founders' Google Sheet with target firms and your warm intro paths.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#EEE7FF",
+    "character": "fundraise-sheet-watcher",
+    "phases": ["The morning diff", "Read-only, always", "Momentum signals"],
+    "tools": ["Google Drive", "Gmail", "Slack"],
+    "benefits": [
+      { "title": "The morning diff", "description": "Who passed and why, who is digging in, new names, moved rows, delivered before the partner's first meeting.", "icon": null },
+      { "title": "Read-only, always", "description": "The sheet is never written to. The founders own their pipeline; the partner just sees it.", "icon": null },
+      { "title": "Momentum signals", "description": "Meetings booked, data rooms, second meetings: evidence of digging in, not vibes.", "icon": null }
+    ],
+    "skills": [],
+    "isNew": true
   }
 ]

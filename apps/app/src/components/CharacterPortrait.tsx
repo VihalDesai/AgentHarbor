@@ -1,8 +1,8 @@
 import { Image } from 'expo-image';
-import { characterFor } from '@/services/characters';
+import { characterFor, characters } from '@/services/characters';
 import type { CharacterId } from '@/model/types';
 
-const portraits: Record<CharacterId, number> = {
+const portraits: Partial<Record<CharacterId, number>> = {
   'chief-of-staff': require('../../assets/characters/chief-of-staff.png'),
   engineer: require('../../assets/characters/engineer.png'),
   'motion-designer': require('../../assets/characters/motion-designer.png'),
@@ -39,5 +39,7 @@ const portraits: Record<CharacterId, number> = {
 
 export function CharacterPortrait({ id, name, size = 56 }: { id?: CharacterId; name: string; size?: number }) {
   const character = characterFor(id, name);
-  return <Image source={portraits[character.id]} contentFit="cover" accessibilityLabel={`${character.name} character portrait`} style={{ width: size, height: size, borderRadius: size / 2 }} />;
+  const avatarUrl = characters.find((entry) => entry.id === character.id)?.avatarUrl;
+  const source = avatarUrl ? { uri: avatarUrl } : portraits[character.id];
+  return <Image source={source ?? portraits['chief-of-staff']!} cachePolicy="disk" contentFit="cover" accessibilityLabel={`${character.name} character portrait`} style={{ width: size, height: size, borderRadius: size / 2 }} />;
 }

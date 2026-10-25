@@ -5,7 +5,11 @@ export type CharacterId =
   | 'product-sourcer' | 'pr-reviewer' | 'pr-walkthrough-qa' | 'recruiter' | 'research-pitch'
   | 'saul' | 'social-media-image-creator' | 'social-media-post-planner'
   | 'aeo-geo-manager' | 'crm-assistant' | 'customer-outreach' | 'customer-support-manager'
-  | 'deal-flow' | 'designer' | 'diligence-analyst' | 'dub-co-affiliate-agent';
+  | 'deal-flow' | 'designer' | 'diligence-analyst' | 'dub-co-affiliate-agent'
+  | 'mobile-submission-specialist' | 'asset-expert' | 'frontend-engineer' | 'bug-investigator'
+  | 'head-of-content' | 'loops-email-assistant' | 'project-manager' | 'stripe-disputes-agent'
+  | 'personal-assistant-for-outreach' | 'sourcing-scout' | 'sdr-investor-relations'
+  | 'expense-reconciler' | 'fundraise-sheet-watcher';
 
 export const defaultAgentPhases = ['Understand the goal', 'Plan the next steps', 'Deliver a clear result'];
 
