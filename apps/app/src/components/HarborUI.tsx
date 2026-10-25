@@ -72,7 +72,7 @@ export function SectionTitle({ title, action, onAction }: { title: string; actio
 }
 
 export function AgentAvatar({ name, color, size = 42, character }: { name: string; color: string; size?: number; character?: CharacterId }) {
-  return <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[styles.avatar, { width: size, height: size, borderRadius: size / 2, backgroundColor: `${color}25`, borderColor: `${color}65` }]}><CharacterPortrait name={name} id={character ?? characterForName(name)} size={size * 0.94} /></View>;
+  return <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]}><CharacterPortrait name={name} id={character ?? characterForName(name)} size={size} /></View>;
 }
 
 export function FieldLabel({ children }: PropsWithChildren) { return <Text style={styles.fieldLabel}>{children}</Text>; }
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   menuOnlyHeader: { position: 'fixed' as never, width: 38, right: 24, top: 12, zIndex: 60 },
   headerBack: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 40, paddingHorizontal: 2 },
   headerBackText: { color: palette.muted, fontSize: 12 },
-  profileButton: { width: 38, height: 38, borderRadius: 20, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, alignItems: 'center', justifyContent: 'center' },
-  profileInitials: { color: palette.text, fontSize: 10, fontWeight: '700' },
+  profileButton: { width: 38, height: 38, borderRadius: 20, backgroundColor: '#6672C7', alignItems: 'center', justifyContent: 'center' },
+  profileInitials: { color: '#FFFFFF', fontSize: 12, fontWeight: '700' },
   menuRoot: { flex: 1, alignItems: 'flex-end' },
   menuScrim: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(0,0,0,0.34)' },
   menuPanel: { width: 238, marginTop: Platform.OS === 'web' ? 58 : 54, marginRight: 22, borderRadius: 12, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.surface, padding: 8, shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 14 },
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   sectionTitle: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   sectionTitleText: { color: palette.text, fontSize: 15, fontWeight: '700' },
   sectionAction: { color: palette.lime, fontSize: 12, fontWeight: '700' },
-  avatar: { borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  avatar: { alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   avatarText: { fontWeight: '800' },
   fieldLabel: { color: palette.muted, fontSize: 12, fontWeight: '700' },
   hairline: { height: 1, backgroundColor: palette.border, width: '100%' },

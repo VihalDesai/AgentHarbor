@@ -65,8 +65,8 @@ export default function TemplateDetailScreen() {
         <Text style={styles.byline}>{template.name} · By {template.author}</Text>
       </View>
       <View style={styles.actions}>
-        <Pressable accessibilityRole="button" onPress={() => void copyLink()} style={styles.copyButton}><Ionicons name="link-outline" size={14} color={palette.text} /><Text style={styles.copyText}>{shareNotice || 'Copy link'}</Text></Pressable>
-        <ActionButton title="Add to your team" icon="add" onPress={addTemplate} style={styles.addButton} />
+        <Pressable accessibilityRole="button" onPress={() => void copyLink()} style={styles.copyButton}><Text style={styles.copyText}>{shareNotice || 'Copy link'}</Text></Pressable>
+        <ActionButton title="Add to your team" onPress={addTemplate} style={styles.addButton} />
       </View>
     </View>
 
@@ -85,17 +85,17 @@ export default function TemplateDetailScreen() {
       <View style={styles.pills}>{template.skills.map((skill) => <View key={skill.slug} style={styles.skill}><Ionicons name="sparkles-outline" size={12} color={palette.muted} /><Text style={styles.skillText}>{skill.slug}</Text></View>)}</View>
     </View>}
 
-    {!!template.benefits.length && <View style={styles.section}>
+    {!!template.benefits.length && <View style={[styles.section, styles.benefitsSection]}>
       <Text style={styles.sectionTitle}>What you get</Text>
-      <View style={styles.benefits}>{template.benefits.map((benefit, index) => <View key={benefit.title} style={styles.benefit}>
-        <View style={styles.benefitIcon}><Ionicons name={index === 0 ? 'sparkles-outline' : index === 1 ? 'flash-outline' : 'checkmark-circle-outline'} size={17} color={palette.muted} /></View>
+      <View style={styles.benefits}>{template.benefits.map((benefit) => <View key={benefit.title} style={styles.benefit}>
+        <View style={styles.benefitIcon}><Ionicons name="checkmark-circle-outline" size={17} color={palette.muted} /></View>
         <View style={styles.benefitCopy}><Text style={styles.benefitTitle}>{benefit.title}</Text><Text style={styles.bodySmall}>{benefit.description}</Text></View>
       </View>)}</View>
     </View>}
 
     <View style={styles.footerCta}>
       <View style={styles.footerCopy}><Text style={styles.footerTitle}>Put {template.name} to work</Text><Text style={styles.bodySmall}>{template.tagline}</Text></View>
-      <ActionButton title="Add to your team" icon="add" onPress={addTemplate} />
+      <ActionButton title="Add to your team" onPress={addTemplate} />
     </View>
   </Screen>;
 }
@@ -116,10 +116,11 @@ const styles = StyleSheet.create({
   copyText: { color: palette.text, fontSize: 12, fontWeight: '600' },
   addButton: { minHeight: 39, paddingHorizontal: 15 },
   section: { gap: 22, paddingBottom: 8 },
+  benefitsSection: { marginTop: -8 },
   sectionHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  sectionTitle: { color: palette.text, fontSize: 19, fontWeight: '600', letterSpacing: -0.25 },
-  body: { color: '#D1D1D1', fontSize: 14, lineHeight: 22 },
-  bodySmall: { color: palette.muted, fontSize: 13, lineHeight: 19 },
+  sectionTitle: { color: palette.text, fontSize: 20, fontWeight: '600', letterSpacing: -0.25 },
+  body: { color: '#D1D1D1', fontSize: 16, lineHeight: 24 },
+  bodySmall: { color: palette.muted, fontSize: 15, lineHeight: 22 },
   pills: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   integration: { minHeight: 33, borderRadius: 18, paddingHorizontal: 11, paddingVertical: 5, backgroundColor: '#262626', flexDirection: 'row', alignItems: 'center', gap: 7 },
   integrationText: { color: '#F0F0F0', fontSize: 12, fontWeight: '600' },
@@ -130,9 +131,9 @@ const styles = StyleSheet.create({
   benefit: { flexDirection: 'row', alignItems: 'flex-start', gap: 13, paddingVertical: 18, borderBottomWidth: 1, borderBottomColor: '#282828' },
   benefitIcon: { width: 20, paddingTop: 1 },
   benefitCopy: { flex: 1, gap: 5 },
-  benefitTitle: { color: palette.text, fontSize: 15, fontWeight: '600' },
+  benefitTitle: { color: palette.text, fontSize: 16, fontWeight: '600' },
   footerCta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', borderTopWidth: 1, borderColor: palette.border, paddingTop: 20 },
   footerCopy: { flex: 1, minWidth: 210, gap: 4 },
-  footerTitle: { color: palette.text, fontSize: 19, fontWeight: '600' },
+  footerTitle: { color: palette.text, fontSize: 20, fontWeight: '600' },
   notFound: { padding: 20, gap: 13, borderRadius: 12, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border },
 });

@@ -15,6 +15,7 @@
 - Rebuilt the Templates page around the reference’s centered narrow column, one wrapping filter row, `From Skydive` and `Marketplace` sections, round portraits, bylines, integration chips, skill counts, and Add to team actions.
 - Added twelve built-in and twelve marketplace templates visible in the reference, including their published descriptions, authors, integrations, skills, and benefit copy. The main catalog shows four cards per section and “See all” opens the matching full list.
 - Rebuilt template details to follow the reference hierarchy: back link, portrait/title/actions, Meet, Works with, Skills when present, What you get, and the final Add to your team action.
+- Compared the AEO Manager detail screen directly against the signed-in reference and corrected type scale, section spacing, avatar edge, benefit checkmarks, profile badge, and text-only action labels.
 - Reworked Home shortcuts, feed, model status panel, and featured templates, and aligned agent profile cover/portrait placement and Posts, Chats, Routines, and Computer tabs.
 - Kept provider configuration, encrypted API key storage, local workspace data, and work phases. Model requests continue to use the selected provider directly without switching to Ollama.
 - Kept pricing and purchase flows out of the app.
@@ -24,6 +25,7 @@
 - `npm --prefix apps/app run lint` — passed.
 - `npx tsc --noEmit -p apps/app/tsconfig.json` — passed.
 - `npm run web:build` — passed and exported 15 routes.
+- The local AEO Manager detail route rendered with no browser console warnings or errors after the layout fixes.
 - Compared the local Templates and Design Maven detail screenshots against the signed-in reference in Edge.
 - Reviewed the agent profile with the local cover and character assets. No physical Android device was available for a visual capture.
 - No API key was entered and no model request was made during this visual pass.

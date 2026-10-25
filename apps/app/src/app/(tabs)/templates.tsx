@@ -50,7 +50,7 @@ export default function TemplatesScreen() {
       {!!template.skills.length && <View style={styles.skillCountRow}><Ionicons name="sparkles-outline" size={13} color={palette.muted} /><Text style={styles.skillCount}>{template.skills.length} {template.skills.length === 1 ? 'skill' : 'skills'}</Text></View>}
     </View>
     <Pressable accessibilityRole="button" onPress={() => add(template)} style={({ pressed }) => [styles.useButton, pressed && styles.pressed]}>
-      <Ionicons name="add" size={16} color={palette.text} /><Text style={styles.useText}>Add to team</Text>
+      <Text style={styles.useText}>Add to team</Text>
     </Pressable>
   </View>;
 
