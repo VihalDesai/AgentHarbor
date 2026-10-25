@@ -37,7 +37,7 @@ Run `npm install`, then `npm run web:build`, then `npm run desktop`. The desktop
 
 ## Build the portable Windows app
 
-Run `npm run desktop:build`. The output is written to `releases/desktop/AgentHarbor-1.2.0-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
+Run `npm run desktop:build`. The output is written to `releases/desktop/AgentHarbor-1.2.1-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
 
 ## Local model setup
 

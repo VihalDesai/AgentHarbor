@@ -1,6 +1,6 @@
 {
   "name": "agentharbor-desktop",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "AgentHarbor desktop application",
   "author": "AgentHarbor contributors",
   "main": "main.cjs",
