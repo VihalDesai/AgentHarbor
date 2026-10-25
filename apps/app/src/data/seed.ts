@@ -15,6 +15,8 @@ export const starterRoutines: Routine[] = [
 
 export const initialWorkspace: WorkspaceData = {
   agents: starterAgents,
+  skills: [],
+  founders: [],
   routines: starterRoutines,
   conversations: {
     mara: [{ id: 'welcome-mara', role: 'assistant', content: 'I’m Mara. Tell me what you want to move forward, and I’ll keep the next steps clear.', createdAt: 'Today' }],

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "AgentHarbor",
+    "name": "AI Agents Company",
     "slug": "agentharbor",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "orientation": "portrait",
     "backgroundColor": "#101014",
     "icon": "./assets/images/icon.png",

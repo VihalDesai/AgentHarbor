@@ -21,6 +21,25 @@ export type Agent = {
   color: string;
   character?: CharacterId;
   phases?: string[];
+  skillIds?: string[];
+  createdAt: string;
+};
+
+export type Skill = {
+  id: string;
+  name: string;
+  description: string;
+  instructions: string;
+  createdAt: string;
+};
+
+export type FounderProfile = {
+  id: string;
+  name: string;
+  title: string;
+  company: string;
+  about: string;
+  skillIds: string[];
   createdAt: string;
 };
 
@@ -53,6 +72,8 @@ export type ProviderId = 'openai' | 'anthropic' | 'gemini' | 'openrouter' | 'gro
 
 export type WorkspaceData = {
   agents: Agent[];
+  skills: Skill[];
+  founders: FounderProfile[];
   routines: Routine[];
   conversations: Record<string, AgentMessage[]>;
   model: ModelSettings;

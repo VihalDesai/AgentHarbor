@@ -26,6 +26,8 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
     { label: 'Routines', icon: 'repeat-outline' as const, path: '/(tabs)/routines' },
     { label: 'Providers & API', icon: 'hardware-chip-outline' as const, path: '/(tabs)/settings' },
     { label: 'Templates', icon: 'albums-outline' as const, path: '/(tabs)/templates' },
+    { label: 'Skills', icon: 'flash-outline' as const, path: '/skills' },
+    { label: 'Founders', icon: 'business-outline' as const, path: '/founders' },
   ];
   return <View style={[styles.headerSlot, menuOnly && styles.menuOnlySlot]}>
     <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader, !menuOnly && !back && styles.referenceHeader]}>

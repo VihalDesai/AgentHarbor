@@ -1,7 +1,7 @@
 {
   "name": "agentharbor-desktop",
-  "version": "1.3.0",
-  "description": "AgentHarbor desktop application",
+  "version": "1.4.0",
+  "description": "AI Agents Company desktop application",
   "author": "AgentHarbor contributors",
   "main": "main.cjs",
   "license": "MIT",
@@ -15,13 +15,13 @@
   },
   "build": {
     "appId": "org.agentharbor.desktop",
-    "productName": "AgentHarbor",
+    "productName": "AI Agents Company",
     "win": {
       "icon": "assets/icon.ico",
       "target": [
         "portable"
       ],
-      "artifactName": "AgentHarbor-${version}-Windows.exe"
+      "artifactName": "AI Agents Company-${version}-Windows.exe"
     },
     "directories": {
       "output": "../../releases/desktop"

@@ -14,6 +14,10 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: palette.background } }}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="create-agent" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="create-skill" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="create-founder" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="skills" />
+          <Stack.Screen name="founders" />
           <Stack.Screen name="agent/[id]" />
         </Stack>
       </WorkspaceProvider>

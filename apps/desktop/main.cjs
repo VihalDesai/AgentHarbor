@@ -3,6 +3,9 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const { randomUUID } = require('node:crypto');
+// Keep the v1.3 AgentHarbor data and encrypted API keys after the display-name change.
+app.setName('AgentHarbor');
+app.setPath('userData', path.join(app.getPath('appData'), 'AgentHarbor'));
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.woff': 'font/woff', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.otf': 'font/otf', '.ico': 'image/x-icon' };
 const providers = new Set(['openai', 'anthropic', 'gemini', 'openrouter', 'groq', 'deepseek', 'ollama', 'custom']);
 
@@ -68,7 +71,7 @@ function createWindow(url) {
     minWidth: 840,
     minHeight: 640,
     backgroundColor: '#101014',
-    title: 'AgentHarbor',
+    title: 'AI Agents Company',
     webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true },
   });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
