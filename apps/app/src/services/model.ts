@@ -15,11 +15,11 @@ export async function askLocalModel(settings: ModelSettings, system: string, pro
   const desktop = (globalThis as typeof globalThis & { agentHarbor?: { complete: (payload: { settings: ModelSettings; system: string; prompt: string | ModelTurn[] }) => Promise<string> } }).agentHarbor;
   if (desktop) {
     try { return { text: await desktop.complete({ settings, system, prompt: turns }), source: settings.provider === 'ollama' ? 'local' : 'provider' }; }
-    catch (error) { return { text: `Could not reach ${provider.name}. Check the provider settings and try again. ${safeError(error)}`, source: 'preview' }; }
+    catch (error) { return { text: `Could not reach ${provider.name}. ${safeError(error, false)}`, source: 'preview' }; }
   }
 
   const key = provider.keyRequired ? await getApiKey(settings.provider) : null;
-  if (provider.keyRequired && !key) return { text: `Add an API key for ${provider.name} in Settings to enable live replies. This conversation is still saved on this device.`, source: 'preview' };
+  if (provider.keyRequired && !key) return { text: `No API key is saved for ${provider.name}. Add one in Settings → Providers & API to enable live replies. This conversation is still saved on this device.`, source: 'preview' };
 
   const endpoint = settings.endpoint.trim().replace(/\/$/, '');
   if (!endpoint) return { text: 'Add a provider endpoint in Settings to enable live replies.', source: 'preview' };
@@ -46,13 +46,13 @@ export async function askLocalModel(settings: ModelSettings, system: string, pro
     if (typeof text === 'string' && text.trim()) return { text: text.trim(), source: settings.provider === 'ollama' ? 'local' : 'provider' };
     throw new Error('Provider returned an empty response');
   } catch (error) {
-    return { text: `Could not reach ${provider.name}. Check the provider settings and try again. ${safeError(error)}`, source: 'preview' };
+    return { text: `Could not reach ${provider.name}. ${safeError(error, true)}`, source: 'preview' };
   } finally {
     clearTimeout(timeout);
   }
 }
 
-function safeError(error: unknown) {
+function safeError(error: unknown, browserRequest: boolean) {
   if (error instanceof Error && error.name === 'AbortError') return 'The request timed out.';
   if (error instanceof Error && error.message.startsWith('Add an API key')) return error.message;
   if (error instanceof Error && (error.message.includes('HTTPS') || error.message.includes('HTTP or HTTPS') || error.message.includes('endpoint URL'))) return error.message;
@@ -61,6 +61,8 @@ function safeError(error: unknown) {
   if (status === '403') return 'The provider denied this request. Check the API key permissions and model access.';
   if (status === '404') return 'The model or endpoint was not found. Check the provider settings.';
   if (status === '429') return 'The provider rate limit was reached. Wait a moment, then try again.';
-  if (error instanceof TypeError) return 'Check the endpoint URL and network connection.';
+  if (error instanceof TypeError) return browserRequest
+    ? 'The browser could not reach this endpoint. It may block requests from browser apps (CORS); use the desktop or Android app, or an endpoint that allows this browser origin.'
+    : 'Check the endpoint host, network connection, and provider availability.';
   return '';
 }

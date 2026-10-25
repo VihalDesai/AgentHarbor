@@ -16,11 +16,13 @@ export default function SettingsScreen() {
   const [endpoint, setEndpoint] = useState(model.endpoint);
   const [modelName, setModelName] = useState(model.model);
   const [apiKey, setApiKey] = useState('');
-  const [keySaved, setKeySaved] = useState(false);
+  const [keyStatus, setKeyStatus] = useState<{ provider: ProviderId; saved: boolean } | null>(null);
   const [saved, setSaved] = useState(false);
   const [checking, setChecking] = useState(false);
   const [notice, setNotice] = useState('');
   const currentProvider = presetFor(provider);
+  const keyStatusReady = keyStatus?.provider === provider;
+  const keySaved = keyStatusReady && keyStatus?.saved === true;
 
   useEffect(() => {
     if (!ready) return;
@@ -36,7 +38,7 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     let active = true;
-    hasApiKey(provider).then((present) => { if (active) setKeySaved(present); }).catch(() => { if (active) setKeySaved(false); });
+    hasApiKey(provider).then((present) => { if (active) setKeyStatus({ provider, saved: present }); }).catch(() => { if (active) setKeyStatus({ provider, saved: false }); });
     return () => { active = false; };
   }, [provider]);
 
@@ -56,7 +58,7 @@ export default function SettingsScreen() {
       if (currentProvider.keyRequired && apiKey.trim()) {
         await saveApiKey(provider, apiKey.trim());
         setApiKey('');
-        setKeySaved(true);
+        setKeyStatus({ provider, saved: true });
       }
       saveModel(next);
       setSaved(true);
@@ -73,7 +75,7 @@ export default function SettingsScreen() {
     try {
       await removeApiKey(provider);
       setApiKey('');
-      setKeySaved(false);
+      setKeyStatus({ provider, saved: false });
       setNotice('Saved API key removed.');
     } catch {
       setNotice('Could not remove the saved key. Check secure storage permissions and try again.');
@@ -83,12 +85,19 @@ export default function SettingsScreen() {
   const tryConnection = async () => {
     setChecking(true);
     try {
+      if (currentProvider.keyRequired && !apiKey.trim()) {
+        let savedKeyAvailable = keySaved;
+        if (!keyStatusReady) {
+          savedKeyAvailable = await hasApiKey(provider);
+          setKeyStatus({ provider, saved: savedKeyAvailable });
+        }
+        if (!savedKeyAvailable) {
+          setNotice(`Add an API key for ${currentProvider.name} before testing the connection.`);
+          return;
+        }
+      }
       const saved = await persist();
       if (!saved) return;
-      if (currentProvider.keyRequired && !apiKey.trim() && !keySaved) {
-        setNotice(`Add an API key for ${currentProvider.name} before testing the connection.`);
-        return;
-      }
       const result = await askLocalModel({ provider, endpoint: endpoint.trim(), model: modelName.trim() }, 'Reply with a brief connection confirmation.', 'Say Connected.');
       setNotice(result.text);
     } catch {
@@ -99,7 +108,7 @@ export default function SettingsScreen() {
   };
 
   const reset = () => {
-    const run = async () => { await resetWorkspace(); const defaults = presetFor(DEFAULT_PROVIDER_ID); setProvider(defaults.id); setEndpoint(defaults.endpoint); setModelName(defaults.model); setApiKey(''); setKeySaved(false); };
+    const run = async () => { await resetWorkspace(); const defaults = presetFor(DEFAULT_PROVIDER_ID); setProvider(defaults.id); setEndpoint(defaults.endpoint); setModelName(defaults.model); setApiKey(''); };
     if (Platform.OS === 'web') { if (globalThis.confirm('Reset this workspace to its starter state?')) void run(); }
     else Alert.alert('Reset workspace?', 'This removes your saved agents, chats and routines from this device.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Reset', style: 'destructive', onPress: () => void run() }]);
   };
@@ -134,15 +143,17 @@ export default function SettingsScreen() {
       <TextInput value={modelName} onChangeText={(value) => { setModelName(value); setSaved(false); }} autoCapitalize="none" autoCorrect={false} placeholder={currentProvider.model || 'model-name'} placeholderTextColor={palette.quiet} style={styles.input} />
       {currentProvider.keyRequired && <>
         <FieldLabel>API key</FieldLabel>
-        <TextInput value={apiKey} onChangeText={(value) => { setApiKey(value); setSaved(false); }} autoCapitalize="none" autoCorrect={false} secureTextEntry placeholder={keySaved ? 'A key is saved securely · enter a new key to replace it' : 'Paste your provider API key'} placeholderTextColor={palette.quiet} style={styles.input} />
-        <View style={styles.secretNote}><Ionicons name="lock-closed-outline" size={14} color={palette.mint} /><Text style={styles.help}>Stored in the device’s secure storage. Desktop uses encrypted OS storage; Android uses the system keystore.</Text></View>
+        <TextInput value={apiKey} onChangeText={(value) => { setApiKey(value); setSaved(false); }} autoCapitalize="none" autoCorrect={false} secureTextEntry placeholder={keySaved ? Platform.OS === 'web' ? 'A key is saved for this tab session · enter a new key to replace it' : 'A key is saved securely · enter a new key to replace it' : 'Paste your provider API key'} placeholderTextColor={palette.quiet} style={styles.input} />
+        {keyStatusReady && !keySaved && !apiKey.trim() && <Text style={styles.keyWarning}>No API key is saved for this provider. Add one here to enable live replies.</Text>}
+        <View style={styles.secretNote}><Ionicons name="lock-closed-outline" size={14} color={palette.mint} /><Text style={styles.help}>{Platform.OS === 'web' ? 'In the browser, the key stays in this tab session and is cleared when the session ends. Desktop and Android use secure OS storage.' : 'Stored on this device using secure OS storage. Desktop uses encrypted OS storage; Android uses the system keystore.'}</Text></View>
+        {Platform.OS === 'web' && <Text style={styles.help}>Browser requests require the provider to allow this site through CORS. If blocked, use the desktop or Android app for this endpoint.</Text>}
         {keySaved && <Pressable onPress={() => void clearKey()}><Text style={styles.removeKey}>Remove saved API key</Text></Pressable>}
       </>}
       {!currentProvider.keyRequired && <Text style={styles.help}>Ollama runs on your own device or network and does not need an API key.</Text>}
       <View style={styles.buttonRow}><ActionButton title={saved ? 'Saved' : 'Save provider'} icon="checkmark" onPress={() => void persist()} style={styles.flex} /><ActionButton title={checking ? 'Checking…' : 'Test connection'} icon="flash-outline" tone="secondary" disabled={checking} onPress={() => void tryConnection()} style={styles.flex} /></View>
       {checking && <ActivityIndicator color={palette.amber} />}
       {!!notice && <Text accessibilityLiveRegion="polite" style={styles.notice}>{notice}</Text>}
-      <Text style={styles.savedStatus}>{keySaved && currentProvider.keyRequired ? 'API key saved' : 'No API key saved'} · {currentProvider.protocol === 'anthropic' ? 'Anthropic Messages API' : currentProvider.protocol === 'gemini' ? 'Gemini API' : 'OpenAI-compatible API'}</Text>
+      <Text style={styles.savedStatus}>{currentProvider.keyRequired && !keyStatusReady ? 'Checking saved API key…' : keySaved && currentProvider.keyRequired ? 'API key saved' : 'No API key saved'} · {currentProvider.protocol === 'anthropic' ? 'Anthropic Messages API' : currentProvider.protocol === 'gemini' ? 'Gemini API' : 'OpenAI-compatible API'}</Text>
           </Card>
 
           <Card><Text style={styles.cardTitle}>Privacy and storage</Text><Text style={styles.help}>Agents, conversations and routines stay in local app storage. Provider requests go directly from your device to the provider you selected. AgentHarbor does not operate a relay service.</Text><View style={styles.rule} /><Text style={styles.cardTitle}>Open source</Text><Text style={styles.help}>Community-built under the MIT license.</Text></Card>
@@ -153,4 +164,4 @@ export default function SettingsScreen() {
   </Screen>;
 }
 
-const styles = StyleSheet.create({ page: { width: '100%', maxWidth: '100%', padding: 0, paddingHorizontal: 0, paddingTop: 0, paddingBottom: 0, gap: 0 }, settingsLayout: { flex: 1, width: '100%', minHeight: '100%', flexDirection: Platform.OS === 'web' ? 'row' : 'column' }, settingsRail: { display: Platform.OS === 'web' ? 'flex' : 'none', width: 255, backgroundColor: palette.surface, borderRightWidth: 1, borderRightColor: palette.border, paddingHorizontal: 23, paddingTop: 24, paddingBottom: 18, gap: 24 }, railBack: { minHeight: 38, flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 4 }, railGroup: { gap: 4 }, railHeading: { color: palette.quiet, fontSize: 10, fontWeight: '700', letterSpacing: 0.5, paddingHorizontal: 10, marginBottom: 5, textTransform: 'uppercase' }, railItem: { minHeight: 40, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 10, borderRadius: 7 }, railItemSelected: { backgroundColor: palette.raised }, railText: { color: palette.muted, fontSize: 12 }, railTextSelected: { color: palette.text, fontWeight: '600' }, railFooter: { color: palette.quiet, fontSize: 10, marginTop: 'auto' }, settingsMain: { position: 'relative', flex: 1, minWidth: 0, alignItems: 'center', paddingHorizontal: Platform.OS === 'web' ? 24 : 18, paddingTop: 42, paddingBottom: 26 }, settingsContent: { width: '100%', maxWidth: 680, gap: 10 }, pageHeading: { gap: 6, marginTop: -2, marginBottom: 5 }, pageTitle: { color: palette.text, fontSize: 28, lineHeight: 34, fontWeight: '400', letterSpacing: -0.4 }, pageSubtitle: { color: palette.muted, fontSize: 12, lineHeight: 18 }, cardHeading: { flexDirection: 'row', justifyContent: 'space-between', gap: 12 }, providerIcon: { width: 38, height: 38, borderRadius: 13, backgroundColor: palette.raised, alignItems: 'center', justifyContent: 'center' }, providerCard: { borderColor: '#363636', backgroundColor: palette.surface }, cardTitle: { color: palette.text, fontSize: 15, fontWeight: '700' }, help: { color: palette.muted, fontSize: 12, lineHeight: 18, flexShrink: 1 }, providerList: { gap: 8, paddingVertical: 2 }, providerOption: { minWidth: 138, borderRadius: 10, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.background, paddingVertical: 11, paddingHorizontal: 12, gap: 4 }, providerSelected: { borderColor: '#777777', backgroundColor: '#252525' }, providerName: { color: palette.text, fontSize: 12, fontWeight: '700' }, providerNameSelected: { color: palette.text }, providerDescription: { color: palette.quiet, fontSize: 10 }, input: { minHeight: 46, borderRadius: 9, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.background, color: palette.text, paddingHorizontal: 14, fontSize: 13 }, secretNote: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 }, removeKey: { color: palette.rose, fontSize: 12, fontWeight: '700' }, buttonRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 }, flex: { flexGrow: 1, flexBasis: 150 }, notice: { color: palette.mint, fontSize: 12, lineHeight: 18 }, savedStatus: { color: palette.quiet, fontSize: 10 }, rule: { height: 1, backgroundColor: palette.border, marginVertical: 3 } });
+const styles = StyleSheet.create({ page: { width: '100%', maxWidth: '100%', padding: 0, paddingHorizontal: 0, paddingTop: 0, paddingBottom: 0, gap: 0 }, settingsLayout: { flex: 1, width: '100%', minHeight: '100%', flexDirection: Platform.OS === 'web' ? 'row' : 'column' }, settingsRail: { display: Platform.OS === 'web' ? 'flex' : 'none', width: 255, backgroundColor: palette.surface, borderRightWidth: 1, borderRightColor: palette.border, paddingHorizontal: 23, paddingTop: 24, paddingBottom: 18, gap: 24 }, railBack: { minHeight: 38, flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 4 }, railGroup: { gap: 4 }, railHeading: { color: palette.quiet, fontSize: 10, fontWeight: '700', letterSpacing: 0.5, paddingHorizontal: 10, marginBottom: 5, textTransform: 'uppercase' }, railItem: { minHeight: 40, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 10, borderRadius: 7 }, railItemSelected: { backgroundColor: palette.raised }, railText: { color: palette.muted, fontSize: 12 }, railTextSelected: { color: palette.text, fontWeight: '600' }, railFooter: { color: palette.quiet, fontSize: 10, marginTop: 'auto' }, settingsMain: { position: 'relative', flex: 1, minWidth: 0, alignItems: 'center', paddingHorizontal: Platform.OS === 'web' ? 24 : 18, paddingTop: 42, paddingBottom: 26 }, settingsContent: { width: '100%', maxWidth: 680, gap: 10 }, pageHeading: { gap: 6, marginTop: -2, marginBottom: 5 }, pageTitle: { color: palette.text, fontSize: 28, lineHeight: 34, fontWeight: '400', letterSpacing: -0.4 }, pageSubtitle: { color: palette.muted, fontSize: 12, lineHeight: 18 }, cardHeading: { flexDirection: 'row', justifyContent: 'space-between', gap: 12 }, providerIcon: { width: 38, height: 38, borderRadius: 13, backgroundColor: palette.raised, alignItems: 'center', justifyContent: 'center' }, providerCard: { borderColor: '#363636', backgroundColor: palette.surface }, cardTitle: { color: palette.text, fontSize: 15, fontWeight: '700' }, help: { color: palette.muted, fontSize: 12, lineHeight: 18, flexShrink: 1 }, providerList: { gap: 8, paddingVertical: 2 }, providerOption: { minWidth: 138, borderRadius: 10, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.background, paddingVertical: 11, paddingHorizontal: 12, gap: 4 }, providerSelected: { borderColor: '#777777', backgroundColor: '#252525' }, providerName: { color: palette.text, fontSize: 12, fontWeight: '700' }, providerNameSelected: { color: palette.text }, providerDescription: { color: palette.quiet, fontSize: 10 }, input: { minHeight: 46, borderRadius: 9, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.background, color: palette.text, paddingHorizontal: 14, fontSize: 13 }, secretNote: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 }, keyWarning: { color: palette.amber, fontSize: 12, lineHeight: 18 }, removeKey: { color: palette.rose, fontSize: 12, fontWeight: '700' }, buttonRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 }, flex: { flexGrow: 1, flexBasis: 150 }, notice: { color: palette.mint, fontSize: 12, lineHeight: 18 }, savedStatus: { color: palette.quiet, fontSize: 10 }, rule: { height: 1, backgroundColor: palette.border, marginVertical: 3 } });
