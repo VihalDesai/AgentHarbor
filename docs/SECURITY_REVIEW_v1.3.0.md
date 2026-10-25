@@ -2,7 +2,7 @@
 
 ## Scope
 
-This is a local source review and dependency audit. A Strix assessment was not run: the Strix CLI and Docker are unavailable in this environment. The managed Strix service would receive a source snapshot and may use account credits, so that upload and usage still need the maintainer’s approval.
+This is a local source review and dependency audit. The official Strix 1.7.0 Windows CLI is installed in a temporary environment, but no Strix account is signed in and no assessment has been run. The managed code review would upload a source snapshot to Strix and starts at 60 account credits; that upload and usage still need the maintainer’s approval. The self-hosted route also needs Docker and an LLM key, neither of which is available here.
 
 ## Changes in this release
 
