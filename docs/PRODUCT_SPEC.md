@@ -2,7 +2,7 @@
 
 ## Product
 
-AgentHarbor is a personal, local-first workspace for focused AI agents on Android and Windows desktop. Each agent has a name, role, goal, Skydive template portrait, and an editable sequence of work phases. People can keep separate, contextual conversations with each agent, save recurring prompt schedules, start from the visible Skydive templates, and connect a model provider they configure.
+AgentHarbor is a personal, local-first workspace for focused AI agents on Android and Windows desktop. Each agent has a name, role, goal, company branch, optional manager, Skydive template portrait, and an editable sequence of work phases. People can keep separate, contextual conversations with each agent, route work through a company chat, save recurring prompt schedules, start from the visible Skydive templates, and connect a model provider they configure.
 
 The app has no payment, subscription, billing or price features.
 
@@ -13,7 +13,9 @@ The app has no payment, subscription, billing or price features.
 | Home | Template-first studio with featured starters, recent agent activity and routines | Create an agent, open templates, configure a provider, open an agent |
 | Templates | Browse local agent starters by work category | Filter templates, add a starter agent |
 | Agents | Browse agents by name, role and goal | Open a conversation, create an agent |
-| Create agent | Define an agent identity, character and work phases | Save agent, open its new conversation |
+| Company | See branches, agents, and manager/report relationships | Add a branch, add an agent to a branch, rename the company |
+| Chats | Submit a request for automatic specialist routing | Route work, review each agent response and status |
+| Create agent | Define an agent identity, branch, manager, character and work phases | Save agent, open its new conversation |
 | Agent profile | Review posts, chat, routines, computer access status and phases | Open a conversation, review the agent process |
 | Agent conversation | Keep a separate contextual thread for one agent | Send a message to the selected provider when configured |
 | Routines | Store reusable recurring prompt schedules | Add a sample routine, enable or disable a routine |
@@ -38,6 +40,16 @@ The app has no payment, subscription, billing or price features.
 
 Supported providers are OpenAI, Anthropic, Google Gemini, OpenRouter, Groq, DeepSeek, Ollama, and custom OpenAI-compatible endpoints. New workspaces default to OpenAI; Ollama must be explicitly selected. On desktop, the renderer calls an Electron preload bridge; the main process reads the API key from Electron `safeStorage` and performs requests. Provider redirects are rejected, keyed remote endpoints require HTTPS, and Electron IPC validates the sender and request fields. Android stores keys with Expo SecureStore and sends requests directly to the chosen provider. Browser previews use session storage for keys. A phone must use a computer’s LAN address rather than `localhost` to reach a model server on that computer.
 
+### Company and assignment
+
+1. Open Company to review branches and the manager/report tree.
+2. Create an agent and choose a branch plus a same-branch manager, or set the agent as a branch lead.
+3. In Chats, describe the work once. The selected model provider chooses up to three agents using their roles, goals, branches and assigned skills.
+4. Send one task request to each selected agent in sequence, then save each response and run state to the local work history.
+5. If the routing response is not valid JSON, use local keyword matching against agent profiles. Provider connection failures are shown on the work item.
+
+Company chat makes one routing model call and one additional call per assigned agent. It returns model-written responses and does not operate external tools, run after app shutdown, or call another provider automatically.
+
 ### Routines
 
 Routines are stored prompt and schedule records. Users can create, enable or disable them. This starter build does not schedule background tasks or notifications; the UI calls this out directly.
@@ -45,7 +57,7 @@ Routines are stored prompt and schedule records. Users can create, enable or dis
 ## Data and privacy
 
 - Persist the workspace in device-local storage using AsyncStorage.
-- Workspace records contain agents, templates the user added, routines, per-agent messages and provider/model/endpoint settings. They do not contain API keys.
+- Workspace records contain company name, branches, agents and manager IDs, company chat tasks and responses, skills, founders, templates the user added, routines, per-agent messages and provider/model/endpoint settings. They do not contain API keys.
 - Store provider API keys in platform secure storage; never serialize them with workspace records.
 - Do not add a cloud account, telemetry, sync service or third-party model provider by default.
 - Prompts leave the device only when the user sends them to the endpoint they configured.
@@ -68,6 +80,10 @@ Routines are stored prompt and schedule records. Users can create, enable or dis
 - Android and web exports compile from the same app source.
 - Desktop portable build opens the same UI from packaged local assets.
 - Creating an agent saves its selected character and work phases, creates an initial conversation and persists after restart.
+- Company branches display agents grouped by branch and nested beneath their selected managers.
+- New agents can be assigned to a branch and one same-branch manager during creation.
+- Company chat routes a request to at most three agents, saves each response, and surfaces routing or provider errors.
+- The provided AI Automation and Agents mark appears as the app and executable icon; the wordmark appears on the Company screen.
 - Agent profiles expose Posts, Chats, Routines, Computer availability and Work phases sections.
 - Messages persist in separate agent conversations and recent history is sent with each model request.
 - The home screen exposes agent creation, templates and provider settings.

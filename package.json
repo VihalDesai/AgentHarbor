@@ -1,6 +1,6 @@
 {
   "name": "agentharbor",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "description": "A local-first, open-source agent workspace for desktop and Android.",
   "license": "MIT",

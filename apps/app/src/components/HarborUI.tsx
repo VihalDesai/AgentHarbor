@@ -4,9 +4,10 @@ import { Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, Vi
 import { router } from 'expo-router';
 import { palette } from '@/constants/palette';
 import { CharacterPortrait } from '@/components/CharacterPortrait';
-import { SkydiveMark } from '@/components/SkydiveMark';
+import { CompanyLogo } from '@/components/CompanyLogo';
 import { characterForName } from '@/services/characters';
 import type { CharacterId } from '@/model/types';
+import { useWorkspace } from '@/state/WorkspaceStore';
 
 export function Screen({ children, scroll = true, style, wide = false }: PropsWithChildren<{ scroll?: boolean; style?: ViewStyle; wide?: boolean }>) {
   const content = <View style={[styles.content, wide && styles.wideContent, style]}>{children}</View>;
@@ -15,11 +16,12 @@ export function Screen({ children, scroll = true, style, wide = false }: PropsWi
 }
 
 export function Brand({ compact = false }: { compact?: boolean }) {
-  return <View style={styles.brandRow}><SkydiveMark size={compact ? 20 : 22} /><Text style={styles.brandName}>Skydive</Text></View>;
+  return <CompanyLogo size={compact ? 'small' : 'large'} />;
 }
 
 export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boolean; menuOnly?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { companyName } = useWorkspace();
   const items = [
     { label: 'Home', icon: 'home-outline' as const, path: '/(tabs)' },
     { label: 'Agents', icon: 'people-outline' as const, path: '/(tabs)/agents' },
@@ -28,6 +30,8 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
     { label: 'Templates', icon: 'albums-outline' as const, path: '/(tabs)/templates' },
     { label: 'Skills', icon: 'flash-outline' as const, path: '/skills' },
     { label: 'Founders', icon: 'business-outline' as const, path: '/founders' },
+    { label: 'Company', icon: 'git-branch-outline' as const, path: '/company' },
+    { label: 'Chats', icon: 'chatbubbles-outline' as const, path: '/company-chat' },
   ];
   return <View style={[styles.headerSlot, menuOnly && styles.menuOnlySlot]}>
     <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader, !menuOnly && !back && styles.referenceHeader]}>
@@ -37,7 +41,7 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
       <View style={styles.menuRoot}>
         <Pressable accessibilityLabel="Close workspace menu" onPress={() => setMenuOpen(false)} style={styles.menuScrim} />
         <View style={styles.menuPanel}>
-          <View style={styles.menuAccount}><View style={styles.menuAvatar}><Text style={styles.menuAvatarText}>V</Text></View><View><Text style={styles.menuAccountTitle}>Skydive</Text><Text style={styles.menuAccountDetail}>Local workspace</Text></View></View>
+          <View style={styles.menuAccount}><View style={styles.menuAvatar}><Text style={styles.menuAvatarText}>V</Text></View><View><Text style={styles.menuAccountTitle}>{companyName}</Text><Text style={styles.menuAccountDetail}>Local company</Text></View></View>
           <View style={styles.menuDivider} />
           {items.map((item) => <Pressable key={item.label} accessibilityRole="button" onPress={() => { setMenuOpen(false); router.push(item.path as never); }} style={({ pressed }) => [styles.menuItem, pressed && styles.menuPressed]}><Ionicons name={item.icon} size={16} color={palette.muted} /><Text style={styles.menuLabel}>{item.label}</Text></Pressable>)}
           <View style={styles.menuDivider} />

@@ -4,7 +4,7 @@ AgentHarbor is an open-source, local-first workspace for personal AI agents on d
 
 ## What is included
 
-- `apps/app` — shared Expo application for Android and web, with a template-first workspace, reusable skills, founder profiles, per-agent work phases, local chats, saved routine prompts, and selectable model providers. The Android display name is **AI Agents Company**.
+- `apps/app` — shared Expo application for Android and web, with a template-first workspace, reusable skills, founder profiles, company branches, manager/report org chart, routed company chat, per-agent work phases, saved routine prompts, and selectable model providers. The Android display name is **AI Agents Company**.
 - `apps/desktop` — a Windows desktop shell named **AI Agents Company** that packages the shared app as a portable executable and stores provider API keys using Electron OS-backed encryption.
 - `docs/PRODUCT_SPEC.md` — implementation scope and behavior for this clean-room app.
 - `LICENSE` — MIT license.
@@ -37,7 +37,7 @@ Run `npm install`, then `npm run web:build`, then `npm run desktop`. The desktop
 
 ## Build the portable Windows app
 
-Run `npm run desktop:build`. The output is written to `releases/desktop/AI Agents Company-1.4.0-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
+Run `npm run desktop:build`. The output is written to `releases/desktop/AI Agents Company-1.5.0-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
 
 ## Local model setup
 
@@ -48,6 +48,8 @@ Agents can use any of the 24 portraits in the reference catalog or define up to 
 ## Current scope
 
 Agent, reusable skill, founder and routine records and chat history persist on the current device. A skill's instructions are included in requests for agents to which it is assigned. Founder profiles can be associated with skills from the same library. Templates are editable starting points that create local agents. Routines are saved schedule labels and prompt templates; they do not start background jobs or send notifications in this version. Integrations, cloud sync, remote accounts, team collaboration and store-distributed builds are not included.
+
+Company branches and manager/report relationships are stored locally. **Chats** uses the selected model provider to route a request to up to three specialists, then sends one request per selected agent and saves each response with its task status. This chat flow returns model-written work and does not operate external services or run agents after the app is closed.
 
 ## License
 

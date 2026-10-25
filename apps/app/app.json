@@ -2,37 +2,36 @@
   "expo": {
     "name": "AI Agents Company",
     "slug": "agentharbor",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "orientation": "portrait",
-    "backgroundColor": "#101014",
-    "icon": "./assets/images/icon.png",
+    "backgroundColor": "#000000",
+    "icon": "./assets/images/app-mark.png",
     "scheme": "agentharbor",
     "userInterfaceStyle": "dark",
     "ios": {
       "bundleIdentifier": "org.agentharbor.mobile",
-      "icon": "./assets/images/icon.png"
+      "icon": "./assets/images/app-mark.png"
     },
     "android": {
       "package": "org.agentharbor.mobile",
+      "icon": "./assets/images/app-mark.png",
       "adaptiveIcon": {
-        "backgroundColor": "#101014",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/images/app-mark.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/app-mark.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#101014",
-          "image": "./assets/images/splash-icon.png",
+          "backgroundColor": "#000000",
+          "image": "./assets/images/app-mark.png",
           "imageWidth": 150
         }
       ],

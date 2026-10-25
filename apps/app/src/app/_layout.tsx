@@ -18,6 +18,8 @@ export default function RootLayout() {
           <Stack.Screen name="create-founder" options={{ presentation: 'modal' }} />
           <Stack.Screen name="skills" />
           <Stack.Screen name="founders" />
+          <Stack.Screen name="company" />
+          <Stack.Screen name="company-chat" />
           <Stack.Screen name="agent/[id]" />
         </Stack>
       </WorkspaceProvider>

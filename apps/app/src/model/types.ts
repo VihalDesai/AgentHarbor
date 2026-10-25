@@ -22,7 +22,32 @@ export type Agent = {
   character?: CharacterId;
   phases?: string[];
   skillIds?: string[];
+  branchId?: string;
+  managerId?: string;
   createdAt: string;
+};
+
+export type CompanyBranch = {
+  id: string;
+  name: string;
+  description: string;
+  color: string;
+  createdAt: string;
+};
+
+export type AgentWorkRun = {
+  agentId: string;
+  status: 'queued' | 'running' | 'completed' | 'failed';
+  result?: string;
+};
+
+export type CompanyTask = {
+  id: string;
+  request: string;
+  createdAt: string;
+  status: 'routing' | 'working' | 'completed' | 'failed';
+  agentRuns: AgentWorkRun[];
+  error?: string;
 };
 
 export type Skill = {
@@ -71,6 +96,9 @@ export type ModelSettings = {
 export type ProviderId = 'openai' | 'anthropic' | 'gemini' | 'openrouter' | 'groq' | 'deepseek' | 'ollama' | 'custom';
 
 export type WorkspaceData = {
+  companyName: string;
+  branches: CompanyBranch[];
+  companyTasks: CompanyTask[];
   agents: Agent[];
   skills: Skill[];
   founders: FounderProfile[];

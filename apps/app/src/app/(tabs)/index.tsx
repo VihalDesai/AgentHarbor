@@ -25,6 +25,8 @@ export default function HomeScreen() {
     <View style={homeLayoutStyles.shortcuts}>
       <Shortcut icon="add" title="New agent" onPress={() => router.push('/create-agent')} />
       <Shortcut icon="albums-outline" title="Templates" onPress={() => router.push('/(tabs)/templates')} />
+      <Shortcut icon="git-branch-outline" title="Company" onPress={() => router.push('/company' as never)} />
+      <Shortcut icon="chatbubbles-outline" title="Chats" onPress={() => router.push('/company-chat' as never)} />
       {agents[0] && <Shortcut icon="person-circle-outline" title={agents[0].name} onPress={() => goToAgent(agents[0].id)} />}
       <Shortcut icon="people-outline" title="All agents" onPress={() => router.push('/(tabs)/agents')} />
     </View>
