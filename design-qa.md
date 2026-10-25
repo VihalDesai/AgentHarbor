@@ -1,34 +1,36 @@
-# Design QA
+# Skydive interface replication review
 
-## Reference review
+## Reference and implementation
 
-- Reference: the signed-in Skydive workspace in the user’s Edge session at 1528 × 760.
-- Screens reviewed in this pass: Skydive Home, new-agent character picker, and an agent profile (Posts, Chats, Routines, Computer). The earlier review also covered Templates and template detail, Agents, Integrations, Account, Workspace, and the agent chat composer.
-- Implementation: AgentHarbor desktop/web preview at `http://localhost:8081`.
-- Visual direction: Skydive’s compact dark workspace, round quick actions, narrow centered feed, quiet borders, settings rail, and edge-to-edge agent cover. AgentHarbor retains its own identity, names, wording, and provider flows.
+- Reference: the user’s signed-in Skydive session, plus the public template catalog at `https://www.skydive.com/templates`.
+- Reference viewport: approximately 1528 × 782.
+- Screens reviewed: Home, Templates, Marketplace, Design Maven template detail, agent Posts/Chats/Routines/Computer, create-agent character picker, provider settings, and workspace settings.
+- Implementation: AgentHarbor Expo app rendered in Edge from `http://localhost:8081`; the same React Native layouts serve desktop/web and Android.
+- Skydive ownership or reproduction permission was explicitly confirmed by the user.
 
-## Changes in this revision
+## Changes in this pass
 
-- Removed the permanent desktop navigation rail; added an account-style menu on the main screens and a settings rail on the provider screen.
-- Aligned the Home feed and Templates catalog with the reference widths and top navigation placement.
-- Added a template detail route with a clear add-to-workspace action, focus areas, and an explicit note that focus areas are not connected services.
-- Added direct provider choices from Home, with all API setup handled by the provider settings page.
-- Made the agent cover edge-to-edge and added an original, vector sunset landscape.
-- Added visible recovery messages for failed API-key storage and chat requests, and ensured connection loading state always ends.
-- Replaced default Ollama routing with an explicit OpenAI default; the create flow shows the selected provider and whether its key is saved.
-- Added eight original character illustrations, editable agent work phases, contextual chat history, and a Computer availability section.
-- Hardened provider requests against missing/invalid provider IDs, keyed cleartext remote endpoints, redirects, and untrusted desktop IPC callers.
-- Kept mobile bottom navigation, local-first data, provider API configuration, and the no-pricing scope.
+- Replaced the hand-drawn avatars with all 24 Skydive catalog portraits and replaced the vector landscape with the Skydive profile cover photo. Assets are local for offline Android rendering.
+- Added the Skydive flower mark and wordmark placement to the shared header.
+- Rebuilt the Templates page around the reference’s centered narrow column, one wrapping filter row, `From Skydive` and `Marketplace` sections, round portraits, bylines, integration chips, skill counts, and Add to team actions.
+- Added twelve built-in and twelve marketplace templates visible in the reference, including their published descriptions, authors, integrations, skills, and benefit copy. The main catalog shows four cards per section and “See all” opens the matching full list.
+- Rebuilt template details to follow the reference hierarchy: back link, portrait/title/actions, Meet, Works with, Skills when present, What you get, and the final Add to your team action.
+- Reworked Home shortcuts, feed, model status panel, and featured templates, and aligned agent profile cover/portrait placement and Posts, Chats, Routines, and Computer tabs.
+- Kept provider configuration, encrypted API key storage, local workspace data, and work phases. Model requests continue to use the selected provider directly without switching to Ollama.
+- Kept pricing and purchase flows out of the app.
 
 ## Verification
 
-- Lint, TypeScript, Electron syntax and `git diff --check` — passed.
-- Reviewed the signed-in Skydive creation options and Betsy agent profile sections in Edge.
-- A provider API key was not entered and no model request was sent.
+- `npm --prefix apps/app run lint` — passed.
+- `npx tsc --noEmit -p apps/app/tsconfig.json` — passed.
+- `npm run web:build` — passed and exported 15 routes.
+- Compared the local Templates and Design Maven detail screenshots against the signed-in reference in Edge.
+- Reviewed the agent profile with the local cover and character assets. No physical Android device was available for a visual capture.
+- No API key was entered and no model request was made during this visual pass.
 
-## Known differences
+## Boundaries
 
-- This is a clean-room AgentHarbor implementation, not a pixel-for-pixel copy. It uses distinct branding, original copy, seeded agents, original character art, and custom vector covers instead of Skydive’s artwork and photography.
-- Skydive-only services such as external message channels, computer control, cloud teams, and account/workspace administration are not implemented. AgentHarbor only presents working local features and the supported model-provider API settings.
-- Android uses the same dark visual system with mobile navigation and safe-area-aware layouts; this browser review did not capture a physical Android device.
-- Provider connection behavior was not exercised because no key or model endpoint was supplied.
+- The catalog mirrors the 24 public templates visible across the reviewed Skydive listing and “See all” pages. It does not import private templates from the user’s workspace.
+- AgentHarbor preserves local provider requests and workspace data. Skydive-only cloud teams, message channels, account administration, and computer control are not implemented.
+- Integration marks use locally bundled Font Awesome brand glyphs and matching colors where available, with short text fallbacks for integrations without a brand glyph.
+- The copied Skydive image and mark files are used under the permission the user provided. They are explicitly excluded from the repository MIT license in [ASSET-RIGHTS.md](apps/app/assets/ASSET-RIGHTS.md).

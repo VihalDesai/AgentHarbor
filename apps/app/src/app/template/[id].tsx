@@ -1,8 +1,9 @@
 import { useLocalSearchParams, router } from 'expo-router';
-import { useMemo } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ActionButton, AgentAvatar, Card, Screen, WorkspaceHeader } from '@/components/HarborUI';
+import { ActionButton, AgentAvatar, Screen, WorkspaceHeader } from '@/components/HarborUI';
+import { IntegrationLogo } from '@/components/IntegrationLogo';
 import { agentTemplates, uniqueTemplateName } from '@/data/templates';
 import { palette } from '@/constants/palette';
 import { useWorkspace } from '@/state/WorkspaceStore';
@@ -11,15 +12,16 @@ export default function TemplateDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const template = useMemo(() => agentTemplates.find((entry) => entry.id === id), [id]);
   const { agents, createAgent } = useWorkspace();
+  const [shareNotice, setShareNotice] = useState('');
 
   if (!template) {
     return <Screen style={styles.page}>
-      <WorkspaceHeader back />
-      <Card style={styles.notFound}>
+      <WorkspaceHeader />
+      <View style={styles.notFound}>
         <Text style={styles.title}>Template not found</Text>
-        <Text style={styles.muted}>This starting point may have been removed.</Text>
+        <Text style={styles.body}>This starting point may have been removed.</Text>
         <ActionButton title="Back to templates" icon="arrow-back" tone="secondary" onPress={() => router.replace('/(tabs)/templates')} />
-      </Card>
+      </View>
     </Screen>;
   }
 
@@ -28,104 +30,109 @@ export default function TemplateDetailScreen() {
     router.replace(`/agent/${agentId}`);
   };
 
-  const outcomes = [
-    { icon: 'flag-outline' as const, title: 'A clear goal', description: template.goal },
-    { icon: 'chatbubble-ellipses-outline' as const, title: 'A focused conversation', description: 'Keep this agent’s requests and replies together on this device.' },
-    { icon: 'options-outline' as const, title: 'Your provider choice', description: 'Connect a model provider in settings when you are ready. API keys stay out of the workspace records.' },
-  ];
+  const copyLink = async () => {
+    const url = Platform.OS === 'web' && typeof window !== 'undefined'
+      ? window.location.href
+      : `agentharbor://template/${template.id}`;
+    try {
+      if (Platform.OS === 'web' && typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+        setShareNotice('Link copied');
+        return;
+      }
+      await Share.share({ message: url });
+      setShareNotice('Share link ready');
+    } catch {
+      setShareNotice('Could not share this template');
+    }
+  };
+
+  const openSkills = async () => {
+    const url = template.skills.find((skill) => skill.url)?.url;
+    if (url) await Linking.openURL(url);
+  };
 
   return <Screen style={styles.page}>
-    <WorkspaceHeader back />
-    <View style={styles.content}>
-      <Pressable accessibilityRole="button" onPress={() => router.replace('/(tabs)/templates')} style={styles.backLink}>
-        <Ionicons name="arrow-back" size={14} color={palette.muted} /><Text style={styles.backText}>Templates</Text>
-      </Pressable>
-      <Card style={styles.hero}>
-        <View style={[styles.art, { backgroundColor: `${template.color}18`, borderColor: `${template.color}45` }]}>
-          <View style={[styles.glow, { backgroundColor: template.color }]} />
-          <AgentAvatar name={template.name} character={template.character} color={template.color} size={82} />
-        </View>
-        <View style={styles.heroCopy}>
-          <Text style={styles.title}>{template.role}</Text>
-          <Text style={styles.byline}>{template.name} · AgentHarbor · {template.category}</Text>
-          <Text style={styles.description}>{template.description}</Text>
-          <ActionButton title="Add to your workspace" icon="add" onPress={addTemplate} style={styles.addButton} />
-        </View>
-      </Card>
+    <WorkspaceHeader />
+    <Pressable accessibilityRole="button" onPress={() => router.replace('/(tabs)/templates')} style={styles.backLink}>
+      <Ionicons name="arrow-back" size={14} color={palette.muted} /><Text style={styles.backText}>Back</Text>
+    </Pressable>
 
-      <View style={styles.columns}>
-        <View style={styles.mainColumn}>
-          <Card style={styles.section}>
-            <Text style={styles.sectionTitle}>Meet {template.name}</Text>
-            <Text style={styles.body}>{template.description} {template.name} starts with a clear role and goal, then you can shape its instructions to fit your own workflow.</Text>
-          </Card>
-          <Card style={styles.section}>
-            <Text style={styles.sectionTitle}>Work phases</Text>
-            {template.phases.map((phase, index) => <View key={phase} style={styles.phase}><View style={styles.phaseNumber}><Text style={styles.phaseNumberText}>{index + 1}</Text></View><Text style={styles.phaseText}>{phase}</Text></View>)}
-          </Card>
-          <Card style={styles.section}>
-            <Text style={styles.sectionTitle}>What you get</Text>
-            {outcomes.map((item) => <View key={item.title} style={styles.outcome}>
-              <View style={[styles.outcomeIcon, { backgroundColor: `${template.color}18` }]}><Ionicons name={item.icon} size={16} color={template.color} /></View>
-              <View style={styles.outcomeCopy}><Text style={styles.outcomeTitle}>{item.title}</Text><Text style={styles.muted}>{item.description}</Text></View>
-            </View>)}
-          </Card>
-        </View>
-        <View style={styles.sideColumn}>
-          <Card style={styles.section}>
-            <Text style={styles.sectionTitle}>Focus areas</Text>
-            <Text style={styles.muted}>Suggested topics for the agent’s instructions. These are not connected services.</Text>
-            <View style={styles.tags}>{template.tools.map((item) => <View key={item} style={styles.tag}><Text style={styles.tagText}>{item}</Text></View>)}</View>
-          </Card>
-          <Card style={styles.section}>
-            <Text style={styles.sectionTitle}>Make it yours</Text>
-            <Text style={styles.muted}>You can change this agent’s name, role, and goal after it is added.</Text>
-            <Pressable accessibilityRole="button" onPress={() => router.push('/(tabs)/settings')} style={styles.settingsLink}>
-              <Text style={styles.settingsLinkText}>Provider settings</Text><Ionicons name="arrow-forward" size={13} color={palette.text} />
-            </Pressable>
-          </Card>
-        </View>
+    <View style={styles.hero}>
+      <AgentAvatar name={template.name} character={template.character} color={template.color} size={64} />
+      <View style={styles.heroCopy}>
+        <View style={styles.nameRow}><Text style={styles.title}>{template.role}</Text>{template.isNew && <View style={styles.newBadge}><Text style={styles.newText}>New</Text></View>}</View>
+        <Text style={styles.byline}>{template.name} · By {template.author}</Text>
       </View>
-      <View style={styles.bottomAction}>
-        <ActionButton title={`Add ${template.name} to your workspace`} icon="add" onPress={addTemplate} />
+      <View style={styles.actions}>
+        <Pressable accessibilityRole="button" onPress={() => void copyLink()} style={styles.copyButton}><Ionicons name="link-outline" size={14} color={palette.text} /><Text style={styles.copyText}>{shareNotice || 'Copy link'}</Text></Pressable>
+        <ActionButton title="Add to your team" icon="add" onPress={addTemplate} style={styles.addButton} />
       </View>
+    </View>
+
+    <View style={styles.section}>
+      <Text style={styles.sectionTitle}>Meet {template.name}</Text>
+      <Text style={styles.body}>{template.description}</Text>
+    </View>
+
+    {!!template.tools.length && <View style={styles.section}>
+      <Text style={styles.sectionTitle}>Works with</Text>
+      <View style={styles.pills}>{template.tools.map((tool) => <View key={tool} style={styles.integration}><IntegrationLogo name={tool} size={16} /><Text style={styles.integrationText}>{tool}</Text></View>)}</View>
+    </View>}
+
+    {!!template.skills.length && <View style={styles.section}>
+      <View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Skills</Text>{template.skills.some((skill) => skill.url) && <Pressable accessibilityRole="button" onPress={() => void openSkills()}><Text style={styles.inlineAction}>Download skills</Text></Pressable>}</View>
+      <View style={styles.pills}>{template.skills.map((skill) => <View key={skill.slug} style={styles.skill}><Ionicons name="sparkles-outline" size={12} color={palette.muted} /><Text style={styles.skillText}>{skill.slug}</Text></View>)}</View>
+    </View>}
+
+    {!!template.benefits.length && <View style={styles.section}>
+      <Text style={styles.sectionTitle}>What you get</Text>
+      <View style={styles.benefits}>{template.benefits.map((benefit, index) => <View key={benefit.title} style={styles.benefit}>
+        <View style={styles.benefitIcon}><Ionicons name={index === 0 ? 'sparkles-outline' : index === 1 ? 'flash-outline' : 'checkmark-circle-outline'} size={17} color={palette.muted} /></View>
+        <View style={styles.benefitCopy}><Text style={styles.benefitTitle}>{benefit.title}</Text><Text style={styles.bodySmall}>{benefit.description}</Text></View>
+      </View>)}</View>
+    </View>}
+
+    <View style={styles.footerCta}>
+      <View style={styles.footerCopy}><Text style={styles.footerTitle}>Put {template.name} to work</Text><Text style={styles.bodySmall}>{template.tagline}</Text></View>
+      <ActionButton title="Add to your team" icon="add" onPress={addTemplate} />
     </View>
   </Screen>;
 }
 
 const styles = StyleSheet.create({
-  page: { width: '100%', maxWidth: 940, paddingTop: 16, gap: 18 },
-  content: { gap: 14 },
-  backLink: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 4, alignSelf: 'flex-start' },
-  backText: { color: palette.muted, fontSize: 11 },
-  hero: { flexDirection: 'row', alignItems: 'center', gap: 20, borderRadius: 12, padding: 18 },
-  art: { width: 144, height: 144, borderRadius: 12, borderWidth: 1, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
-  glow: { position: 'absolute', width: 105, height: 105, borderRadius: 60, opacity: 0.12 },
-  heroCopy: { flex: 1, gap: 8 },
-  title: { color: palette.text, fontSize: 24, fontWeight: '700', letterSpacing: -0.45 },
-  byline: { color: palette.quiet, fontSize: 10 },
-  description: { color: palette.muted, fontSize: 12, lineHeight: 18 },
-  addButton: { alignSelf: 'flex-start', marginTop: 4 },
-  columns: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', gap: 12 },
-  mainColumn: { flexGrow: 2, flexBasis: 390, gap: 12 },
-  sideColumn: { flexGrow: 1, flexBasis: 230, gap: 12 },
-  section: { borderRadius: 11, padding: 15, gap: 11 },
-  sectionTitle: { color: palette.text, fontSize: 13, fontWeight: '600' },
-  phase: { flexDirection: 'row', alignItems: 'center', gap: 9 },
-  phaseNumber: { width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: palette.raised, borderWidth: 1, borderColor: palette.border },
-  phaseNumberText: { color: palette.text, fontSize: 10, fontWeight: '700' },
-  phaseText: { color: palette.muted, fontSize: 11 },
-  body: { color: palette.muted, fontSize: 11, lineHeight: 18 },
-  outcome: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
-  outcomeIcon: { width: 29, height: 29, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
-  outcomeCopy: { flex: 1, gap: 3 },
-  outcomeTitle: { color: palette.text, fontSize: 10, fontWeight: '600' },
-  muted: { color: palette.muted, fontSize: 10, lineHeight: 15 },
-  tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  tag: { backgroundColor: palette.raised, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 5 },
-  tagText: { color: palette.muted, fontSize: 9 },
-  settingsLink: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderTopWidth: 1, borderColor: palette.border, paddingTop: 10 },
-  settingsLinkText: { color: palette.text, fontSize: 10, fontWeight: '600' },
-  bottomAction: { paddingVertical: 2 },
-  notFound: { padding: 20, gap: 12 },
+  page: { maxWidth: 1080, paddingTop: 29, paddingBottom: 38, gap: 38 },
+  backLink: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2, alignSelf: 'flex-start' },
+  backText: { color: palette.muted, fontSize: 12 },
+  hero: { flexDirection: 'row', alignItems: 'center', gap: 15, flexWrap: 'wrap' },
+  heroCopy: { flex: 1, minWidth: 190, gap: 4 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
+  title: { color: palette.text, fontSize: 27, lineHeight: 34, fontWeight: '600', letterSpacing: -0.6 },
+  newBadge: { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: '#18212B' },
+  newText: { color: '#A8CCF2', fontSize: 10, fontWeight: '600' },
+  byline: { color: palette.muted, fontSize: 13 },
+  actions: { flexDirection: 'row', alignItems: 'center', gap: 9, flexWrap: 'wrap' },
+  copyButton: { minHeight: 39, paddingHorizontal: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, borderRadius: 9, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.surface },
+  copyText: { color: palette.text, fontSize: 12, fontWeight: '600' },
+  addButton: { minHeight: 39, paddingHorizontal: 15 },
+  section: { gap: 22, paddingBottom: 8 },
+  sectionHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  sectionTitle: { color: palette.text, fontSize: 19, fontWeight: '600', letterSpacing: -0.25 },
+  body: { color: '#D1D1D1', fontSize: 14, lineHeight: 22 },
+  bodySmall: { color: palette.muted, fontSize: 13, lineHeight: 19 },
+  pills: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  integration: { minHeight: 33, borderRadius: 18, paddingHorizontal: 11, paddingVertical: 5, backgroundColor: '#262626', flexDirection: 'row', alignItems: 'center', gap: 7 },
+  integrationText: { color: '#F0F0F0', fontSize: 12, fontWeight: '600' },
+  skill: { minHeight: 30, borderRadius: 16, paddingHorizontal: 10, paddingVertical: 6, backgroundColor: '#262626', flexDirection: 'row', alignItems: 'center', gap: 6 },
+  skillText: { color: '#E5E5E5', fontSize: 11 },
+  inlineAction: { color: palette.text, fontSize: 12, textDecorationLine: 'underline' },
+  benefits: { gap: 0, maxWidth: 640 },
+  benefit: { flexDirection: 'row', alignItems: 'flex-start', gap: 13, paddingVertical: 18, borderBottomWidth: 1, borderBottomColor: '#282828' },
+  benefitIcon: { width: 20, paddingTop: 1 },
+  benefitCopy: { flex: 1, gap: 5 },
+  benefitTitle: { color: palette.text, fontSize: 15, fontWeight: '600' },
+  footerCta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', borderTopWidth: 1, borderColor: palette.border, paddingTop: 20 },
+  footerCopy: { flex: 1, minWidth: 210, gap: 4 },
+  footerTitle: { color: palette.text, fontSize: 19, fontWeight: '600' },
+  notFound: { padding: 20, gap: 13, borderRadius: 12, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border },
 });

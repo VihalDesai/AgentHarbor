@@ -4,6 +4,7 @@ import { Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, Vi
 import { router } from 'expo-router';
 import { palette } from '@/constants/palette';
 import { CharacterPortrait } from '@/components/CharacterPortrait';
+import { SkydiveMark } from '@/components/SkydiveMark';
 import { characterForName } from '@/services/characters';
 import type { CharacterId } from '@/model/types';
 
@@ -14,7 +15,7 @@ export function Screen({ children, scroll = true, style, wide = false }: PropsWi
 }
 
 export function Brand({ compact = false }: { compact?: boolean }) {
-  return <View style={styles.brandRow}><View style={styles.brandMark}><Text style={styles.brandMarkText}>AH</Text></View><View><Text style={styles.brandName}>AgentHarbor</Text>{!compact && <Text style={styles.brandCaption}>Your local agent workspace</Text>}</View></View>;
+  return <View style={styles.brandRow}><SkydiveMark size={compact ? 20 : 22} /><Text style={styles.brandName}>Skydive</Text></View>;
 }
 
 export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boolean; menuOnly?: boolean }) {
@@ -26,14 +27,15 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
     { label: 'Providers & API', icon: 'hardware-chip-outline' as const, path: '/(tabs)/settings' },
     { label: 'Templates', icon: 'albums-outline' as const, path: '/(tabs)/templates' },
   ];
-  return <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader]}>
+  return <View style={[styles.headerSlot, menuOnly && styles.menuOnlySlot]}>
+    <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader, !menuOnly && !back && styles.referenceHeader]}>
     {menuOnly ? <View /> : back ? <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.headerBack}><Ionicons name="arrow-back" size={16} color={palette.muted} /><Text style={styles.headerBackText}>Back</Text></Pressable> : <Brand compact />}
-    <Pressable accessibilityRole="button" accessibilityLabel="Open workspace menu" accessibilityState={{ expanded: menuOpen }} onPress={() => setMenuOpen(true)} style={[styles.profileButton, styles.fixedProfileButton]}><Text style={styles.profileInitials}>AH</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel="Open workspace menu" accessibilityState={{ expanded: menuOpen }} onPress={() => setMenuOpen(true)} style={styles.profileButton}><Text style={styles.profileInitials}>V</Text></Pressable>
     <Modal transparent visible={menuOpen} animationType="fade" onRequestClose={() => setMenuOpen(false)}>
       <View style={styles.menuRoot}>
         <Pressable accessibilityLabel="Close workspace menu" onPress={() => setMenuOpen(false)} style={styles.menuScrim} />
         <View style={styles.menuPanel}>
-          <View style={styles.menuAccount}><View style={styles.menuAvatar}><Text style={styles.menuAvatarText}>AH</Text></View><View><Text style={styles.menuAccountTitle}>AgentHarbor</Text><Text style={styles.menuAccountDetail}>Local workspace</Text></View></View>
+          <View style={styles.menuAccount}><View style={styles.menuAvatar}><Text style={styles.menuAvatarText}>V</Text></View><View><Text style={styles.menuAccountTitle}>Skydive</Text><Text style={styles.menuAccountDetail}>Local workspace</Text></View></View>
           <View style={styles.menuDivider} />
           {items.map((item) => <Pressable key={item.label} accessibilityRole="button" onPress={() => { setMenuOpen(false); router.push(item.path as never); }} style={({ pressed }) => [styles.menuItem, pressed && styles.menuPressed]}><Ionicons name={item.icon} size={16} color={palette.muted} /><Text style={styles.menuLabel}>{item.label}</Text></Pressable>)}
           <View style={styles.menuDivider} />
@@ -41,6 +43,7 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
         </View>
       </View>
     </Modal>
+    </View>
   </View>;
 }
 
@@ -77,12 +80,14 @@ export function Hairline() { return <View style={styles.hairline} />; }
 export function StatusPill({ label, color = palette.mint }: { label: string; color?: string }) { return <View style={[styles.statusPill, { borderColor: `${color}55`, backgroundColor: `${color}12` }]}><View style={[styles.statusDot, { backgroundColor: color }]} /><Text style={[styles.statusText, { color }]}>{label}</Text></View>; }
 
 const styles = StyleSheet.create({
+  headerSlot: { width: '100%', height: 38, zIndex: 10 },
+  menuOnlySlot: { height: 0 },
   workspaceHeader: { width: '100%', minHeight: 38, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 10 },
-  menuOnlyHeader: { position: 'absolute', width: 38, right: 24, top: 12 },
+  referenceHeader: Platform.OS === 'web' ? { position: 'fixed' as never, top: 16, left: 24, right: 24, width: 'auto' as never, zIndex: 60 } : {},
+  menuOnlyHeader: { position: 'fixed' as never, width: 38, right: 24, top: 12, zIndex: 60 },
   headerBack: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 40, paddingHorizontal: 2 },
   headerBackText: { color: palette.muted, fontSize: 12 },
   profileButton: { width: 38, height: 38, borderRadius: 20, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, alignItems: 'center', justifyContent: 'center' },
-  fixedProfileButton: Platform.OS === 'web' ? { position: 'fixed' as never, top: 16, right: 24, zIndex: 60 } : { position: 'absolute', top: 14, right: 18 },
   profileInitials: { color: palette.text, fontSize: 10, fontWeight: '700' },
   menuRoot: { flex: 1, alignItems: 'flex-end' },
   menuScrim: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(0,0,0,0.34)' },
@@ -101,10 +106,10 @@ const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1, alignItems: 'center', paddingBottom: 38 },
   content: { width: '100%', maxWidth: Platform.OS === 'web' ? 1180 : 680, paddingHorizontal: Platform.OS === 'web' ? 28 : 18, paddingTop: Platform.OS === 'web' ? 22 : 16, gap: 18 },
   wideContent: { maxWidth: '100%', paddingHorizontal: Platform.OS === 'web' ? 24 : 18 },
-  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 11 },
+  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
   brandMark: { width: 30, height: 30, backgroundColor: '#F1F1F1', borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
   brandMarkText: { color: palette.background, fontSize: 12, fontWeight: '900', letterSpacing: -0.6 },
-  brandName: { color: palette.text, fontSize: 15, fontWeight: '800', letterSpacing: -0.2 },
+  brandName: { color: palette.text, fontSize: 20, fontWeight: '600', letterSpacing: -0.5 },
   brandCaption: { color: palette.quiet, fontSize: 11, marginTop: 2 },
   eyebrow: { color: palette.muted, fontSize: 9, fontWeight: '700', letterSpacing: 1.1, textTransform: 'uppercase' },
   headingWrap: { gap: 7 },

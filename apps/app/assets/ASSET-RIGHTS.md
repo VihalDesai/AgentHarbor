@@ -1,0 +1,1 @@
+These profile portraits, the Skydive mark, and profile cover are Skydive assets copied for this application with the project owner’s permission. They remain subject to their original rights and are not covered by the repository MIT license. The AgentHarbor application source remains MIT licensed.

@@ -1,10 +1,10 @@
 # AgentHarbor
 
-AgentHarbor is an open-source, local-first workspace for personal AI agents. This clean-room project was informed by public product research, but it uses its own name, interface, copy and implementation. It is not affiliated with Skydive.
+AgentHarbor is an open-source, local-first workspace for personal AI agents on desktop and Android. Its shared interface recreates the Skydive workspace and template experience using the project owner’s authorized reference assets. The Skydive portraits, mark, and profile cover are not covered by this repository’s MIT license; see [the asset rights note](apps/app/assets/ASSET-RIGHTS.md).
 
 ## What is included
 
-- `apps/app` — shared Expo application for Android and web, with a template-first workspace, original agent characters, per-agent work phases, local chats, saved routine prompts, and selectable model providers.
+- `apps/app` — shared Expo application for Android and web, with a template-first workspace, Skydive template portraits, per-agent work phases, local chats, saved routine prompts, and selectable model providers.
 - `apps/desktop` — a Windows desktop shell that packages the shared app as a portable executable and stores provider API keys using Electron OS-backed encryption.
 - `docs/PRODUCT_SPEC.md` — implementation scope and behavior for this clean-room app.
 - `LICENSE` — MIT license.
@@ -43,7 +43,7 @@ Run `npm run desktop:build`. The output is written to `releases/desktop/AgentHar
 
 Choose OpenAI, Anthropic, Google Gemini, OpenRouter, Groq, DeepSeek, Ollama, or a custom OpenAI-compatible endpoint in **Provider settings**. Replies go directly to the selected provider using that provider’s saved key; there is no automatic Ollama fallback. Ollama is an explicit choice and does not use an API key. Provider URL and model are stored in the workspace. API keys are stored separately: Windows desktop uses Electron `safeStorage`, Android uses Expo SecureStore backed by Android Keystore, and browser previews use session storage. The desktop renderer never receives API keys; requests run through the Electron main process. HTTPS is required for keyed remote endpoints, and provider redirects are rejected to keep keys at the configured destination. Android sends requests directly to the selected provider. Do not use a phone's `localhost` to reach a model server on a computer.
 
-New agents can choose one of eight original character illustrations and define up to six work phases. Phases appear in the agent profile and guide its chat responses. Each agent conversation sends up to the latest 20 saved messages for context.
+Agents can use any of the 24 portraits in the reference catalog or define up to six work phases. The catalog includes twelve built-in templates and twelve marketplace templates, with the Templates page showing four cards per section and a working “See all” view. Work phases guide chat responses. Each agent conversation sends up to the latest 20 saved messages for context.
 
 ## Current scope
 

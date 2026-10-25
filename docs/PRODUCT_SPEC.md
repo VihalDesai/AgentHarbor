@@ -2,7 +2,7 @@
 
 ## Product
 
-AgentHarbor is a personal, local-first workspace for focused AI agents on Android and Windows desktop. Each agent has a name, role, goal, original character illustration, and an editable sequence of work phases. People can keep separate, contextual conversations with each agent, save recurring prompt schedules, start from curated templates, and connect a model provider they configure.
+AgentHarbor is a personal, local-first workspace for focused AI agents on Android and Windows desktop. Each agent has a name, role, goal, Skydive template portrait, and an editable sequence of work phases. People can keep separate, contextual conversations with each agent, save recurring prompt schedules, start from the visible Skydive templates, and connect a model provider they configure.
 
 The app has no payment, subscription, billing or price features.
 
@@ -59,7 +59,7 @@ Routines are stored prompt and schedule records. Users can create, enable or dis
 - `apps/app/src/services/model.ts`: provider API requests and connection fallback.
 - `apps/app/src/services/credentials.ts`: platform credential storage boundary.
 - `apps/app/src/services/providers.ts`: provider presets, OpenAI default and settings normalization.
-- `apps/app/src/services/characters.ts`: original character presets for the create flow and profiles.
+- `apps/app/src/services/characters.ts`: template character presets for the create flow and profiles.
 - `apps/app/src/data/seed.ts`: starter agent and routine data.
 - `apps/app/src/app`: screens and navigation routes.
 

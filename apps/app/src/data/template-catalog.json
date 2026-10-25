@@ -1,0 +1,1127 @@
+[
+  {
+    "id": "chief-of-staff",
+    "name": "Sugarplum",
+    "role": "Chief of Staff",
+    "goal": "Your Chief of Staff starts by taking the load: it triages your inbox and your calendar, flags what should never have been booked, and brings you only what needs you, each item carrying a recommendation and weighted call.",
+    "category": "Productivity",
+    "description": "Your Chief of Staff starts by taking the load: it triages your inbox and your calendar, flags what should never have been booked, and brings you only what needs you, each item carrying a recommendation and weighted call.",
+    "tagline": "I learn how you work, then run your week from your inbox.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "chief-of-staff",
+    "phases": [
+      "Inbox zero, every morning",
+      "A calendar that protects your time",
+      "Commitments that close themselves"
+    ],
+    "tools": [
+      "Gmail",
+      "Google Calendar",
+      "Notion"
+    ],
+    "benefits": [
+      {
+        "title": "Inbox zero, every morning",
+        "description": "Wake up to your inbox cleared, and your replies pre-drafted.\nWhat reaches you comes with context, recommendation, and a judgment call.",
+        "icon": null
+      },
+      {
+        "title": "A calendar that protects your time",
+        "description": "High-consequence work gets your best hours; meetings that don't need you get an answer, a doc, or a warm no instead.",
+        "icon": null
+      },
+      {
+        "title": "Commitments that close themselves",
+        "description": "Everything promised by you or to you gets an owner, a date, and a chase, so nothing slips because nobody was watching.",
+        "icon": null
+      }
+    ],
+    "skills": [
+      {
+        "slug": "email-ops",
+        "url": "https://skills.sh/affaan-m/everything-claude-code/email-ops"
+      }
+    ],
+    "isNew": false
+  },
+  {
+    "id": "engineer",
+    "name": "Eggplant",
+    "role": "Engineer",
+    "goal": "Your Engineer starts by reviewing what's in flight: it surfaces blocked PRs, failing builds, and review requests, then brings you the work that needs attention first, each with a recommended next step.",
+    "category": "Engineering",
+    "description": "Your Engineer starts by reviewing what's in flight: it surfaces blocked PRs, failing builds, and review requests, then brings you the work that needs attention first, each with a recommended next step.",
+    "tagline": "I keep your code moving, from first commit to merge.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFE7EC",
+    "character": "engineer",
+    "phases": [
+      "Nothing silently stalls",
+      "Merge with confidence",
+      "See what's blocking shipping"
+    ],
+    "tools": [
+      "GitHub",
+      "GitLab",
+      "Linear"
+    ],
+    "benefits": [
+      {
+        "title": "Nothing silently stalls",
+        "description": "Review requests, failing builds, blocked PRs, and stale branches are surfaced automatically, so work keeps moving instead of waiting.",
+        "icon": null
+      },
+      {
+        "title": "Merge with confidence",
+        "description": "Every change is tracked from first review to merge. Unresolved comments, failing checks, and merge blockers are flagged before they slow the team down.",
+        "icon": null
+      },
+      {
+        "title": "See what's blocking shipping",
+        "description": "The highest-impact issues rise to the top first—whether it's a broken build, an overdue review, or a PR holding up the next release.",
+        "icon": null
+      }
+    ],
+    "skills": [
+      {
+        "slug": "code-review",
+        "url": "https://skills.sh/mattpocock/skills/code-review"
+      },
+      {
+        "slug": "incident-runbook-templates",
+        "url": "https://skills.sh/wshobson/agents/incident-runbook-templates"
+      }
+    ],
+    "isNew": false
+  },
+  {
+    "id": "motion-designer",
+    "name": "Sunray",
+    "role": "Motion Designer",
+    "goal": "Your Motion Designer makes short, polished launch videos, product demos and brand promos from your real product screens, cut to licensed music and synced to the beat. Every cut ships with a review page for timestamped notes, plus native 16:9, 9:16 and 1:1 versions closing on your animated logo.",
+    "category": "Marketing",
+    "description": "Your Motion Designer makes short, polished launch videos, product demos and brand promos from your real product screens, cut to licensed music and synced to the beat. Every cut ships with a review page for timestamped notes, plus native 16:9, 9:16 and 1:1 versions closing on your animated logo.",
+    "tagline": "Launch videos, product demos, and brand promos in motion, cut to music.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "motion-designer",
+    "phases": [
+      "Launch videos, demos and brand promos",
+      "A review page for every cut",
+      "Native cuts for every platform"
+    ],
+    "tools": [
+      "Google Drive",
+      "Dropbox",
+      "Notion"
+    ],
+    "benefits": [
+      {
+        "title": "Launch videos, demos and brand promos",
+        "description": "Short motion design videos built from your real product screens, scored to licensed music and synced to the beat.",
+        "icon": "🎬"
+      },
+      {
+        "title": "A review page for every cut",
+        "description": "Timestamped notes and cut ranges from anyone on the team, and fast revisions from them.",
+        "icon": "📝"
+      },
+      {
+        "title": "Native cuts for every platform",
+        "description": "16:9, 9:16 and 1:1, each rebuilt for its format and closing on your animated logo.",
+        "icon": "📱"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "pull-request-reviewer",
+    "name": "Nimble",
+    "role": "Pull Request Reviewer",
+    "goal": "Your Pull Request Reviewer watches your repos and reviews eligible open pull requests before your team's senior reviewers have to. It reads the full diff, leaves line-specific comments in your review style, and checks for type loosening, edge cases, and missing previews. Comments and questions only, never approvals, with a standing sweep so nothing slips through.",
+    "category": "Engineering",
+    "description": "Your Pull Request Reviewer watches your repos and reviews eligible open pull requests before your team's senior reviewers have to. It reads the full diff, leaves line-specific comments in your review style, and checks for type loosening, edge cases, and missing previews. Comments and questions only, never approvals, with a standing sweep so nothing slips through.",
+    "tagline": "Front-runs pull request reviews and comments before your senior engineers open the diff",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "pull-request-reviewer",
+    "phases": [
+      "PRs reviewed before your senior engineers open them",
+      "Reviews that sound like your best reviewer",
+      "A standing sweep that never misses a PR"
+    ],
+    "tools": [
+      "GitHub"
+    ],
+    "benefits": [
+      {
+        "title": "PRs reviewed before your senior engineers open them",
+        "description": "Front-runs the eligible queue on your repos and leaves line-specific comments in your review style, so problems surface early.",
+        "icon": "🛡️"
+      },
+      {
+        "title": "Reviews that sound like your best reviewer",
+        "description": "Calibrates to your lead's tone and technical bar, with markdown suggestions for clean inline fixes. Comments and questions only, never approvals.",
+        "icon": "🧐"
+      },
+      {
+        "title": "A standing sweep that never misses a PR",
+        "description": "Cursor-paginated eligibility over every open PR, run as a quiet workflow automation that only wakes when there is real work.",
+        "icon": "🔁"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "blog-refresh-search-impact",
+    "name": "Uma",
+    "role": "Blog Refresh & Search Impact",
+    "goal": "A content assistant for blogs and content sites. It refreshes existing posts (sharper titles and metas, new FAQs, tables, freshness fixes, alt-text audits) to win more Google Search traffic, then pulls Search Console data on a schedule to show whether each refresh actually moved the needle. Writes in a warm, human voice with no AI tells.",
+    "category": "Marketing",
+    "description": "A content assistant for blogs and content sites. It refreshes existing posts (sharper titles and metas, new FAQs, tables, freshness fixes, alt-text audits) to win more Google Search traffic, then pulls Search Console data on a schedule to show whether each refresh actually moved the needle. Writes in a warm, human voice with no AI tells.",
+    "tagline": "Refreshes your old posts and proves it moved search traffic.",
+    "author": "Carrie Green Zinn",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "blog-refresh-search-impact",
+    "phases": [
+      "Opportunity-ranked refresh plan",
+      "Paste-in refresh copy",
+      "Scheduled impact reports"
+    ],
+    "tools": [
+      "Google Search Console",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "Opportunity-ranked refresh plan",
+        "description": "Pulls Search Console data and ranks your posts by the biggest, easiest search wins, with the specific problem named for each.",
+        "icon": "search"
+      },
+      {
+        "title": "Paste-in refresh copy",
+        "description": "Sharper titles and metas, new FAQs, tables, freshness fixes, and alt-text audits, written in a warm human voice with no AI tells.",
+        "icon": "document"
+      },
+      {
+        "title": "Scheduled impact reports",
+        "description": "Checks each refreshed post against its own baseline on a schedule and tells you plainly whether traffic actually moved.",
+        "icon": "chart"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "route-map-style",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "canva-design-assistant",
+    "name": "Candy",
+    "role": "Canva Design Assistant",
+    "goal": "A warm, concise design assistant that creates, edits, and exports Canva designs for you. Great for marketing content, social posts, lead-magnet PDFs, media kits, and anything you'd normally build by hand in Canva. Connect your Canva account and describe what you want.",
+    "category": "Design",
+    "description": "A warm, concise design assistant that creates, edits, and exports Canva designs for you. Great for marketing content, social posts, lead-magnet PDFs, media kits, and anything you'd normally build by hand in Canva. Connect your Canva account and describe what you want.",
+    "tagline": "Turns ideas into finished Canva designs",
+    "author": "Carrie Green Zinn",
+    "source": "Marketplace",
+    "color": "#FFE7EC",
+    "character": "canva-design-assistant",
+    "phases": [
+      "Finished Canva designs on request",
+      "Exports in the format you need",
+      "HTML turned into editable Canva"
+    ],
+    "tools": [
+      "Canva"
+    ],
+    "benefits": [
+      {
+        "title": "Finished Canva designs on request",
+        "description": "Describe what you want and get a built, editable Canva design back, from social posts to pitch decks.",
+        "icon": "palette"
+      },
+      {
+        "title": "Exports in the format you need",
+        "description": "PDF, PNG, JPG, PPTX, MP4, or GIF, delivered as a file or link, ready to use.",
+        "icon": "image"
+      },
+      {
+        "title": "HTML turned into editable Canva",
+        "description": "Build a page in HTML and get it imported as a real, editable Canva design you can keep tweaking.",
+        "icon": "document"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "canva",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "design-maven",
+    "name": "Echo",
+    "role": "Design Maven",
+    "goal": "A design partner that produces brand systems, product UI, decks, prototypes and mockups, then verifies every deliverable against the real render before it ships. Built for teams that want fast iteration without a taste drop-off.",
+    "category": "Design",
+    "description": "A design partner that produces brand systems, product UI, decks, prototypes and mockups, then verifies every deliverable against the real render before it ships. Built for teams that want fast iteration without a taste drop-off.",
+    "tagline": "Brand, UI and motion work with a high craft bar",
+    "author": "Rain Dong",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "design-maven",
+    "phases": [
+      "Design that ships",
+      "Fast, targeted iteration",
+      "Craft on a rhythm"
+    ],
+    "tools": [
+      "Paper",
+      "Google Drive",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "Design that ships",
+        "description": "Brand, product UI, decks and prototypes produced live and verified against the real render, not a proxy.",
+        "icon": "palette"
+      },
+      {
+        "title": "Fast, targeted iteration",
+        "description": "Smallest edit, exact node, screenshot proof each round. Corrections apply to the work in front of you, same turn.",
+        "icon": "lightning"
+      },
+      {
+        "title": "Craft on a rhythm",
+        "description": "Optional routines for breaking design news, a weekly digest of patterns worth stealing, and daily product craft studies.",
+        "icon": "idea"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "meta-ads-operator",
+    "name": "Basil",
+    "role": "Meta Ads Operator",
+    "goal": "Basil is a practical Meta Ads coworker for Facebook and Instagram campaigns. It drafts campaigns paused by default, checks live performance, separates vanity metrics from real business goals, and gives plain-English recommendations on whether to pause, continue, fix tracking, or test something new. Connect Meta Marketing API access for live account work. Basil never launches, raises budgets, or extends spend without explicit approval.",
+    "category": "Marketing",
+    "description": "Basil is a practical Meta Ads coworker for Facebook and Instagram campaigns. It drafts campaigns paused by default, checks live performance, separates vanity metrics from real business goals, and gives plain-English recommendations on whether to pause, continue, fix tracking, or test something new. Connect Meta Marketing API access for live account work. Basil never launches, raises budgets, or extends spend without explicit approval.",
+    "tagline": "Builds Meta campaigns safely, watches performance, and protects spend.",
+    "author": "Carrie Green Zinn",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "meta-ads-operator",
+    "phases": [
+      "Paused campaign drafts",
+      "Plain-English performance reads",
+      "Spend protection"
+    ],
+    "tools": [],
+    "benefits": [
+      {
+        "title": "Paused campaign drafts",
+        "description": "Basil builds campaign, ad set, ad, and creative drafts safely, ready for review before any spend starts.",
+        "icon": "target"
+      },
+      {
+        "title": "Plain-English performance reads",
+        "description": "It pulls live Meta results and explains whether the campaign is producing the real KPI or just vanity engagement.",
+        "icon": "chart"
+      },
+      {
+        "title": "Spend protection",
+        "description": "It asks before launches or budget increases, and when asked to pause, verifies status across campaign, ad set, and ad.",
+        "icon": "shield"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "meta-ads-operator",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "product-sourcer",
+    "name": "Finder",
+    "role": "Product Sourcer",
+    "goal": "Your Product Sourcer finds suppliers for anything you name or photograph, from cosmetic bags to gift boxes, and brings back real quotes for your price, quantities, and deadline. It runs the vendor conversations so your part is picking the winner.",
+    "category": "Operations",
+    "description": "Your Product Sourcer finds suppliers for anything you name or photograph, from cosmetic bags to gift boxes, and brings back real quotes for your price, quantities, and deadline. It runs the vendor conversations so your part is picking the winner.",
+    "tagline": "Procurement support for basic goods, quote and inventory tracking",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#FFE7EC",
+    "character": "product-sourcer",
+    "phases": [
+      "Supplier shortlist",
+      "Handled conversations",
+      "Verified quotes"
+    ],
+    "tools": [
+      "Gmail",
+      "Slack",
+      "Notion"
+    ],
+    "benefits": [
+      {
+        "title": "Supplier shortlist",
+        "description": "Custom makers and in-stock options for your item, priced at your quantities with the in-hands date checked.",
+        "icon": "search"
+      },
+      {
+        "title": "Handled conversations",
+        "description": "The agent opens and runs the vendor threads; you step in only to approve.",
+        "icon": "message"
+      },
+      {
+        "title": "Verified quotes",
+        "description": "Every price and lead time labeled page read, supplier reply, or unverified, with nothing fuzzy averaged.",
+        "icon": "check"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "pr-reviewer",
+    "name": "Vanguard",
+    "role": "PR Reviewer",
+    "goal": "Your PR Front-Runner watches your repos and reviews eligible open pull requests before your senior engineers open the diff. It reads the full change set, leaves line-specific comments in your team's review voice, checks type loosening and edge cases, and verifies UI changes against their live previews. Comments and questions only, never approvals, with a standing sweep so nothing slips through.",
+    "category": "Engineering",
+    "description": "Your PR Front-Runner watches your repos and reviews eligible open pull requests before your senior engineers open the diff. It reads the full change set, leaves line-specific comments in your team's review voice, checks type loosening and edge cases, and verifies UI changes against their live previews. Comments and questions only, never approvals, with a standing sweep so nothing slips through.",
+    "tagline": "Reviews your team's pull requests before your senior engineers have to",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#FFF5DB",
+    "character": "pr-reviewer",
+    "phases": [
+      "Reviews land before your seniors open the diff",
+      "A sweep that misses nothing",
+      "Guardrails built in"
+    ],
+    "tools": [
+      "GitHub"
+    ],
+    "benefits": [
+      {
+        "title": "Reviews land before your seniors open the diff",
+        "description": "Line-specific comments in your reviewer's voice, on the full change set, posted straight to the pull request.",
+        "icon": "code"
+      },
+      {
+        "title": "A sweep that misses nothing",
+        "description": "A standing 15-minute check over every open PR, with a filter that is verified against the full list every time it changes.",
+        "icon": "checklist"
+      },
+      {
+        "title": "Guardrails built in",
+        "description": "Comments and questions only, never approvals. Screenshots on UI changes, smoke tests on CLI changes, and quiet operation in your messaging channels.",
+        "icon": "shield"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "calibrate-review-voice",
+        "url": null
+      },
+      {
+        "slug": "front-run-review",
+        "url": null
+      },
+      {
+        "slug": "review-sweep",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "pr-walkthrough-qa",
+    "name": "Pixel",
+    "role": "PR Walkthrough QA",
+    "goal": "A QA agent that sweeps pull requests without an authored feature walkthrough video, exercises each changed feature end to end through the real preview UI, records a concise video, and publishes it as a PR comment where authors and reviewers see it.",
+    "category": "Engineering",
+    "description": "A QA agent that sweeps pull requests without an authored feature walkthrough video, exercises each changed feature end to end through the real preview UI, records a concise video, and publishes it as a PR comment where authors and reviewers see it.",
+    "tagline": "Finds PRs missing a feature video, then posts the proof",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#FFEDDA",
+    "character": "pr-walkthrough-qa",
+    "phases": [
+      "Video walkthroughs on unaudited PRs",
+      "Honest QA verdicts",
+      "A self-auditing sweep"
+    ],
+    "tools": [
+      "GitHub"
+    ],
+    "benefits": [
+      {
+        "title": "Video walkthroughs on unaudited PRs",
+        "description": "Every eligible PR gets a real end-to-end walkthrough video attached as a comment where the author and reviewers actually look.",
+        "icon": "check"
+      },
+      {
+        "title": "Honest QA verdicts",
+        "description": "Leads with what failed and what it means; never counts Storybook, screenshots, or green checks as feature evidence.",
+        "icon": "shield"
+      },
+      {
+        "title": "A self-auditing sweep",
+        "description": "Dedupes by head SHA, screens out PRs it can't truly test, halts when the final publishing step breaks, and reports its own outcome trend.",
+        "icon": "lightning"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "pr-qa",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "recruiter",
+    "name": "Recruiter",
+    "role": "Recruiter",
+    "goal": "A full recruiting function for pre-ATS teams. It turns scattered candidate inbound into a real pipeline, screens against your job descriptions, and makes sure every candidate gets a fast reply.",
+    "category": "People",
+    "description": "A full recruiting function for pre-ATS teams. It turns scattered candidate inbound into a real pipeline, screens against your job descriptions, and makes sure every candidate gets a fast reply.",
+    "tagline": "No ATS, no problem, meet your first recruiting hire",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "recruiter",
+    "phases": [
+      "Turn your inbound emails into a tracked pipeline",
+      "Fast-track top candidates",
+      "Nobody gets ghosted"
+    ],
+    "tools": [
+      "Slack",
+      "Gmail",
+      "Google Calendar"
+    ],
+    "benefits": [
+      {
+        "title": "Turn your inbound emails into a tracked pipeline",
+        "description": "Captures every inbound candidate into a durable pipeline with stages, sources, and next actions, even before you buy an ATS.",
+        "icon": "database"
+      },
+      {
+        "title": "Fast-track top candidates",
+        "description": "Screens inbound against your job descriptions, validates claims with real research, and fast-tracks the elite few the same day.",
+        "icon": "search"
+      },
+      {
+        "title": "Nobody gets ghosted",
+        "description": "Every applicant gets a prompt, warm reply, including declines, plus status updates at every step.",
+        "icon": "message"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "batch-screen",
+        "url": null
+      },
+      {
+        "slug": "candidate-replies",
+        "url": null
+      },
+      {
+        "slug": "inbound-watch",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "research-pitch",
+    "name": "Beca",
+    "role": "Research & Pitch",
+    "goal": "A travel-PR research and pitch partner. Finds the right contact at a hotel group, PR agency, CVB or tourism board, writes a tailored pitch in the creator's own voice, and keeps every credential across every pitch, media kit and log accurate, because one unverifiable claim costs the relationship for good.",
+    "category": "Marketing",
+    "description": "A travel-PR research and pitch partner. Finds the right contact at a hotel group, PR agency, CVB or tourism board, writes a tailored pitch in the creator's own voice, and keeps every credential across every pitch, media kit and log accurate, because one unverifiable claim costs the relationship for good.",
+    "tagline": "Lands hosted stays and press trips, with credentials that hold up.",
+    "author": "Carrie Green Zinn",
+    "source": "Marketplace",
+    "color": "#FFEDDA",
+    "character": "research-pitch",
+    "phases": [
+      "The right contact, verified",
+      "Pitches in your voice, not a bot's",
+      "Credentials that survive scrutiny"
+    ],
+    "tools": [
+      "Google Drive",
+      "Google Sheets",
+      "Instagram"
+    ],
+    "benefits": [
+      {
+        "title": "The right contact, verified",
+        "description": "The actual person at the hotel group, PR agency or tourism board, with a verified email and why they are the one to pitch.",
+        "icon": "search"
+      },
+      {
+        "title": "Pitches in your voice, not a bot's",
+        "description": "A tailored pitch per destination, built from your master template and matched to how you actually write.",
+        "icon": "mail"
+      },
+      {
+        "title": "Credentials that survive scrutiny",
+        "description": "Every byline and number checked before it ships, and when one changes it gets corrected across your whole pack in one pass.",
+        "icon": "shield"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "client-intake",
+        "url": null
+      },
+      {
+        "slug": "credential-sweep",
+        "url": null
+      },
+      {
+        "slug": "pitch-pack",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "saul",
+    "name": "Saul",
+    "role": "Contract Review",
+    "goal": "Helps you understand the key forms, terms, and mechanics that keep your fund, startup, or business running. A legal aid, not a lawyer.",
+    "category": "Venture Capital",
+    "description": "Helps you understand the key forms, terms, and mechanics that keep your fund, startup, or business running. A legal aid, not a lawyer.",
+    "tagline": "Helps you review and navigate key legal items, forms and terms for your business",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#FFE7EC",
+    "character": "saul",
+    "phases": [
+      "Document review with a decision",
+      "SaaS contract specialist",
+      "Your own precedent bank"
+    ],
+    "tools": [
+      "Gmail",
+      "Google Drive",
+      "Notion",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "Document review with a decision",
+        "description": "Ranked risks and gaps with exact section quotes and redlines, ending in SIGN, NEGOTIATE, or WALK.",
+        "icon": "shield"
+      },
+      {
+        "title": "SaaS contract specialist",
+        "description": "MSAs, DPAs, NDAs, offer letters, and ToS reviewed with knife questions and redline priorities built for the paper startups sign every week.",
+        "icon": "check"
+      },
+      {
+        "title": "Your own precedent bank",
+        "description": "Your past deals indexed and searchable, so every new review cites your history instead of generic market talk.",
+        "icon": "database"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "client-profile",
+        "url": null
+      },
+      {
+        "slug": "doc-tools",
+        "url": null
+      },
+      {
+        "slug": "form-builder",
+        "url": null
+      },
+      {
+        "slug": "fund-doc-review",
+        "url": null
+      },
+      {
+        "slug": "ip-tech-review",
+        "url": null
+      },
+      {
+        "slug": "legal-qa",
+        "url": null
+      },
+      {
+        "slug": "legal-reference",
+        "url": null
+      },
+      {
+        "slug": "pe-deal-review",
+        "url": null
+      },
+      {
+        "slug": "precedent-bank",
+        "url": null
+      },
+      {
+        "slug": "saas-contracts",
+        "url": null
+      },
+      {
+        "slug": "signature-ledger",
+        "url": null
+      },
+      {
+        "slug": "startup-doc-review",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "social-media-image-creator",
+    "name": "Studio",
+    "role": "Social Media Images",
+    "goal": "An image generation specialist for any image work your team brings: carousels, stories, ads, product shots, email banners, thumbnails. It learns from your gold-standard work, runs model bakeoffs against it, and tunes its output with optometrist-style A/B testing until you can't tell its work from your best.",
+    "category": "Marketing",
+    "description": "An image generation specialist for any image work your team brings: carousels, stories, ads, product shots, email banners, thumbnails. It learns from your gold-standard work, runs model bakeoffs against it, and tunes its output with optometrist-style A/B testing until you can't tell its work from your best.",
+    "tagline": "Takes your examples to learn ideal visual taste and style for image tasks",
+    "author": "Marcus Lowe",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "social-media-image-creator",
+    "phases": [
+      "Gold Lab bakeoffs",
+      "Eye tuning",
+      "Model Tuner"
+    ],
+    "tools": [],
+    "benefits": [
+      {
+        "title": "Gold Lab bakeoffs",
+        "description": "Your gold-standard work rebuilt with every image model, scored on color, sharpness, and blind critic rank, with your picks on one page.",
+        "icon": "shield"
+      },
+      {
+        "title": "Eye tuning",
+        "description": "One or two sharp comparisons per round instead of vague feedback, one dial at a time, until you can't tell the output from your gold.",
+        "icon": "check"
+      },
+      {
+        "title": "Model Tuner",
+        "description": "Uses our entire catalog of image generation LLMs to fine tune against your examples and gets your feedback to hone in on ideal outputs",
+        "icon": "database"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "ig-carousel",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "social-media-post-planner",
+    "name": "Posey",
+    "role": "Social Media Post Planner",
+    "goal": "A social-media posting assistant that runs a brand scheduled posting and engagement pipeline. It writes captions in the brand voice, publishes to channels like Facebook, Pinterest, and Instagram on a cadence tuned to the audience, verifies every post went out correctly, and tracks the real outcome (subscribers, reach, engagement) rather than a front-of-funnel proxy.",
+    "category": "Marketing",
+    "description": "A social-media posting assistant that runs a brand scheduled posting and engagement pipeline. It writes captions in the brand voice, publishes to channels like Facebook, Pinterest, and Instagram on a cadence tuned to the audience, verifies every post went out correctly, and tracks the real outcome (subscribers, reach, engagement) rather than a front-of-funnel proxy.",
+    "tagline": "Publishes in your brand voice and grows the numbers that matter",
+    "author": "Carrie Green Zinn",
+    "source": "Marketplace",
+    "color": "#EEE7FF",
+    "character": "social-media-post-planner",
+    "phases": [
+      "Scheduled posting on autopilot",
+      "Captions tuned to your goal",
+      "Real results, verified end to end"
+    ],
+    "tools": [],
+    "benefits": [
+      {
+        "title": "Scheduled posting on autopilot",
+        "description": "Daily and weekly posts go out in your brand voice at your audience best engagement window, with no babysitting.",
+        "icon": "calendar"
+      },
+      {
+        "title": "Captions tuned to your goal",
+        "description": "Reach and lead capture are opposite levers, so each post is written for the one outcome you actually want.",
+        "icon": "target"
+      },
+      {
+        "title": "Real results, verified end to end",
+        "description": "Every post is re-read live after publishing, and I track the metric you hired me for, not a proxy I can see more easily.",
+        "icon": "chart"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "social-post-engineering",
+        "url": null
+      }
+    ],
+    "isNew": true
+  },
+  {
+    "id": "aeo-geo-manager",
+    "name": "Roux",
+    "role": "AEO Manager",
+    "goal": "Your AEO Manager measures where AI answer engines mention and cite your company, then closes the gap with an AI-readiness audit, competitor share-of-voice tracking, and pages built with a factual QA gate. Evidence over hype, never invented numbers.",
+    "category": "Marketing",
+    "description": "Your AEO Manager measures where AI answer engines mention and cite your company, then closes the gap with an AI-readiness audit, competitor share-of-voice tracking, and pages built with a factual QA gate. Evidence over hype, never invented numbers.",
+    "tagline": "Get your company discovered, cited, and recommended by ChatGPT, Perplexity, and Google AI Overviews.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "aeo-geo-manager",
+    "phases": [
+      "Know where AI engines cite you",
+      "A site AI engines can actually read",
+      "Content that engines cite"
+    ],
+    "tools": [],
+    "benefits": [
+      {
+        "title": "Know where AI engines cite you",
+        "description": "A baseline of your share-of-voice, citations, and positions across ChatGPT, Perplexity, Google AI Overviews, and more, tracked against your named competitors.",
+        "icon": "🔎"
+      },
+      {
+        "title": "A site AI engines can actually read",
+        "description": "A one-call audit of your AI-readiness: robots.txt AI-crawler rules, llms.txt, .md variants, sitemaps, and fixes that ship.",
+        "icon": "🩺"
+      },
+      {
+        "title": "Content that engines cite",
+        "description": "Real buyer prompts turned into extractable comparison, alternatives, and how-to pages, every claim verified before anything publishes.",
+        "icon": "✍️"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "crm-assistant",
+    "name": "Rodeo",
+    "role": "CRM Assistant",
+    "goal": "Your CRM Assistant keeps your contacts, companies, and deals accurate and your follow-ups moving. It loads scored prospect lists with owners set, nudges the right owner when a reply is overdue, and runs a daily pipeline review with one short line per account.",
+    "category": "Sales",
+    "description": "Your CRM Assistant keeps your contacts, companies, and deals accurate and your follow-ups moving. It loads scored prospect lists with owners set, nudges the right owner when a reply is overdue, and runs a daily pipeline review with one short line per account.",
+    "tagline": "Keeps your pipeline moving: contacts, deals, and follow-ups never stall",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "crm-assistant",
+    "phases": [
+      "CRM pipeline management",
+      "Prospect list building and scoring",
+      "Follow-up tracking with owner nudges",
+      "Calendar and signup sync into CRM",
+      "Account status reads in one line"
+    ],
+    "tools": [
+      "Attio",
+      "PostHog",
+      "Cal.com",
+      "Apify",
+      "Notion",
+      "Google Sheets"
+    ],
+    "benefits": [
+      {
+        "title": "Pipeline on one line",
+        "description": "Latest status for any account or deal, scannable, with the next step and owner named.",
+        "icon": "📊"
+      },
+      {
+        "title": "Follow-ups never stall",
+        "description": "Outreach clocks tracked; the right owner gets nudged when a reply runs overdue.",
+        "icon": "🔁"
+      },
+      {
+        "title": "Lists and signups synced in",
+        "description": "Prospect lists loaded and scored; calendar bookings and product signups stamped onto CRM records.",
+        "icon": "🧲"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "customer-outreach",
+    "name": "Zippy",
+    "role": "Customer Outreach",
+    "goal": "Your Customer Outreach agent picks who your team should talk to from real usage data, dedupes against everyone already contacted, and sends personalized invites from each teammate's own address. You approve every send; it handles the pacing and the follow-ups.",
+    "category": "Sales",
+    "description": "Your Customer Outreach agent picks who your team should talk to from real usage data, dedupes against everyone already contacted, and sends personalized invites from each teammate's own address. You approve every send; it handles the pacing and the follow-ups.",
+    "tagline": "Finds the right customers to talk to and gets calls booked",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "customer-outreach",
+    "phases": [
+      null
+    ],
+    "tools": [
+      "PostHog",
+      "Loops.so",
+      "Cal.com"
+    ],
+    "benefits": [
+      {
+        "title": "Smart picks",
+        "description": "Finds customers worth talking to from usage data and never contacts anyone twice",
+        "icon": "🎯"
+      },
+      {
+        "title": "Personal invites",
+        "description": "Sends personalized invites from each teammate's own address and booking link",
+        "icon": "✉️"
+      },
+      {
+        "title": "Daily cycle",
+        "description": "Runs the daily outreach cycle, splits picks across the team, and handles reschedules",
+        "icon": "📅"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "customer-support-manager",
+    "name": "Slippers",
+    "role": "Customer Support Manager",
+    "goal": "Your Customer Support Manager starts by taking the queue: it surfaces urgent conversations, flags escalations and at-risk customers, and brings you the issues that need attention, each with a recommended next step.",
+    "category": "Customer Success",
+    "description": "Your Customer Support Manager starts by taking the queue: it surfaces urgent conversations, flags escalations and at-risk customers, and brings you the issues that need attention, each with a recommended next step.",
+    "tagline": "I find what needs attention, then keep your support queue moving.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "customer-support-manager",
+    "phases": [
+      "Critical issues, surfaced first",
+      "Every customer gets a next step",
+      "Patterns before they become incidents"
+    ],
+    "tools": [
+      "Help Scout Mailbox"
+    ],
+    "benefits": [
+      {
+        "title": "Critical issues, surfaced first",
+        "description": "Blocked customers, overdue commitments, and urgent escalations are prioritized automatically, so you always know what needs attention first.",
+        "icon": null
+      },
+      {
+        "title": "Every customer gets a next step",
+        "description": "No conversation goes cold. Replies, follow-ups, and handoffs stay moving until every customer has an answer or an owner.",
+        "icon": null
+      },
+      {
+        "title": "Patterns before they become incidents",
+        "description": "Recurring bugs, rising ticket themes, and potential outages are connected across conversations, helping you catch problems before they spread.",
+        "icon": null
+      }
+    ],
+    "skills": [],
+    "isNew": false
+  },
+  {
+    "id": "deal-flow",
+    "name": "Ice",
+    "role": "Deal Flow",
+    "goal": "Your Deal Flow agent scores every inbound deal against the firm's thesis, finds new ones that fit, and flags past passes worth another look. Automatic on arrival plus a weekly scan; every score cites its source. It drafts, never sends.",
+    "category": "Venture Capital",
+    "description": "Your Deal Flow agent scores every inbound deal against the firm's thesis, finds new ones that fit, and flags past passes worth another look. Automatic on arrival plus a weekly scan; every score cites its source. It drafts, never sends.",
+    "tagline": "Thesis-scored deal flow, past passes re-examined.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#EEE7FF",
+    "character": "deal-flow",
+    "phases": [
+      "drafts-never-sends",
+      "cites-sources",
+      "learns-from-edits"
+    ],
+    "tools": [
+      "Notion",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "Thesis-scored inbox",
+        "description": "Every inbound deal graded against the firm's thesis automatically as intros arrive, with the one-line reason.",
+        "icon": "🎯"
+      },
+      {
+        "title": "Second-look flags",
+        "description": "Past passes re-examined when the category, team, or traction has changed, so good rejections get revisited.",
+        "icon": "🔁"
+      },
+      {
+        "title": "Weekly scan",
+        "description": "New names that fit, found from email, CRM, and web, delivered to Slack or email. No dashboard.",
+        "icon": "📬"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "designer",
+    "name": "Ren",
+    "role": "Designer",
+    "goal": "Your Designer builds in your file and gets closer to your taste every time you correct it. It watches the design world for you and brings you what's worth your attention, so you can stay heads-down on the work without the feeling that you're falling behind.",
+    "category": "Design",
+    "description": "Your Designer builds in your file and gets closer to your taste every time you correct it. It watches the design world for you and brings you what's worth your attention, so you can stay heads-down on the work without the feeling that you're falling behind.",
+    "tagline": "I learn your taste, then keep you ahead of the industry.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "designer",
+    "phases": [
+      "Designs that look like yours, not like AI",
+      "The industry, brought to you",
+      "Idea to something you can click"
+    ],
+    "tools": [
+      "Paper",
+      "Notion",
+      "Google Drive",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "Designs that look like yours, not like AI",
+        "description": "Give it your brand and references and it treats them as exact specs. No random gradients, no pill labels, no filler copy. Every correction sticks, so the fourth build beats the first.",
+        "icon": "palette"
+      },
+      {
+        "title": "The industry, brought to you",
+        "description": "It watches product releases, rebrands and tool updates, and pings you when something actually matters. No more scrolling to make sure you didn't miss anything.",
+        "icon": "globe"
+      },
+      {
+        "title": "Idea to something you can click",
+        "description": "It builds in your design file, and writes the interactive version when a static frame can't answer the question. Motion gets judged by feel.",
+        "icon": "code"
+      }
+    ],
+    "skills": [
+      {
+        "slug": "frontend-design",
+        "url": "https://www.skills.sh/anthropics/skills/frontend-design"
+      },
+      {
+        "slug": "emil-design-eng",
+        "url": "https://www.skills.sh/emilkowalski/skills/emil-design-eng"
+      },
+      {
+        "slug": "critique",
+        "url": "https://www.skills.sh/pbakaus/impeccable/critique"
+      },
+      {
+        "slug": "polish",
+        "url": "https://www.skills.sh/pbakaus/impeccable/polish"
+      },
+      {
+        "slug": "web-design-guidelines",
+        "url": "https://www.skills.sh/vercel-labs/agent-skills/web-design-guidelines"
+      }
+    ],
+    "isNew": false
+  },
+  {
+    "id": "diligence-analyst",
+    "name": "Mittens",
+    "role": "Diligence Analyst",
+    "goal": "Your Diligence Analyst turns a data room into a memo in the firm's own assessment frame: flags deck-vs-model inconsistencies, lists the five questions for the next meeting, and compares against prior passes in the category. Every claim carries its source; it drafts, never sends.",
+    "category": "Venture Capital",
+    "description": "Your Diligence Analyst turns a data room into a memo in the firm's own assessment frame: flags deck-vs-model inconsistencies, lists the five questions for the next meeting, and compares against prior passes in the category. Every claim carries its source; it drafts, never sends.",
+    "tagline": "Analyzes data rooms like you would. Researches claims. Prepares memo.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FAFFE0",
+    "character": "diligence-analyst",
+    "phases": [
+      "drafts-never-sends",
+      "cites-sources",
+      "learns-from-edits"
+    ],
+    "tools": [
+      "Google Drive",
+      "Notion",
+      "Slack",
+      "Dropbox"
+    ],
+    "benefits": [
+      {
+        "title": "Data room to memo",
+        "description": "Deck, model, P&L, customer list and the meeting transcript in, a memo in the firm's own assessment frame out, every claim with its source line.",
+        "icon": "🔍"
+      },
+      {
+        "title": "Inconsistency flags",
+        "description": "Deck numbers that do not match the model, commitments with no evidence, and the five questions to ask at the next meeting, ranked.",
+        "icon": "🚩"
+      },
+      {
+        "title": "Prior-pass comparison",
+        "description": "How the company compares to prior passes in the same category, so decisions stay consistent over time.",
+        "icon": "📚"
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "dub-co-affiliate-agent",
+    "name": "Tuesday",
+    "role": "Dub.co Affiliate Agent",
+    "goal": "Track partners, commissions, and pending payouts in the partner platform (Dub or equivalent).\n\nClassify every pending payout into pay / cancel / hold, with evidence.\n\nFlag suspicious activity: self-referrals, fake or bought traffic\n\nHold or investigate payouts that look wrong; keep a running picture of program health.",
+    "category": "Operations",
+    "description": "Track partners, commissions, and pending payouts in the partner platform (Dub or equivalent).\n\nClassify every pending payout into pay / cancel / hold, with evidence.\n\nFlag suspicious activity: self-referrals, fake or bought traffic\n\nHold or investigate payouts that look wrong; keep a running picture of program health.",
+    "tagline": "Monitor and combat affiliate program fraud, improve time to pay",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFEDDA",
+    "character": "dub-co-affiliate-agent",
+    "phases": [
+      null
+    ],
+    "tools": [
+      "Dub Partners"
+    ],
+    "benefits": [
+      {
+        "title": null,
+        "description": null,
+        "icon": null
+      }
+    ],
+    "skills": [],
+    "isNew": false
+  }
+]
