@@ -3,6 +3,9 @@ import { PropsWithChildren, useState } from 'react';
 import { Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { router } from 'expo-router';
 import { palette } from '@/constants/palette';
+import { CharacterPortrait } from '@/components/CharacterPortrait';
+import { characterForName } from '@/services/characters';
+import type { CharacterId } from '@/model/types';
 
 export function Screen({ children, scroll = true, style, wide = false }: PropsWithChildren<{ scroll?: boolean; style?: ViewStyle; wide?: boolean }>) {
   const content = <View style={[styles.content, wide && styles.wideContent, style]}>{children}</View>;
@@ -65,8 +68,8 @@ export function SectionTitle({ title, action, onAction }: { title: string; actio
   return <View style={styles.sectionTitle}><Text style={styles.sectionTitleText}>{title}</Text>{action && onAction && <Pressable onPress={onAction}><Text style={styles.sectionAction}>{action}</Text></Pressable>}</View>;
 }
 
-export function AgentAvatar({ name, color, size = 42 }: { name: string; color: string; size?: number }) {
-  return <View style={[styles.avatar, { width: size, height: size, borderRadius: size / 2, backgroundColor: `${color}25`, borderColor: `${color}65` }]}><Text style={[styles.avatarText, { color, fontSize: size * 0.34 }]}>{name.slice(0, 1).toUpperCase()}</Text></View>;
+export function AgentAvatar({ name, color, size = 42, character }: { name: string; color: string; size?: number; character?: CharacterId }) {
+  return <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[styles.avatar, { width: size, height: size, borderRadius: size / 2, backgroundColor: `${color}25`, borderColor: `${color}65` }]}><CharacterPortrait name={name} id={character ?? characterForName(name)} size={size * 0.94} /></View>;
 }
 
 export function FieldLabel({ children }: PropsWithChildren) { return <Text style={styles.fieldLabel}>{children}</Text>; }

@@ -12,7 +12,7 @@ export default function RoutinesScreen() {
     <SectionTitle title="Your schedule" />
     {routines.map((routine) => {
       const agent = agents.find((item) => item.id === routine.agentId);
-      return <Card key={routine.id}><View style={styles.row}><AgentAvatar name={agent?.name ?? 'A'} color={agent?.color ?? palette.lime} /><View style={styles.flex}><Text style={styles.title}>{routine.name}</Text><Text style={styles.schedule}>{routine.schedule}</Text></View><Switch value={routine.enabled} onValueChange={() => toggleRoutine(routine.id)} trackColor={{ false: palette.border, true: palette.lime }} thumbColor={palette.text} /></View><Text style={styles.description}>{routine.description}</Text><Text style={styles.agent}>Handled by {agent?.name ?? 'your agent'}</Text></Card>;
+      return <Card key={routine.id}><View style={styles.row}><AgentAvatar name={agent?.name ?? 'A'} character={agent?.character} color={agent?.color ?? palette.lime} /><View style={styles.flex}><Text style={styles.title}>{routine.name}</Text><Text style={styles.schedule}>{routine.schedule}</Text></View><Switch value={routine.enabled} onValueChange={() => toggleRoutine(routine.id)} trackColor={{ false: palette.border, true: palette.lime }} thumbColor={palette.text} /></View><Text style={styles.description}>{routine.description}</Text><Text style={styles.agent}>Handled by {agent?.name ?? 'your agent'}</Text></Card>;
     })}
     <Text style={styles.note}>Routines are saved locally. They are reminders and prompt templates; this starter version does not run background jobs.</Text>
   </Screen>;

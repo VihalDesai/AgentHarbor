@@ -15,7 +15,7 @@ export default function TemplatesScreen() {
   const { agents, createAgent } = useWorkspace();
   const entries = useMemo(() => agentTemplates.filter((item) => (filter === 'All' || item.category === filter) && `${item.name} ${item.role} ${item.description} ${item.category}`.toLowerCase().includes(query.trim().toLowerCase())), [filter, query]);
   const add = (template: typeof agentTemplates[number]) => {
-    const id = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color });
+    const id = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color, character: template.character, phases: template.phases });
     router.replace(`/agent/${id}`);
   };
   return <Screen style={{ maxWidth: 740, paddingTop: 16, gap: 14 }}>
@@ -25,7 +25,7 @@ export default function TemplatesScreen() {
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filters}>{filters.map((item) => <Pressable key={item} onPress={() => setFilter(item)} style={[styles.filter, filter === item && styles.filterOn]}><Text style={[styles.filterText, filter === item && styles.filterTextOn]}>{item}</Text></Pressable>)}</ScrollView>
     <Text style={styles.sectionTitle}>From AgentHarbor</Text>
     <View style={styles.grid}>{entries.map((template) => <Card key={template.id} style={styles.templateCard}>
-      <Pressable accessibilityRole="button" accessibilityLabel={`View ${template.role} template`} onPress={() => router.push(`/template/${template.id}` as never)} style={styles.cardHead}><AgentAvatar name={template.name} color={template.color} size={47} /><View style={styles.cardHeadCopy}><Text style={styles.name}>{template.role}</Text><Text style={styles.byline}>{template.name} · {template.category}</Text></View><Ionicons name={template.icon as keyof typeof Ionicons.glyphMap} size={20} color={template.color} /></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel={`View ${template.role} template`} onPress={() => router.push(`/template/${template.id}` as never)} style={styles.cardHead}><AgentAvatar name={template.name} character={template.character} color={template.color} size={47} /><View style={styles.cardHeadCopy}><Text style={styles.name}>{template.role}</Text><Text style={styles.byline}>{template.name} · {template.category}</Text></View><Ionicons name={template.icon as keyof typeof Ionicons.glyphMap} size={20} color={template.color} /></Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={`View ${template.role} template`} onPress={() => router.push(`/template/${template.id}` as never)}><Text style={styles.description}>{template.description}</Text><Text style={styles.detailLink}>View template details <Ionicons name="arrow-forward" size={11} color={palette.muted} /></Text></Pressable>
       <View style={styles.toolRow}>{template.tools.map((tool) => <View key={tool} style={styles.tool}><Text style={styles.toolText}>{tool}</Text></View>)}</View>
       <Pressable onPress={() => add(template)} style={({ pressed }) => [styles.useButton, pressed && styles.pressed]}><Ionicons name="add" size={16} color={palette.background} /><Text style={styles.useText}>Add to your workspace</Text></Pressable>

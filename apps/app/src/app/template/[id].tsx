@@ -24,7 +24,7 @@ export default function TemplateDetailScreen() {
   }
 
   const addTemplate = () => {
-    const agentId = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color });
+    const agentId = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color, character: template.character, phases: template.phases });
     router.replace(`/agent/${agentId}`);
   };
 
@@ -43,7 +43,7 @@ export default function TemplateDetailScreen() {
       <Card style={styles.hero}>
         <View style={[styles.art, { backgroundColor: `${template.color}18`, borderColor: `${template.color}45` }]}>
           <View style={[styles.glow, { backgroundColor: template.color }]} />
-          <AgentAvatar name={template.name} color={template.color} size={82} />
+          <AgentAvatar name={template.name} character={template.character} color={template.color} size={82} />
         </View>
         <View style={styles.heroCopy}>
           <Text style={styles.title}>{template.role}</Text>
@@ -58,6 +58,10 @@ export default function TemplateDetailScreen() {
           <Card style={styles.section}>
             <Text style={styles.sectionTitle}>Meet {template.name}</Text>
             <Text style={styles.body}>{template.description} {template.name} starts with a clear role and goal, then you can shape its instructions to fit your own workflow.</Text>
+          </Card>
+          <Card style={styles.section}>
+            <Text style={styles.sectionTitle}>Work phases</Text>
+            {template.phases.map((phase, index) => <View key={phase} style={styles.phase}><View style={styles.phaseNumber}><Text style={styles.phaseNumberText}>{index + 1}</Text></View><Text style={styles.phaseText}>{phase}</Text></View>)}
           </Card>
           <Card style={styles.section}>
             <Text style={styles.sectionTitle}>What you get</Text>
@@ -107,6 +111,10 @@ const styles = StyleSheet.create({
   sideColumn: { flexGrow: 1, flexBasis: 230, gap: 12 },
   section: { borderRadius: 11, padding: 15, gap: 11 },
   sectionTitle: { color: palette.text, fontSize: 13, fontWeight: '600' },
+  phase: { flexDirection: 'row', alignItems: 'center', gap: 9 },
+  phaseNumber: { width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: palette.raised, borderWidth: 1, borderColor: palette.border },
+  phaseNumberText: { color: palette.text, fontSize: 10, fontWeight: '700' },
+  phaseText: { color: palette.muted, fontSize: 11 },
   body: { color: palette.muted, fontSize: 11, lineHeight: 18 },
   outcome: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
   outcomeIcon: { width: 29, height: 29, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },

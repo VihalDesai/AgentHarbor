@@ -1,11 +1,11 @@
 import { Platform } from 'react-native';
-import type { ProviderId } from '@/model/types';
+import type { ModelSettings, ModelTurn, ProviderId } from '@/model/types';
 
 type DesktopBridge = {
   hasApiKey: (provider: ProviderId) => Promise<boolean>;
   setApiKey: (provider: ProviderId, key: string) => Promise<void>;
   removeApiKey: (provider: ProviderId) => Promise<void>;
-  complete: (payload: { settings: import('@/model/types').ModelSettings; system: string; prompt: string }) => Promise<string>;
+  complete: (payload: { settings: ModelSettings; system: string; prompt: string | ModelTurn[] }) => Promise<string>;
 };
 
 function desktopBridge(): DesktopBridge | undefined {

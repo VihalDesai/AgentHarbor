@@ -6,12 +6,12 @@ import { ActionButton, Brand, Card, FieldLabel, Screen, WorkspaceHeader } from '
 import { palette } from '@/constants/palette';
 import { useWorkspace } from '@/state/WorkspaceStore';
 import { hasApiKey, removeApiKey, saveApiKey } from '@/services/credentials';
-import { presetFor, providerPresets } from '@/services/providers';
+import { DEFAULT_PROVIDER_ID, presetFor, providerPresets } from '@/services/providers';
 import { askLocalModel } from '@/services/model';
 import type { ModelSettings, ProviderId } from '@/model/types';
 
 export default function SettingsScreen() {
-  const { model, saveModel, resetWorkspace } = useWorkspace();
+  const { model, ready, saveModel, resetWorkspace } = useWorkspace();
   const [provider, setProvider] = useState<ProviderId>(model.provider);
   const [endpoint, setEndpoint] = useState(model.endpoint);
   const [modelName, setModelName] = useState(model.model);
@@ -21,6 +21,18 @@ export default function SettingsScreen() {
   const [checking, setChecking] = useState(false);
   const [notice, setNotice] = useState('');
   const currentProvider = presetFor(provider);
+
+  useEffect(() => {
+    if (!ready) return;
+    let active = true;
+    queueMicrotask(() => {
+      if (!active) return;
+      setProvider(model.provider);
+      setEndpoint(model.endpoint);
+      setModelName(model.model);
+    });
+    return () => { active = false; };
+  }, [ready, model.provider, model.endpoint, model.model]);
 
   useEffect(() => {
     let active = true;
@@ -40,18 +52,20 @@ export default function SettingsScreen() {
 
   const persist = async () => {
     const next: ModelSettings = { provider, endpoint: endpoint.trim(), model: modelName.trim() };
-    saveModel(next);
     try {
       if (currentProvider.keyRequired && apiKey.trim()) {
         await saveApiKey(provider, apiKey.trim());
         setApiKey('');
         setKeySaved(true);
       }
+      saveModel(next);
       setSaved(true);
-      setNotice('Provider settings saved on this device.');
+      setNotice(`Provider settings saved. New agent replies use ${currentProvider.name} directly.`);
+      return true;
     } catch {
       setSaved(false);
       setNotice('Could not save the API key. Check secure storage permissions, then try again.');
+      return false;
     }
   };
 
@@ -69,7 +83,12 @@ export default function SettingsScreen() {
   const tryConnection = async () => {
     setChecking(true);
     try {
-      await persist();
+      const saved = await persist();
+      if (!saved) return;
+      if (currentProvider.keyRequired && !apiKey.trim() && !keySaved) {
+        setNotice(`Add an API key for ${currentProvider.name} before testing the connection.`);
+        return;
+      }
       const result = await askLocalModel({ provider, endpoint: endpoint.trim(), model: modelName.trim() }, 'Reply with a brief connection confirmation.', 'Say Connected.');
       setNotice(result.text);
     } catch {
@@ -80,7 +99,7 @@ export default function SettingsScreen() {
   };
 
   const reset = () => {
-    const run = async () => { await resetWorkspace(); const defaults = presetFor('ollama'); setProvider(defaults.id); setEndpoint(defaults.endpoint); setModelName(defaults.model); };
+    const run = async () => { await resetWorkspace(); const defaults = presetFor(DEFAULT_PROVIDER_ID); setProvider(defaults.id); setEndpoint(defaults.endpoint); setModelName(defaults.model); setApiKey(''); setKeySaved(false); };
     if (Platform.OS === 'web') { if (globalThis.confirm('Reset this workspace to its starter state?')) void run(); }
     else Alert.alert('Reset workspace?', 'This removes your saved agents, chats and routines from this device.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Reset', style: 'destructive', onPress: () => void run() }]);
   };

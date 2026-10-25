@@ -31,7 +31,7 @@ export default function HomeScreen() {
         </Pressable>)}
       </Card>
       {activity.map(({ agent, last }) => <Card key={agent.id} style={styles.activity}>
-        <View style={styles.activityHeader}><AgentAvatar name={agent.name} color={palette.muted} size={34} /><View style={styles.activityIdentity}><Text style={styles.agentName}>{agent.name}</Text><Text style={styles.when}>Active in your workspace</Text></View><Pressable onPress={() => goToAgent(agent.id)} style={styles.more}><Ionicons name="ellipsis-horizontal" size={17} color={palette.muted} /></Pressable></View>
+        <View style={styles.activityHeader}><AgentAvatar name={agent.name} character={agent.character} color={agent.color || palette.muted} size={34} /><View style={styles.activityIdentity}><Text style={styles.agentName}>{agent.name}</Text><Text style={styles.when}>Active in your workspace</Text></View><Pressable onPress={() => goToAgent(agent.id)} style={styles.more}><Ionicons name="ellipsis-horizontal" size={17} color={palette.muted} /></Pressable></View>
         <Pressable onPress={() => goToAgent(agent.id)}><Text style={styles.activityText} numberOfLines={3}>{last.content}</Text></Pressable>
         <View style={styles.activityFooter}><Text style={styles.channel}><Ionicons name="chatbubble-outline" size={12} color={palette.quiet} /> AgentHarbor</Text><Pressable onPress={() => goToAgent(agent.id)} style={styles.open}><Text style={styles.openText}>Open conversation</Text><Ionicons name="arrow-forward" size={13} color={palette.muted} /></Pressable></View>
       </Card>)}

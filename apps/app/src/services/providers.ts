@@ -1,5 +1,7 @@
 import type { ModelSettings, ProviderId } from '@/model/types';
 
+export const DEFAULT_PROVIDER_ID: ProviderId = 'openai';
+
 export type ProviderPreset = {
   id: ProviderId;
   name: string;
@@ -21,12 +23,20 @@ export const providerPresets: ProviderPreset[] = [
   { id: 'custom', name: 'Custom compatible API', description: 'Any OpenAI-compatible endpoint', endpoint: '', model: '', keyRequired: true, protocol: 'openai' },
 ];
 
+export function isProviderId(value: unknown): value is ProviderId {
+  return typeof value === 'string' && providerPresets.some((provider) => provider.id === value);
+}
+
 export function presetFor(id: ProviderId) {
-  return providerPresets.find((provider) => provider.id === id) ?? providerPresets[6];
+  return providerPresets.find((provider) => provider.id === id) ?? providerPresets[0];
 }
 
 export function normalizeModelSettings(value: Partial<ModelSettings> | undefined): ModelSettings {
-  const provider = value?.provider ?? 'ollama';
+  const provider = isProviderId(value?.provider) ? value.provider : DEFAULT_PROVIDER_ID;
   const preset = presetFor(provider);
-  return { provider, endpoint: value?.endpoint ?? preset.endpoint, model: value?.model ?? preset.model };
+  return {
+    provider,
+    endpoint: typeof value?.endpoint === 'string' && value.endpoint.length <= 2048 ? value.endpoint : preset.endpoint,
+    model: typeof value?.model === 'string' && value.model.length <= 256 ? value.model : preset.model,
+  };
 }

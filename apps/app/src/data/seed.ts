@@ -1,10 +1,10 @@
 import type { Agent, Routine, WorkspaceData } from '@/model/types';
 
 export const starterAgents: Agent[] = [
-  { id: 'mara', name: 'Mara', role: 'Operations partner', goal: 'Keep the week organized and surface what needs a decision.', color: '#A993FF', createdAt: 'Today' },
-  { id: 'patch', name: 'Patch', role: 'Engineering guide', goal: 'Turn clear bug reports into small, reviewable fixes.', color: '#73D6BC', createdAt: 'Yesterday' },
-  { id: 'finch', name: 'Finch', role: 'Research analyst', goal: 'Find reliable answers and return a concise brief with sources.', color: '#F2B86B', createdAt: 'Monday' },
-  { id: 'sol', name: 'Sol', role: 'Writing partner', goal: 'Help shape drafts in a clear, consistent voice.', color: '#EF8BA7', createdAt: 'Monday' },
+  { id: 'mara', name: 'Mara', role: 'Operations partner', goal: 'Keep the week organized and surface what needs a decision.', color: '#A993FF', character: 'sprout', phases: ['Review priorities', 'Plan the week', 'Track decisions'], createdAt: 'Today' },
+  { id: 'patch', name: 'Patch', role: 'Engineering guide', goal: 'Turn clear bug reports into small, reviewable fixes.', color: '#73D6BC', character: 'comet', phases: ['Reproduce the issue', 'Plan a focused fix', 'Review the change'], createdAt: 'Yesterday' },
+  { id: 'finch', name: 'Finch', role: 'Research analyst', goal: 'Find reliable answers and return a concise brief with sources.', color: '#F2B86B', character: 'cloud', phases: ['Frame the question', 'Compare evidence', 'Summarize with sources'], createdAt: 'Monday' },
+  { id: 'sol', name: 'Sol', role: 'Writing partner', goal: 'Help shape drafts in a clear, consistent voice.', color: '#EF8BA7', character: 'ember', phases: ['Clarify the audience', 'Shape the draft', 'Polish the voice'], createdAt: 'Monday' },
 ];
 
 export const starterRoutines: Routine[] = [
@@ -22,5 +22,5 @@ export const initialWorkspace: WorkspaceData = {
     finch: [{ id: 'welcome-finch', role: 'assistant', content: 'I’m Finch. Give me a question and I’ll bring back a concise, source-aware brief.', createdAt: 'Monday' }],
     sol: [{ id: 'welcome-sol', role: 'assistant', content: 'I’m Sol. Send me a rough draft or an idea and we’ll shape it together.', createdAt: 'Monday' }],
   },
-  model: { provider: 'ollama', endpoint: 'http://localhost:11434/v1', model: 'qwen3:8b' },
+  model: { provider: 'openai', endpoint: 'https://api.openai.com/v1', model: 'gpt-4.1-mini' },
 };

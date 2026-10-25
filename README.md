@@ -4,7 +4,7 @@ AgentHarbor is an open-source, local-first workspace for personal AI agents. Thi
 
 ## What is included
 
-- `apps/app` — shared Expo application for Android and web, with a template-first workspace, local agents and chats, saved routine prompts, and selectable model providers.
+- `apps/app` — shared Expo application for Android and web, with a template-first workspace, original agent characters, per-agent work phases, local chats, saved routine prompts, and selectable model providers.
 - `apps/desktop` — a Windows desktop shell that packages the shared app as a portable executable and stores provider API keys using Electron OS-backed encryption.
 - `docs/PRODUCT_SPEC.md` — implementation scope and behavior for this clean-room app.
 - `LICENSE` — MIT license.
@@ -23,7 +23,7 @@ There are no pricing, subscription, or payment features in this project.
 1. Install Expo Go on the Android phone.
 2. From this folder, run `npm install` and then `npm run android`.
 3. Scan the displayed QR code with Expo Go. Keep the phone and computer on the same Wi-Fi network.
-4. Open **Provider settings**, choose Ollama or another compatible provider, then set its endpoint and model. A phone must use the computer’s LAN address rather than `localhost` to reach a model server on that computer.
+4. Open **Provider settings**, choose the API provider for the key you have, and paste that key into its secure field. New workspaces start with the OpenAI preset; Ollama is used only after you select it. A phone must use the computer’s LAN address rather than `localhost` to reach a model server on that computer.
 
 Expo Go is a development runner; it is not a signed standalone Android installer. To build an APK/AAB, install Android Studio with its Android SDK and a compatible JDK, then follow Expo’s EAS Build setup in the official Expo documentation. This repository does not include a signed release APK.
 
@@ -37,11 +37,13 @@ Run `npm install`, then `npm run web:build`, then `npm run desktop`. The desktop
 
 ## Build the portable Windows app
 
-Run `npm run desktop:build`. The output is written to `releases/desktop/AgentHarbor-1.2.1-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
+Run `npm run desktop:build`. The output is written to `releases/desktop/AgentHarbor-1.3.0-Windows.exe`. First build downloads Electron binaries and may take several minutes. This build produces a portable Windows executable; it is not code-signed.
 
 ## Local model setup
 
-Choose OpenAI, Anthropic, Google Gemini, OpenRouter, Groq, DeepSeek, Ollama, or a custom OpenAI-compatible endpoint in **Provider settings**. Provider URL and model are stored in the workspace. API keys are stored separately: Windows desktop uses Electron `safeStorage`, Android uses Expo SecureStore backed by Android Keystore, and browser previews use session storage. The desktop renderer never receives API keys; requests run through the Electron main process. Android sends requests directly to the selected provider. Do not use a phone's `localhost` to reach a model server on a computer.
+Choose OpenAI, Anthropic, Google Gemini, OpenRouter, Groq, DeepSeek, Ollama, or a custom OpenAI-compatible endpoint in **Provider settings**. Replies go directly to the selected provider using that provider’s saved key; there is no automatic Ollama fallback. Ollama is an explicit choice and does not use an API key. Provider URL and model are stored in the workspace. API keys are stored separately: Windows desktop uses Electron `safeStorage`, Android uses Expo SecureStore backed by Android Keystore, and browser previews use session storage. The desktop renderer never receives API keys; requests run through the Electron main process. HTTPS is required for keyed remote endpoints, and provider redirects are rejected to keep keys at the configured destination. Android sends requests directly to the selected provider. Do not use a phone's `localhost` to reach a model server on a computer.
+
+New agents can choose one of eight original character illustrations and define up to six work phases. Phases appear in the agent profile and guide its chat responses. Each agent conversation sends up to the latest 20 saved messages for context.
 
 ## Current scope
 
