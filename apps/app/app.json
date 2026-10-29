@@ -2,7 +2,7 @@
   "expo": {
     "name": "AI Agents Company",
     "slug": "agentharbor",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "orientation": "portrait",
     "backgroundColor": "#000000",
     "icon": "./assets/images/app-mark.png",

@@ -1,6 +1,6 @@
 {
   "name": "agentharbor-desktop",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "AI Agents Company desktop application",
   "author": "AgentHarbor contributors",
   "main": "main.cjs",
@@ -10,8 +10,8 @@
     "dist:win": "electron-builder --win portable"
   },
   "devDependencies": {
-    "electron": "41.10.7",
-    "electron-builder": "26.15.3"
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0"
   },
   "build": {
     "appId": "org.agentharbor.desktop",

@@ -31,6 +31,15 @@ export function presetFor(id: ProviderId) {
   return providerPresets.find((provider) => provider.id === id) ?? providerPresets[0];
 }
 
+export function openAICompatibleEndpoint(endpoint: string) {
+  const url = new URL(endpoint);
+  url.pathname = url.pathname.replace(/\/+$/, '');
+  if (!/\/chat\/completions$/i.test(url.pathname)) {
+    url.pathname = `${url.pathname}/chat/completions`;
+  }
+  return url.toString().replace(/\/$/, '');
+}
+
 export function normalizeModelSettings(value: Partial<ModelSettings> | undefined): ModelSettings {
   const provider = isProviderId(value?.provider) ? value.provider : DEFAULT_PROVIDER_ID;
   const preset = presetFor(provider);

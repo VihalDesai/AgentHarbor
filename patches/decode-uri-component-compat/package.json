@@ -1,0 +1,13 @@
+{
+  "name": "decode-uri-component",
+  "version": "0.5.1-agentharbor.1",
+  "description": "CommonJS-compatible adaptation of decode-uri-component 0.5.1 for Expo Router",
+  "main": "index.cjs",
+  "exports": {
+    "types": "./index.d.ts",
+    "require": "./index.cjs",
+    "default": "./index.cjs"
+  },
+  "types": "index.d.ts",
+  "license": "MIT"
+}

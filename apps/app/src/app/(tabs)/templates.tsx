@@ -28,6 +28,7 @@ export default function TemplatesScreen() {
   const marketplace = entries.filter((item) => item.source === 'Marketplace');
   const isCatalogView = sourceView !== null;
   const isWorkspaceFilter = filter === 'Created by me' || filter === 'From my workspace';
+  const isFilteredView = filter !== 'All' || Boolean(query.trim());
   const add = (template: typeof agentTemplates[number]) => {
     const id = createAgent({ name: uniqueTemplateName(template.name, agents), role: template.role, goal: template.goal, color: template.color, character: template.character, phases: template.phases });
     router.replace(`/agent/${id}`);
@@ -63,8 +64,8 @@ export default function TemplatesScreen() {
       ? <Text style={styles.emptyText}>No templates here yet.</Text>
       : <View style={styles.empty}><Text style={styles.emptyTitle}>No templates found</Text><Text style={styles.emptyHint}>Try another category or search.</Text></View>)}
     {isCatalogView && <View style={styles.grid}>{entries.map(templateCard)}</View>}
-    {!isCatalogView && !!fromSkydive.length && <View style={styles.section}><View style={styles.sectionHeading}><Text style={styles.sectionTitle}>From Skydive</Text><Pressable onPress={() => { setFilter('All'); setQuery(''); setSourceView('From Skydive'); }}><Text style={styles.seeAll}>See all</Text></Pressable></View><View style={styles.grid}>{fromSkydive.slice(0, 4).map(templateCard)}</View></View>}
-    {!isCatalogView && !!marketplace.length && <View style={styles.section}><View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Marketplace</Text><Pressable onPress={() => { setFilter('All'); setQuery(''); setSourceView('Marketplace'); }}><Text style={styles.seeAll}>See all</Text></Pressable></View><View style={styles.grid}>{marketplace.slice(0, 4).map(templateCard)}</View></View>}
+    {!isCatalogView && !!fromSkydive.length && <View style={styles.section}><View style={styles.sectionHeading}><Text style={styles.sectionTitle}>From Skydive</Text>{!isFilteredView && <Pressable onPress={() => { setFilter('All'); setQuery(''); setSourceView('From Skydive'); }}><Text style={styles.seeAll}>See all</Text></Pressable>}</View><View style={styles.grid}>{(isFilteredView ? fromSkydive : fromSkydive.slice(0, 4)).map(templateCard)}</View></View>}
+    {!isCatalogView && !!marketplace.length && <View style={styles.section}><View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Marketplace</Text>{!isFilteredView && <Pressable onPress={() => { setFilter('All'); setQuery(''); setSourceView('Marketplace'); }}><Text style={styles.seeAll}>See all</Text></Pressable>}</View><View style={styles.grid}>{(isFilteredView ? marketplace : marketplace.slice(0, 4)).map(templateCard)}</View></View>}
   </Screen>;
 }
 

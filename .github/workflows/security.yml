@@ -1,0 +1,69 @@
+name: Strix Security Scan
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  strix-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Strix LLM credentials
+        id: credentials
+        shell: bash
+        env:
+          STRIX_LLM: ${{ secrets.STRIX_LLM }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          if [[ "$IS_FORK" == "true" && ( -z "$STRIX_LLM" || -z "$LLM_API_KEY" ) ]]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Strix was skipped for this forked pull request because repository secrets are unavailable to forks."
+            exit 0
+          fi
+          if [[ -z "$STRIX_LLM" || -z "$LLM_API_KEY" ]]; then
+            echo "::error::Add STRIX_LLM and LLM_API_KEY repository secrets before running Strix."
+            exit 1
+          fi
+          echo "configured=true" >> "$GITHUB_OUTPUT"
+
+      - name: Install Strix
+        if: steps.credentials.outputs.configured == 'true'
+        run: curl -sSL https://strix.ai/install | bash
+
+      - name: Run diff-scoped security scan
+        if: steps.credentials.outputs.configured == 'true'
+        env:
+          STRIX_LLM: ${{ secrets.STRIX_LLM }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: strix -n -t ./ --scan-mode quick --scope-mode auto --max-budget 10
+
+      - name: Fail unless the scan completed
+        if: steps.credentials.outputs.configured == 'true' && success()
+        shell: bash
+        run: |
+          run_json=$(find strix_runs -mindepth 2 -maxdepth 2 -name run.json -print -quit)
+          if [[ -z "$run_json" ]]; then
+            echo "No Strix run.json was produced; refusing to treat this as a clean scan." >&2
+            exit 1
+          fi
+          status=$(jq -r .status "$run_json")
+          if [[ "$status" != "completed" ]]; then
+            echo "Strix run status is '$status' — the scan did not complete." >&2
+            exit 1
+          fi
+
+      - name: Upload Strix SARIF
+        if: always() && steps.credentials.outputs.configured == 'true' && hashFiles('strix_runs/**/findings.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: strix_runs

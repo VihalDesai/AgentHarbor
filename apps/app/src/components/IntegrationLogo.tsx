@@ -16,6 +16,11 @@ const brands: Record<string, { icon: string; color: string; brand?: boolean; sol
   instagram: { icon: 'instagram', color: '#E4405F', brand: true },
   notion: { icon: 'book-open', color: '#F5F5F5', solid: true },
   paper: { icon: 'sticky-note', color: '#B6A6FA', solid: true },
+  'google docs': { icon: 'file-alt', color: '#4285F4', solid: true },
+  twitter: { icon: 'twitter', color: '#1DA1F2', brand: true },
+  linkedin: { icon: 'linkedin', color: '#0A66C2', brand: true },
+  granola: { icon: 'coffee', color: '#D39A64', solid: true },
+  readwise: { icon: 'book-open', color: '#F5C542', solid: true },
 };
 
 export function IntegrationLogo({ name, size = 14 }: { name: string; size?: number }) {

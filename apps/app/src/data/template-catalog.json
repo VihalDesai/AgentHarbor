@@ -1137,12 +1137,31 @@
     "source": "From Skydive",
     "color": "#FAFFE0",
     "character": "mobile-submission-specialist",
-    "phases": ["Named-error diagnosis", "Customer-safe coaching", "Watches and digests"],
-    "tools": ["Slack", "GitHub"],
+    "phases": [
+      "Named-error diagnosis",
+      "Customer-safe coaching",
+      "Watches and digests"
+    ],
+    "tools": [
+      "Slack",
+      "GitHub"
+    ],
     "benefits": [
-      { "title": "Named-error diagnosis", "description": "Failed or spinning iOS and Android submits get a named cause, not a guess, pulled from the zone that actually ran.", "icon": null },
-      { "title": "Customer-safe coaching", "description": "Plain-language next moves through TestFlight, Play, and review gates, with raw logs and credentials never shared.", "icon": null },
-      { "title": "Watches and digests", "description": "Pipeline watches and cadence digests so new publish failures never sit unanswered.", "icon": null }
+      {
+        "title": "Named-error diagnosis",
+        "description": "Failed or spinning iOS and Android submits get a named cause, not a guess, pulled from the zone that actually ran.",
+        "icon": null
+      },
+      {
+        "title": "Customer-safe coaching",
+        "description": "Plain-language next moves through TestFlight, Play, and review gates, with raw logs and credentials never shared.",
+        "icon": null
+      },
+      {
+        "title": "Watches and digests",
+        "description": "Pipeline watches and cadence digests so new publish failures never sit unanswered.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1159,12 +1178,33 @@
     "source": "From Skydive",
     "color": "#FAFFE0",
     "character": "asset-expert",
-    "phases": ["Canonical retrieval", "Verified handoffs", "On-brand generation"],
-    "tools": ["Google Drive", "Slack", "Google Sheet", "Google Docs"],
+    "phases": [
+      "Canonical retrieval",
+      "Verified handoffs",
+      "On-brand generation"
+    ],
+    "tools": [
+      "Google Drive",
+      "Slack",
+      "Google Sheet",
+      "Google Docs"
+    ],
     "benefits": [
-      { "title": "Canonical retrieval", "description": "Finds the real source file from your established libraries before recreating anything, and says plainly when it doesn't have it.", "icon": null },
-      { "title": "Verified handoffs", "description": "Every file checked for existence, dimensions, format, and access before it's called done, with the properties stated in the handoff.", "icon": null },
-      { "title": "On-brand generation", "description": "New imagery made with your real reference images as anchors, QA-checked across the whole batch, not a sample.", "icon": null }
+      {
+        "title": "Canonical retrieval",
+        "description": "Finds the real source file from your established libraries before recreating anything, and says plainly when it doesn't have it.",
+        "icon": null
+      },
+      {
+        "title": "Verified handoffs",
+        "description": "Every file checked for existence, dimensions, format, and access before it's called done, with the properties stated in the handoff.",
+        "icon": null
+      },
+      {
+        "title": "On-brand generation",
+        "description": "New imagery made with your real reference images as anchors, QA-checked across the whole batch, not a sample.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1181,16 +1221,42 @@
     "source": "From Skydive",
     "color": "#FFE7EC",
     "character": "frontend-engineer",
-    "phases": ["Design files turned into production code", "Complex UI state mapped out for you", "Cross-browser testing on autopilot"],
-    "tools": ["GitHub", "Linear", "Paper"],
+    "phases": [
+      "Design files turned into production code",
+      "Complex UI state mapped out for you",
+      "Cross-browser testing on autopilot"
+    ],
+    "tools": [
+      "GitHub",
+      "Linear",
+      "Paper"
+    ],
     "benefits": [
-      { "title": "Design files turned into production code", "description": "Figma components translate straight into clean, responsive, and accessible UI code that maps directly to your design system and state logic.", "icon": null },
-      { "title": "Complex UI state mapped out for you", "description": "Messy state management, edge cases, and asynchronous loading/error flows get wired up cleanly so you never have to wrestle with UI bugs.", "icon": null },
-      { "title": "Cross-browser testing on autopilot", "description": "Visual regression, mobile responsiveness, and browser compatibility issues get caught and flagged with exact line-level fixes before code hits staging.", "icon": null }
+      {
+        "title": "Design files turned into production code",
+        "description": "Figma components translate straight into clean, responsive, and accessible UI code that maps directly to your design system and state logic.",
+        "icon": null
+      },
+      {
+        "title": "Complex UI state mapped out for you",
+        "description": "Messy state management, edge cases, and asynchronous loading/error flows get wired up cleanly so you never have to wrestle with UI bugs.",
+        "icon": null
+      },
+      {
+        "title": "Cross-browser testing on autopilot",
+        "description": "Visual regression, mobile responsiveness, and browser compatibility issues get caught and flagged with exact line-level fixes before code hits staging.",
+        "icon": null
+      }
     ],
     "skills": [
-      { "slug": "design-guide", "url": "https://skills.sh/getpaperclipai/paperclip/design-guide" },
-      { "slug": "code-review", "url": "https://skills.sh/mattpocock/skills/code-review" }
+      {
+        "slug": "design-guide",
+        "url": "https://skills.sh/getpaperclipai/paperclip/design-guide"
+      },
+      {
+        "slug": "code-review",
+        "url": "https://skills.sh/mattpocock/skills/code-review"
+      }
     ],
     "isNew": false
   },
@@ -1206,12 +1272,33 @@
     "source": "From Skydive",
     "color": "#FFF5DB",
     "character": "bug-investigator",
-    "phases": ["Root-cause bug investigations", "Fixes shipped as PRs", "PR upkeep on autopilot"],
-    "tools": ["GitHub", "Slack", "Linear", "Sentry"],
+    "phases": [
+      "Root-cause bug investigations",
+      "Fixes shipped as PRs",
+      "PR upkeep on autopilot"
+    ],
+    "tools": [
+      "GitHub",
+      "Slack",
+      "Linear",
+      "Sentry"
+    ],
     "benefits": [
-      { "title": "Root-cause bug investigations", "description": "Symptoms traced to the verbatim cause with file and line evidence, never a ranked list of maybes.", "icon": null },
-      { "title": "Fixes shipped as PRs", "description": "Every fix ships with a regression test and is driven through CI and review to merge.", "icon": null },
-      { "title": "PR upkeep on autopilot", "description": "A daily sweep that fixes mechanical issues silently and reports only what is waiting on a human.", "icon": null }
+      {
+        "title": "Root-cause bug investigations",
+        "description": "Symptoms traced to the verbatim cause with file and line evidence, never a ranked list of maybes.",
+        "icon": null
+      },
+      {
+        "title": "Fixes shipped as PRs",
+        "description": "Every fix ships with a regression test and is driven through CI and review to merge.",
+        "icon": null
+      },
+      {
+        "title": "PR upkeep on autopilot",
+        "description": "A daily sweep that fixes mechanical issues silently and reports only what is waiting on a human.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1228,12 +1315,31 @@
     "source": "From Skydive",
     "color": "#EEE7FF",
     "character": "head-of-content",
-    "phases": ["Person-per-person drafts", "Trend calls with receipts", "Content systems that run themselves"],
-    "tools": ["Slack", "X"],
+    "phases": [
+      "Person-per-person drafts",
+      "Trend calls with receipts",
+      "Content systems that run themselves"
+    ],
+    "tools": [
+      "Slack",
+      "X"
+    ],
     "benefits": [
-      { "title": "Person-per-person drafts", "description": "Drafts in each author's voice, with a verify-with-you list and a visual ask.", "icon": null },
-      { "title": "Trend calls with receipts", "description": "Every recommendation backed by the actual post link and real velocity.", "icon": null },
-      { "title": "Content systems that run themselves", "description": "Relay, scoreboard, and trend-radar routines built from what it observes.", "icon": null }
+      {
+        "title": "Person-per-person drafts",
+        "description": "Drafts in each author's voice, with a verify-with-you list and a visual ask.",
+        "icon": null
+      },
+      {
+        "title": "Trend calls with receipts",
+        "description": "Every recommendation backed by the actual post link and real velocity.",
+        "icon": null
+      },
+      {
+        "title": "Content systems that run themselves",
+        "description": "Relay, scoreboard, and trend-radar routines built from what it observes.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1250,12 +1356,34 @@
     "source": "From Skydive",
     "color": "#F0FFEC",
     "character": "loops-email-assistant",
-    "phases": ["Campaigns and workflows that actually fire", "Triggers that match, exactly", "Deliverability you can trust"],
-    "tools": ["Loops.so", "PostHog", "Notion", "Google Sheet", "Google Drive"],
+    "phases": [
+      "Campaigns and workflows that actually fire",
+      "Triggers that match, exactly",
+      "Deliverability you can trust"
+    ],
+    "tools": [
+      "Loops.so",
+      "PostHog",
+      "Notion",
+      "Google Sheet",
+      "Google Drive"
+    ],
     "benefits": [
-      { "title": "Campaigns and workflows that actually fire", "description": "Every workflow checked for the wiring, not just the shape: published vs. draft, and a trigger that matches a live event exactly.", "icon": null },
-      { "title": "Triggers that match, exactly", "description": "Loops triggers are exact-match. I sample your real events and properties before building logic, so nothing fails silently down a fallback path.", "icon": null },
-      { "title": "Deliverability you can trust", "description": "I watch the signals that matter (spam, unsubscribes, bounces) and keep your domain setup clean, so your sends land.", "icon": null }
+      {
+        "title": "Campaigns and workflows that actually fire",
+        "description": "Every workflow checked for the wiring, not just the shape: published vs. draft, and a trigger that matches a live event exactly.",
+        "icon": null
+      },
+      {
+        "title": "Triggers that match, exactly",
+        "description": "Loops triggers are exact-match. I sample your real events and properties before building logic, so nothing fails silently down a fallback path.",
+        "icon": null
+      },
+      {
+        "title": "Deliverability you can trust",
+        "description": "I watch the signals that matter (spam, unsubscribes, bounces) and keep your domain setup clean, so your sends land.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1272,16 +1400,42 @@
     "source": "From Skydive",
     "color": "#EEE7FF",
     "character": "project-manager",
-    "phases": ["A reconciliation with receipts", "Slips caught weeks before the due date", "An operator that learns how your team ships"],
-    "tools": ["GitHub", "Linear", "Jira"],
+    "phases": [
+      "A reconciliation with receipts",
+      "Slips caught weeks before the due date",
+      "An operator that learns how your team ships"
+    ],
+    "tools": [
+      "GitHub",
+      "Linear",
+      "Jira"
+    ],
     "benefits": [
-      { "title": "A reconciliation with receipts", "description": "Every place the tracker and the repository disagree, named by issue and PR, with what it costs the date.", "icon": null },
-      { "title": "Slips caught weeks before the due date", "description": "It watches the leading indicators: the PR sitting unreviewed, the dependency that landed late, the scope that grew quietly.", "icon": null },
-      { "title": "An operator that learns how your team ships", "description": "Each pass compounds: what your workflow states really mean, your chronic dependencies, and which early signals predict slips here.", "icon": null }
+      {
+        "title": "A reconciliation with receipts",
+        "description": "Every place the tracker and the repository disagree, named by issue and PR, with what it costs the date.",
+        "icon": null
+      },
+      {
+        "title": "Slips caught weeks before the due date",
+        "description": "It watches the leading indicators: the PR sitting unreviewed, the dependency that landed late, the scope that grew quietly.",
+        "icon": null
+      },
+      {
+        "title": "An operator that learns how your team ships",
+        "description": "Each pass compounds: what your workflow states really mean, your chronic dependencies, and which early signals predict slips here.",
+        "icon": null
+      }
     ],
     "skills": [
-      { "slug": "to-issues", "url": "https://skills.sh/mattpocock/skills/to-issues" },
-      { "slug": "triage", "url": "https://skills.sh/mattpocock/skills/triage" }
+      {
+        "slug": "to-issues",
+        "url": "https://skills.sh/mattpocock/skills/to-issues"
+      },
+      {
+        "slug": "triage",
+        "url": "https://skills.sh/mattpocock/skills/triage"
+      }
     ],
     "isNew": false
   },
@@ -1297,12 +1451,30 @@
     "source": "From Skydive",
     "color": "#FAFFE0",
     "character": "stripe-disputes-agent",
-    "phases": ["Automate Early Fraud Warnings", "Dispute Packets built to your spec", "Self Improving"],
-    "tools": ["Stripe"],
+    "phases": [
+      "Automate Early Fraud Warnings",
+      "Dispute Packets built to your spec",
+      "Self Improving"
+    ],
+    "tools": [
+      "Stripe"
+    ],
     "benefits": [
-      { "title": "Automate Early Fraud Warnings", "description": "Connect to Stripe to allow card provider EFW signals to help you refund and avoid chargebacks automatically.", "icon": null },
-      { "title": "Dispute Packets built to your spec", "description": "The agent will build to suit and improve over time on ideal dispute packet evidence to improve win rate.", "icon": null },
-      { "title": "Self Improving", "description": "Let the agent review your Stripe data to date to formulate its baseline, then it will improve over time as it learns from disputes it handles.", "icon": null }
+      {
+        "title": "Automate Early Fraud Warnings",
+        "description": "Connect to Stripe to allow card provider EFW signals to help you refund and avoid chargebacks automatically.",
+        "icon": null
+      },
+      {
+        "title": "Dispute Packets built to your spec",
+        "description": "The agent will build to suit and improve over time on ideal dispute packet evidence to improve win rate.",
+        "icon": null
+      },
+      {
+        "title": "Self Improving",
+        "description": "Let the agent review your Stripe data to date to formulate its baseline, then it will improve over time as it learns from disputes it handles.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": false
@@ -1319,12 +1491,31 @@
     "source": "From Skydive",
     "color": "#FFF5DB",
     "character": "personal-assistant-for-outreach",
-    "phases": ["A voice with opinions", "Outreach that reads human", "Aging, not absence"],
-    "tools": ["Slack", "Gmail"],
+    "phases": [
+      "A voice with opinions",
+      "Outreach that reads human",
+      "Aging, not absence"
+    ],
+    "tools": [
+      "Slack",
+      "Gmail"
+    ],
     "benefits": [
-      { "title": "A voice with opinions", "description": "Warm, sassy, theatrical replies that still know when to drop the act and get serious.", "icon": null },
-      { "title": "Outreach that reads human", "description": "Lists, drafts, and approval flows, with every multi-recipient send paced in small waves so it never looks like a bot.", "icon": null },
-      { "title": "Aging, not absence", "description": "Digests lead with what has been waiting on you for N days, never a padded 'no new replies'.", "icon": null }
+      {
+        "title": "A voice with opinions",
+        "description": "Warm, sassy, theatrical replies that still know when to drop the act and get serious.",
+        "icon": null
+      },
+      {
+        "title": "Outreach that reads human",
+        "description": "Lists, drafts, and approval flows, with every multi-recipient send paced in small waves so it never looks like a bot.",
+        "icon": null
+      },
+      {
+        "title": "Aging, not absence",
+        "description": "Digests lead with what has been waiting on you for N days, never a padded 'no new replies'.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1341,12 +1532,31 @@
     "source": "From Skydive",
     "color": "#FFEDDA",
     "character": "sourcing-scout",
-    "phases": ["Sourcing on demand", "Decision-ready sheets", "Discernment built in"],
-    "tools": ["Google Sheet", "Gmail"],
+    "phases": [
+      "Sourcing on demand",
+      "Decision-ready sheets",
+      "Discernment built in"
+    ],
+    "tools": [
+      "Google Sheet",
+      "Gmail"
+    ],
     "benefits": [
-      { "title": "Sourcing on demand", "description": "Creators, leads, and communities pulled against your brief, with engagement and audience data attached.", "icon": null },
-      { "title": "Decision-ready sheets", "description": "Meticulous formatting, clickable handles, and one consistent 0-100 creator score across platforms.", "icon": null },
-      { "title": "Discernment built in", "description": "Every list ships ranked, with who to contact first and why.", "icon": null }
+      {
+        "title": "Sourcing on demand",
+        "description": "Creators, leads, and communities pulled against your brief, with engagement and audience data attached.",
+        "icon": null
+      },
+      {
+        "title": "Decision-ready sheets",
+        "description": "Meticulous formatting, clickable handles, and one consistent 0-100 creator score across platforms.",
+        "icon": null
+      },
+      {
+        "title": "Discernment built in",
+        "description": "Every list ships ranked, with who to contact first and why.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1363,12 +1573,37 @@
     "source": "From Skydive",
     "color": "#F0FFEC",
     "character": "sdr-investor-relations",
-    "phases": ["Tailored from the first message", "Qualification you can verify", "Outreach in your voice, never auto-sent"],
-    "tools": ["Google", "Gmail", "Google Calendar", "Google Sheet", "Google Docs", "Google Drive", "Notion", "Granola"],
+    "phases": [
+      "Tailored from the first message",
+      "Qualification you can verify",
+      "Outreach in your voice, never auto-sent"
+    ],
+    "tools": [
+      "Google",
+      "Gmail",
+      "Google Calendar",
+      "Google Sheet",
+      "Google Docs",
+      "Google Drive",
+      "Notion",
+      "Granola"
+    ],
     "benefits": [
-      { "title": "Tailored from the first message", "description": "A quick intro card learns who you sell to, what you sell, and where your leads live before it touches anything.", "icon": null },
-      { "title": "Qualification you can verify", "description": "Every account comes with the evidence stated plainly: what is known, what is not, and why it belongs in or out.", "icon": null },
-      { "title": "Outreach in your voice, never auto-sent", "description": "Drafts match your tone and carry a real reason to reach out. Sending always waits for your explicit go.", "icon": null }
+      {
+        "title": "Tailored from the first message",
+        "description": "A quick intro card learns who you sell to, what you sell, and where your leads live before it touches anything.",
+        "icon": null
+      },
+      {
+        "title": "Qualification you can verify",
+        "description": "Every account comes with the evidence stated plainly: what is known, what is not, and why it belongs in or out.",
+        "icon": null
+      },
+      {
+        "title": "Outreach in your voice, never auto-sent",
+        "description": "Drafts match your tone and carry a real reason to reach out. Sending always waits for your explicit go.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1385,12 +1620,33 @@
     "source": "From Skydive",
     "color": "#FAFFE0",
     "character": "expense-reconciler",
-    "phases": ["Monthly reconciliation", "Receipts to ops", "Partner only approves"],
-    "tools": ["Gmail", "Google Calendar", "Ramp", "Slack"],
+    "phases": [
+      "Monthly reconciliation",
+      "Receipts to ops",
+      "Partner only approves"
+    ],
+    "tools": [
+      "Gmail",
+      "Google Calendar",
+      "Ramp",
+      "Slack"
+    ],
     "benefits": [
-      { "title": "Monthly reconciliation", "description": "Calendar events matched against Gmail receipts and the card platform, with every gap named.", "icon": null },
-      { "title": "Receipts to ops", "description": "Receipts forwarded as found, so month end is assembly, not archaeology.", "icon": null },
-      { "title": "Partner only approves", "description": "The expense report drafted from calendar, inbox, and card feed; approval is the only manual step.", "icon": null }
+      {
+        "title": "Monthly reconciliation",
+        "description": "Calendar events matched against Gmail receipts and the card platform, with every gap named.",
+        "icon": null
+      },
+      {
+        "title": "Receipts to ops",
+        "description": "Receipts forwarded as found, so month end is assembly, not archaeology.",
+        "icon": null
+      },
+      {
+        "title": "Partner only approves",
+        "description": "The expense report drafted from calendar, inbox, and card feed; approval is the only manual step.",
+        "icon": null
+      }
     ],
     "skills": [],
     "isNew": true
@@ -1407,13 +1663,313 @@
     "source": "From Skydive",
     "color": "#EEE7FF",
     "character": "fundraise-sheet-watcher",
-    "phases": ["The morning diff", "Read-only, always", "Momentum signals"],
-    "tools": ["Google Drive", "Gmail", "Slack"],
-    "benefits": [
-      { "title": "The morning diff", "description": "Who passed and why, who is digging in, new names, moved rows, delivered before the partner's first meeting.", "icon": null },
-      { "title": "Read-only, always", "description": "The sheet is never written to. The founders own their pipeline; the partner just sees it.", "icon": null },
-      { "title": "Momentum signals", "description": "Meetings booked, data rooms, second meetings: evidence of digging in, not vibes.", "icon": null }
+    "phases": [
+      "The morning diff",
+      "Read-only, always",
+      "Momentum signals"
     ],
+    "tools": [
+      "Google Drive",
+      "Gmail",
+      "Slack"
+    ],
+    "benefits": [
+      {
+        "title": "The morning diff",
+        "description": "Who passed and why, who is digging in, new names, moved rows, delivered before the partner's first meeting.",
+        "icon": null
+      },
+      {
+        "title": "Read-only, always",
+        "description": "The sheet is never written to. The founders own their pipeline; the partner just sees it.",
+        "icon": null
+      },
+      {
+        "title": "Momentum signals",
+        "description": "Meetings booked, data rooms, second meetings: evidence of digging in, not vibes.",
+        "icon": null
+      }
+    ],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "youtube-creator-scout",
+    "name": "YouTube Creator Scout",
+    "role": "YouTube Creator Scout",
+    "goal": "Finds underpriced creators and builds sponsorship packages around expected views",
+    "category": "Marketing",
+    "description": "Finds underpriced creators and builds sponsorship packages around expected views",
+    "tagline": "Finds underpriced creators and builds sponsorship packages around expected views",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "youtube-creator-scout",
+    "phases": [],
+    "tools": [],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "x-influencer-lead",
+    "name": "X / Influencer Lead",
+    "role": "X / Influencer Lead",
+    "goal": "I run your X presence end to end: posts, creators, launches, payouts.",
+    "category": "Marketing",
+    "description": "I run your X presence end to end: posts, creators, launches, payouts.",
+    "tagline": "I run your X presence end to end: posts, creators, launches, payouts.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "x-influencer-lead",
+    "phases": [],
+    "tools": [
+      "Notion",
+      "Google Sheets",
+      "Google Drive"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "security-researcher",
+    "name": "Security Researcher",
+    "role": "Security Researcher",
+    "goal": "Finds real vulnerabilities and keeps the compliance record honest.",
+    "category": "Engineering",
+    "description": "Finds real vulnerabilities and keeps the compliance record honest.",
+    "tagline": "Finds real vulnerabilities and keeps the compliance record honest.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFE7EC",
+    "character": "security-researcher",
+    "phases": [],
+    "tools": [
+      "GitHub",
+      "Linear"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "portfolio-fundraise-desk",
+    "name": "Portfolio Fundraise Desk",
+    "role": "Portfolio Fundraise Desk",
+    "goal": "Every intro tracked, every founder updated daily.",
+    "category": "Venture Capital",
+    "description": "Every intro tracked, every founder updated daily.",
+    "tagline": "Every intro tracked, every founder updated daily.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "portfolio-fundraise-desk",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Notion",
+      "Slack"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "portfolio-analyst",
+    "name": "Portfolio Analyst",
+    "role": "Portfolio Analyst",
+    "goal": "Reads monthly investor memos, standardizes metrics, consolidates asks, creates simple internal reporting in Slack or with an app",
+    "category": "Venture Capital",
+    "description": "Reads monthly investor memos, standardizes metrics, consolidates asks, creates simple internal reporting in Slack or with an app",
+    "tagline": "Reads monthly investor memos, standardizes metrics, consolidates asks, creates simple internal reporting in Slack or with an app",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "portfolio-analyst",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Notion",
+      "Slack"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "pipeline-audit",
+    "name": "Pipeline SDR",
+    "role": "Pipeline SDR",
+    "goal": "Researches and tracks hot companies. Looks for signals they'll be in market soon",
+    "category": "Venture Capital",
+    "description": "Researches and tracks hot companies. Looks for signals they'll be in market soon",
+    "tagline": "Researches and tracks hot companies. Looks for signals they'll be in market soon",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "pipeline-audit",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Notion",
+      "Slack"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "pass-emails",
+    "name": "Pass Emails",
+    "role": "Pass Emails",
+    "goal": "Queues up pass emails fast in your own voice",
+    "category": "Venture Capital",
+    "description": "Queues up pass emails fast in your own voice",
+    "tagline": "Queues up pass emails fast in your own voice",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "pass-emails",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Notion",
+      "Granola"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "partner-writing",
+    "name": "Partner Content",
+    "role": "Partner Content",
+    "goal": "Learns your style from past posts, blogs, or fundraise announcements. Helps you draft the next piece",
+    "category": "Venture Capital",
+    "description": "Learns your style from past posts, blogs, or fundraise announcements. Helps you draft the next piece",
+    "tagline": "Learns your style from past posts, blogs, or fundraise announcements. Helps you draft the next piece",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "partner-writing",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Slack",
+      "Twitter"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "network-memory",
+    "name": "Network Memory",
+    "role": "Network Memory",
+    "goal": "The warmest path in, on request in Slack.",
+    "category": "Venture Capital",
+    "description": "The warmest path in, on request in Slack.",
+    "tagline": "The warmest path in, on request in Slack.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "network-memory",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "LinkedIn"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "morning-prep-brief",
+    "name": "Meeting Prep",
+    "role": "Meeting Prep",
+    "goal": "Chief of Staff that researches your next meeting and preps you & the team in advance",
+    "category": "Venture Capital",
+    "description": "Chief of Staff that researches your next meeting and preps you & the team in advance",
+    "tagline": "Chief of Staff that researches your next meeting and preps you & the team in advance",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "morning-prep-brief",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Google Calendar",
+      "Notion"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "lp-relations",
+    "name": "LP Relations",
+    "role": "LP Relations",
+    "goal": "Research, meeting prep, reporting dashboards, follows the news.",
+    "category": "Venture Capital",
+    "description": "Research, meeting prep, reporting dashboards, follows the news.",
+    "tagline": "Research, meeting prep, reporting dashboards, follows the news.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "lp-relations",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Google Calendar",
+      "Notion"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "intro-accountability-tracker",
+    "name": "Intro Accountability",
+    "role": "Intro Accountability",
+    "goal": "Queues up intros for every founder ask. Searches your & the firm's network",
+    "category": "Venture Capital",
+    "description": "Queues up intros for every founder ask. Searches your & the firm's network",
+    "tagline": "Queues up intros for every founder ask. Searches your & the firm's network",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#F0FFEC",
+    "character": "intro-accountability-tracker",
+    "phases": [],
+    "tools": [
+      "Gmail",
+      "Slack",
+      "Notion"
+    ],
+    "benefits": [],
+    "skills": [],
+    "isNew": true
+  },
+  {
+    "id": "copywriter",
+    "name": "Copywriter",
+    "role": "Copywriter",
+    "goal": "I learn how you write, then draft in your voice.",
+    "category": "Marketing",
+    "description": "I learn how you write, then draft in your voice.",
+    "tagline": "I learn how you write, then draft in your voice.",
+    "author": "Skydive",
+    "source": "From Skydive",
+    "color": "#FFF5DB",
+    "character": "copywriter",
+    "phases": [],
+    "tools": [
+      "Google Docs",
+      "Gmail",
+      "Readwise"
+    ],
+    "benefits": [],
     "skills": [],
     "isNew": true
   }

@@ -38,6 +38,19 @@ export const characters: { id: CharacterId; name: string; color: string; accent:
   { id: 'sdr-investor-relations', name: 'Honeycomb', color: '#F0FFEC', accent: '#C6F0D7', avatarUrl: 'https://avatars.anyonegoes.com/v1/yellowskin-yellowhair-1159/profile.png' },
   { id: 'expense-reconciler', name: 'Pink', color: '#FAFFE0', accent: '#E2ECB3', avatarUrl: 'https://avatars.anyonegoes.com/v1/pinkskin-pinkhair-0530/profile.png' },
   { id: 'fundraise-sheet-watcher', name: 'Avis', color: '#EEE7FF', accent: '#D8E9FF', avatarUrl: 'https://avatars.anyonegoes.com/v1/blueskin-bluehair-0991/profile.png' },
+  { id: 'youtube-creator-scout', name: 'YouTube Creator Scout', color: '#FFF5DB', accent: '#FFE1A6' },
+  { id: 'x-influencer-lead', name: 'X / Influencer Lead', color: '#EEE7FF', accent: '#D8E9FF' },
+  { id: 'security-researcher', name: 'Security Researcher', color: '#FFE7EC', accent: '#D8E9FF' },
+  { id: 'portfolio-fundraise-desk', name: 'Portfolio Fundraise Desk', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'portfolio-analyst', name: 'Portfolio Analyst', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'pipeline-audit', name: 'Pipeline SDR', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'pass-emails', name: 'Pass Emails', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'partner-writing', name: 'Partner Content', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'network-memory', name: 'Network Memory', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'morning-prep-brief', name: 'Meeting Prep', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'lp-relations', name: 'LP Relations', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'intro-accountability-tracker', name: 'Intro Accountability', color: '#F0FFEC', accent: '#C6F0D7' },
+  { id: 'copywriter', name: 'Copywriter', color: '#FFF5DB', accent: '#FFE1A6' },
 ];
 
 const legacyCharacterIds: CharacterId[] = ['sprout', 'comet', 'pebble', 'ripple', 'ember', 'moss', 'cloud', 'orbit'];

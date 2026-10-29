@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, safeStorage } = require('electron');
+const { app, BrowserWindow, ipcMain, safeStorage, session } = require('electron');
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -46,12 +46,13 @@ function startAppServer() {
     try {
       const pathname = decodeURIComponent(new URL(request.url, 'http://127.0.0.1').pathname);
       const candidate = path.resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
-      if (!candidate.startsWith(`${root}${path.sep}`) && candidate !== path.join(root, 'index.html')) {
+      const relative = path.relative(root, candidate);
+      if (relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
         response.writeHead(403, { 'X-Content-Type-Options': 'nosniff' }).end('Forbidden');
         return;
       }
       const file = fs.existsSync(candidate) && fs.statSync(candidate).isFile() ? candidate : path.join(root, 'index.html');
-      response.writeHead(200, { 'Content-Type': mime[path.extname(file).toLowerCase()] ?? 'application/octet-stream', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer' });
+      response.writeHead(200, { 'Content-Type': mime[path.extname(file).toLowerCase()] ?? 'application/octet-stream', 'Cache-Control': 'no-store', 'Content-Security-Policy': "frame-ancestors 'none'; object-src 'none'; base-uri 'self'", 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY', 'Referrer-Policy': 'no-referrer' });
       if (request.method === 'HEAD') response.end();
       else fs.createReadStream(file).on('error', () => { if (!response.headersSent) response.writeHead(500); response.end('Unable to read application file'); }).pipe(response);
     } catch {
@@ -72,7 +73,7 @@ function createWindow(url) {
     minHeight: 640,
     backgroundColor: '#101014',
     title: 'AI Agents Company',
-    webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true },
+    webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, webviewTag: false },
   });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event, nextUrl) => {
@@ -126,7 +127,10 @@ async function completeModel(settings, system, prompt) {
   const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(parsedEndpoint.hostname);
   if (key && parsedEndpoint.protocol !== 'https:' && !loopback) throw new Error('Use HTTPS for any endpoint that receives an API key.');
   const headers = { 'Content-Type': 'application/json' };
-  let url = `${endpoint}/chat/completions`;
+  const completionEndpoint = new URL(endpoint);
+  completionEndpoint.pathname = completionEndpoint.pathname.replace(/\/+$/, '');
+  if (!/\/chat\/completions$/i.test(completionEndpoint.pathname)) completionEndpoint.pathname = `${completionEndpoint.pathname}/chat/completions`;
+  let url = completionEndpoint.toString().replace(/\/$/, '');
   let body = { model, messages: [{ role: 'system', content: systemText }, ...turns], stream: false };
   if (provider === 'anthropic') {
     url = `${endpoint}/messages`;
@@ -179,6 +183,8 @@ ipcMain.handle('agentharbor:key:remove', async (event, provider) => {
 let appServer;
 let appUrl;
 app.whenReady().then(async () => {
+  session.defaultSession.setPermissionRequestHandler((_webContents, _permission, callback) => callback(false));
+  session.defaultSession.setPermissionCheckHandler(() => false);
   ({ server: appServer, url: appUrl } = await startAppServer());
   createWindow(appUrl);
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(appUrl); });

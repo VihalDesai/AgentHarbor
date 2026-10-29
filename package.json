@@ -1,6 +1,6 @@
 {
   "name": "agentharbor",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": true,
   "description": "A local-first, open-source agent workspace for desktop and Android.",
   "license": "MIT",
@@ -16,7 +16,23 @@
     "desktop:build": "npm run web:build && npm --prefix apps/desktop run dist:win"
   },
   "allowScripts": {
-    "electron@41.10.7": true,
     "electron-winstaller@5.4.0": true
+  },
+  "devDependencies": {
+    "decode-uri-component": "file:./patches/decode-uri-component-compat",
+    "zod": "4.6.7"
+  },
+  "overrides": {
+    "node-forge": "1.4.2",
+    "expo": {
+      "@expo/cli": {
+        "zod": "$zod"
+      }
+    },
+    "expo-router": {
+      "query-string": {
+        "decode-uri-component": "$decode-uri-component"
+      }
+    }
   }
 }

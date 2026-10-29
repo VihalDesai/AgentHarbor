@@ -9,7 +9,11 @@ export type CharacterId =
   | 'mobile-submission-specialist' | 'asset-expert' | 'frontend-engineer' | 'bug-investigator'
   | 'head-of-content' | 'loops-email-assistant' | 'project-manager' | 'stripe-disputes-agent'
   | 'personal-assistant-for-outreach' | 'sourcing-scout' | 'sdr-investor-relations'
-  | 'expense-reconciler' | 'fundraise-sheet-watcher';
+  | 'expense-reconciler' | 'fundraise-sheet-watcher'
+  | 'youtube-creator-scout' | 'x-influencer-lead' | 'security-researcher'
+  | 'portfolio-fundraise-desk' | 'portfolio-analyst' | 'pipeline-audit'
+  | 'pass-emails' | 'partner-writing' | 'network-memory' | 'morning-prep-brief'
+  | 'lp-relations' | 'intro-accountability-tracker' | 'copywriter';
 
 export const defaultAgentPhases = ['Understand the goal', 'Plan the next steps', 'Deliver a clear result'];
 

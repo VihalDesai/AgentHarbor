@@ -1,0 +1,1 @@
+This is a CommonJS adaptation of the upstream `decode-uri-component` 0.5.1 implementation (MIT license), kept local for Expo Router 57, whose query-string dependency calls `require()` and cannot load the upstream ESM-only entry directly. The decoding logic is otherwise preserved.

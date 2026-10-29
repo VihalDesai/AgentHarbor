@@ -1,5 +1,5 @@
 import type { ModelSettings, ModelTurn } from '@/model/types';
-import { isProviderId, presetFor } from '@/services/providers';
+import { isProviderId, openAICompatibleEndpoint, presetFor } from '@/services/providers';
 import { getApiKey } from '@/services/credentials';
 
 type ModelReply = { text: string; source: 'local' | 'provider' | 'preview' };
@@ -35,7 +35,7 @@ export async function askLocalModel(settings: ModelSettings, system: string, pro
       ? await fetch(`${endpoint}/messages`, { method: 'POST', redirect: 'error', headers: { 'Content-Type': 'application/json', 'x-api-key': key ?? '', 'anthropic-version': '2023-06-01' }, body: JSON.stringify({ model: settings.model, max_tokens: 2048, system, messages: turns }), signal: controller.signal })
       : provider.protocol === 'gemini'
         ? await fetch(`${endpoint}/models/${encodeURIComponent(settings.model)}:generateContent`, { method: 'POST', redirect: 'error', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key ?? '' }, body: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: turns.map((turn) => ({ role: turn.role === 'assistant' ? 'model' : 'user', parts: [{ text: turn.content }] })) }), signal: controller.signal })
-        : await fetch(`${endpoint}/chat/completions`, { method: 'POST', redirect: 'error', headers: { 'Content-Type': 'application/json', ...(key ? { Authorization: `Bearer ${key}` } : {}) }, body: JSON.stringify({ model: settings.model, messages: [{ role: 'system', content: system }, ...turns], stream: false }), signal: controller.signal });
+        : await fetch(openAICompatibleEndpoint(endpoint), { method: 'POST', redirect: 'error', headers: { 'Content-Type': 'application/json', ...(key ? { Authorization: `Bearer ${key}` } : {}) }, body: JSON.stringify({ model: settings.model, messages: [{ role: 'system', content: system }, ...turns], stream: false }), signal: controller.signal });
     if (!response.ok) throw new Error(`Provider returned ${response.status}`);
     const result = await response.json();
     const text = provider.protocol === 'anthropic'
@@ -53,7 +53,7 @@ export async function askLocalModel(settings: ModelSettings, system: string, pro
 }
 
 function safeError(error: unknown, browserRequest: boolean) {
-  if (error instanceof Error && error.name === 'AbortError') return 'The request timed out.';
+  if (error instanceof Error && (error.name === 'AbortError' || error.name === 'TimeoutError')) return 'The request timed out.';
   if (error instanceof Error && error.message.startsWith('Add an API key')) return error.message;
   if (error instanceof Error && (error.message.includes('HTTPS') || error.message.includes('HTTP or HTTPS') || error.message.includes('endpoint URL'))) return error.message;
   const status = error instanceof Error ? error.message.match(/(?:Provider|Model server) returned (\d{3})/)?.[1] : undefined;
@@ -61,8 +61,14 @@ function safeError(error: unknown, browserRequest: boolean) {
   if (status === '403') return 'The provider denied this request. Check the API key permissions and model access.';
   if (status === '404') return 'The model or endpoint was not found. Check the provider settings.';
   if (status === '429') return 'The provider rate limit was reached. Wait a moment, then try again.';
+  const cause = error instanceof Error ? (error as Error & { cause?: { code?: string } }).cause : undefined;
+  const code = cause?.code ?? (error instanceof Error ? (error as Error & { code?: string }).code : undefined);
+  if (code === 'ECONNREFUSED') return 'The endpoint refused the connection. Check its host, port, and API path.';
+  if (code === 'ENOTFOUND' || code === 'EAI_AGAIN') return 'The endpoint host could not be found. Check the URL and network connection.';
+  if (code === 'ETIMEDOUT' || code === 'ECONNRESET') return 'The network connection timed out or closed. Check the endpoint and try again.';
+  if (typeof code === 'string' && (code.startsWith('ERR_TLS') || code.startsWith('CERT_'))) return 'The endpoint’s TLS certificate could not be verified. Check its HTTPS certificate.';
   if (error instanceof TypeError) return browserRequest
     ? 'The browser could not reach this endpoint. It may block requests from browser apps (CORS); use the desktop or Android app, or an endpoint that allows this browser origin.'
     : 'Check the endpoint host, network connection, and provider availability.';
-  return '';
+  return 'Check the endpoint URL, model name, API key, and network connection.';
 }

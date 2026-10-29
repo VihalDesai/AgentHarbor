@@ -27,7 +27,7 @@ const normalizedCatalog = (catalog as unknown as AgentTemplate[]).map((template)
   benefits: Array.isArray(template.benefits) ? template.benefits.filter((benefit) => Boolean(benefit?.title && benefit?.description)) : [],
 }));
 
-export const agentTemplates = normalizedCatalog.filter((template) => template.id !== 'social-media-post-planner');
+export const agentTemplates = normalizedCatalog;
 
 export function uniqueTemplateName(name: string, agents: Agent[]) {
   const names = new Set(agents.map((agent) => agent.name.toLocaleLowerCase()));
