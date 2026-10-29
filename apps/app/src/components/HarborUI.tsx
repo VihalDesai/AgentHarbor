@@ -21,7 +21,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
 
 export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boolean; menuOnly?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { companyName } = useWorkspace();
+  const { companyName, storageProblem } = useWorkspace();
   const items = [
     { label: 'Home', icon: 'home-outline' as const, path: '/(tabs)' },
     { label: 'Agents', icon: 'people-outline' as const, path: '/(tabs)/agents' },
@@ -34,6 +34,7 @@ export function WorkspaceHeader({ back = false, menuOnly = false }: { back?: boo
     { label: 'Chats', icon: 'chatbubbles-outline' as const, path: '/company-chat' },
   ];
   return <View style={[styles.headerSlot, menuOnly && styles.menuOnlySlot]}>
+    {storageProblem && <View accessibilityRole="alert" style={styles.storageWarning}><Ionicons name="warning-outline" size={15} color={palette.amber} /><Text style={styles.storageWarningText}>{storageProblem}</Text></View>}
     <View style={[styles.workspaceHeader, menuOnly && styles.menuOnlyHeader, !menuOnly && !back && styles.referenceHeader]}>
     {menuOnly ? <View /> : back ? <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.headerBack}><Ionicons name="arrow-back" size={16} color={palette.muted} /><Text style={styles.headerBackText}>Back</Text></Pressable> : <Brand compact />}
     <Pressable accessibilityRole="button" accessibilityLabel="Open workspace menu" accessibilityState={{ expanded: menuOpen }} onPress={() => setMenuOpen(true)} style={styles.profileButton}><Text style={styles.profileInitials}>V</Text></Pressable>
@@ -86,8 +87,10 @@ export function Hairline() { return <View style={styles.hairline} />; }
 export function StatusPill({ label, color = palette.mint }: { label: string; color?: string }) { return <View style={[styles.statusPill, { borderColor: `${color}55`, backgroundColor: `${color}12` }]}><View style={[styles.statusDot, { backgroundColor: color }]} /><Text style={[styles.statusText, { color }]}>{label}</Text></View>; }
 
 const styles = StyleSheet.create({
-  headerSlot: { width: '100%', height: 38, zIndex: 10 },
+  headerSlot: { width: '100%', minHeight: 38, zIndex: 10, gap: 8 },
   menuOnlySlot: { height: 0 },
+  storageWarning: { width: '100%', flexDirection: 'row', alignItems: 'flex-start', gap: 8, paddingHorizontal: 11, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: '#65502C', backgroundColor: '#2D2518' },
+  storageWarningText: { flex: 1, color: '#E8CB91', fontSize: 10, lineHeight: 15 },
   workspaceHeader: { width: '100%', minHeight: 38, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 10 },
   referenceHeader: Platform.OS === 'web' ? { position: 'fixed' as never, top: 16, left: 24, right: 24, width: 'auto' as never, zIndex: 60 } : {},
   menuOnlyHeader: { position: 'fixed' as never, width: 38, right: 24, top: 12, zIndex: 60 },

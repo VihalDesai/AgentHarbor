@@ -129,6 +129,7 @@ function normalizeWorkspace(value: unknown): WorkspaceData {
 
 type WorkspaceContextValue = WorkspaceData & {
   ready: boolean;
+  storageProblem: string | null;
   createAgent: (input: Pick<Agent, 'name' | 'role' | 'goal' | 'color'> & Partial<Pick<Agent, 'character' | 'phases' | 'skillIds' | 'branchId' | 'managerId'>>) => string;
   updateCompanyName: (name: string) => void;
   createBranch: (input: Omit<CompanyBranch, 'id' | 'createdAt'>) => string;
@@ -152,20 +153,56 @@ const WorkspaceContext = createContext<WorkspaceContextValue | null>(null);
 export function WorkspaceProvider({ children }: PropsWithChildren) {
   const [data, setData] = useState<WorkspaceData>(initialWorkspace);
   const [ready, setReady] = useState(false);
+  const [storageProblem, setStorageProblem] = useState<string | null>(null);
   const hydrated = useRef(false);
+  const persistenceEnabled = useRef(false);
+  const pendingUpdates = useRef<((current: WorkspaceData) => WorkspaceData)[]>([]);
+
+  const updateWorkspace = useCallback((update: (current: WorkspaceData) => WorkspaceData) => {
+    if (!hydrated.current) {
+      pendingUpdates.current.push(update);
+      return;
+    }
+    setData(update);
+  }, []);
 
   useEffect(() => {
     let alive = true;
     AsyncStorage.getItem(STORAGE_KEY).then((saved) => {
       if (!alive) return;
+      let loadedData = initialWorkspace;
+      let canPersist = true;
       if (saved) {
         try {
-          setData(normalizeWorkspace(JSON.parse(saved)));
-        } catch { /* keep the starter workspace */ }
+          const parsed: unknown = JSON.parse(saved);
+          if (isRecord(parsed)) {
+            const collectionKeys = ['agents', 'branches', 'companyTasks', 'founders', 'routines', 'skills'];
+            const validCollections = collectionKeys.every((key) => parsed[key] === undefined || Array.isArray(parsed[key]));
+            const validObjects = ['conversations', 'model'].every((key) => parsed[key] === undefined || isRecord(parsed[key]));
+            canPersist = validCollections && validObjects;
+            loadedData = normalizeWorkspace(parsed);
+          } else canPersist = false;
+        } catch {
+          canPersist = false;
+        }
       }
+      const queuedUpdates = pendingUpdates.current.splice(0);
+      if (queuedUpdates.length) {
+        loadedData = queuedUpdates.reduce((current, update) => update(current), loadedData);
+      }
+      persistenceEnabled.current = canPersist;
+      setStorageProblem(canPersist ? null : 'Saved workspace data could not be read safely. Autosaving is paused to protect it. Reload to retry, or reset this device’s workspace in Settings.');
+      setData(loadedData);
       hydrated.current = true;
       setReady(true);
     }).catch(() => {
+      if (!alive) return;
+      const queuedUpdates = pendingUpdates.current.splice(0);
+      if (queuedUpdates.length) {
+        setData(queuedUpdates.reduce((current, update) => update(current), initialWorkspace));
+      }
+      persistenceEnabled.current = false;
+      setStorageProblem('Saved workspace data could not be read. Autosaving is paused to protect it. Reload to retry, or reset this device’s workspace in Settings.');
       hydrated.current = true;
       setReady(true);
     });
@@ -173,13 +210,13 @@ export function WorkspaceProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    if (hydrated.current) AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data)).catch(() => undefined);
+    if (hydrated.current && persistenceEnabled.current) AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data)).catch(() => undefined);
   }, [data]);
 
   const createAgent = useCallback((input: Pick<Agent, 'name' | 'role' | 'goal' | 'color'> & Partial<Pick<Agent, 'character' | 'phases' | 'skillIds' | 'branchId' | 'managerId'>>) => {
     const id = `agent-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const phases = (input.phases ?? defaultAgentPhases).map((phase) => phase.trim()).filter(Boolean).slice(0, 6);
-    setData((current) => {
+    updateWorkspace((current) => {
       const branchId = current.branches.some((branch) => branch.id === input.branchId) ? input.branchId : current.branches[0]?.id ?? '';
       const managerId = current.agents.some((agent) => agent.id === input.managerId && agent.branchId === branchId) ? input.managerId : undefined;
       return {
@@ -189,51 +226,51 @@ export function WorkspaceProvider({ children }: PropsWithChildren) {
       };
     });
     return id;
-  }, []);
+  }, [updateWorkspace]);
 
   const updateCompanyName = useCallback((name: string) => {
     const companyName = name.trim().slice(0, 100);
-    if (companyName) setData((current) => ({ ...current, companyName }));
-  }, []);
+    if (companyName) updateWorkspace((current) => ({ ...current, companyName }));
+  }, [updateWorkspace]);
 
   const createBranch = useCallback((input: Omit<CompanyBranch, 'id' | 'createdAt'>) => {
     const id = `branch-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-    setData((current) => ({ ...current, branches: [...current.branches, { ...input, id, createdAt: 'Just now' }] }));
+    updateWorkspace((current) => ({ ...current, branches: [...current.branches, { ...input, id, createdAt: 'Just now' }] }));
     return id;
-  }, []);
+  }, [updateWorkspace]);
 
   const createCompanyTask = useCallback((request: string) => {
     const id = `work-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-    setData((current) => ({ ...current, companyTasks: [{ id, request: request.trim().slice(0, 5000), createdAt: 'Just now', status: 'routing' as const, agentRuns: [] }, ...current.companyTasks].slice(0, 100) }));
+    updateWorkspace((current) => ({ ...current, companyTasks: [{ id, request: request.trim().slice(0, 5000), createdAt: 'Just now', status: 'routing' as const, agentRuns: [] }, ...current.companyTasks].slice(0, 100) }));
     return id;
-  }, []);
+  }, [updateWorkspace]);
 
   const updateCompanyTask = useCallback((id: string, patch: Partial<Pick<CompanyTask, 'status' | 'agentRuns' | 'error'>>) => {
-    setData((current) => ({ ...current, companyTasks: current.companyTasks.map((task) => task.id === id ? { ...task, ...patch } : task) }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, companyTasks: current.companyTasks.map((task) => task.id === id ? { ...task, ...patch } : task) }));
+  }, [updateWorkspace]);
 
   const createSkill = useCallback((input: Omit<Skill, 'id' | 'createdAt'>) => {
-    setData((current) => ({ ...current, skills: [{ ...input, id: `skill-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, createdAt: 'Just now' }, ...current.skills] }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, skills: [{ ...input, id: `skill-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, createdAt: 'Just now' }, ...current.skills] }));
+  }, [updateWorkspace]);
 
   const deleteSkill = useCallback((id: string) => {
-    setData((current) => ({
+    updateWorkspace((current) => ({
       ...current,
       skills: current.skills.filter((skill) => skill.id !== id),
       agents: current.agents.map((agent) => ({ ...agent, skillIds: (agent.skillIds ?? []).filter((skillId) => skillId !== id) })),
       founders: current.founders.map((founder) => ({ ...founder, skillIds: founder.skillIds.filter((skillId) => skillId !== id) })),
     }));
-  }, []);
+  }, [updateWorkspace]);
 
   const createFounder = useCallback((input: Omit<FounderProfile, 'id' | 'createdAt'>) => {
-    setData((current) => ({
+    updateWorkspace((current) => ({
       ...current,
       founders: [{ ...input, skillIds: input.skillIds.filter((skillId) => current.skills.some((skill) => skill.id === skillId)).slice(0, 20), id: `founder-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, createdAt: 'Just now' }, ...current.founders],
     }));
-  }, []);
+  }, [updateWorkspace]);
 
   const updateFounder = useCallback((id: string, input: Omit<FounderProfile, 'id' | 'createdAt'>) => {
-    setData((current) => ({
+    updateWorkspace((current) => ({
       ...current,
       founders: current.founders.map((founder) => founder.id !== id ? founder : {
         ...founder,
@@ -241,14 +278,14 @@ export function WorkspaceProvider({ children }: PropsWithChildren) {
         skillIds: input.skillIds.filter((skillId) => current.skills.some((skill) => skill.id === skillId)).slice(0, 20),
       }),
     }));
-  }, []);
+  }, [updateWorkspace]);
 
   const deleteFounder = useCallback((id: string) => {
-    setData((current) => ({ ...current, founders: current.founders.filter((founder) => founder.id !== id) }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, founders: current.founders.filter((founder) => founder.id !== id) }));
+  }, [updateWorkspace]);
 
   const toggleAgentSkill = useCallback((agentId: string, skillId: string) => {
-    setData((current) => {
+    updateWorkspace((current) => {
       if (!current.skills.some((skill) => skill.id === skillId)) return current;
       return { ...current, agents: current.agents.map((agent) => {
         if (agent.id !== agentId) return agent;
@@ -256,27 +293,29 @@ export function WorkspaceProvider({ children }: PropsWithChildren) {
         return { ...agent, skillIds: assigned.includes(skillId) ? assigned.filter((id) => id !== skillId) : assigned.length < 10 ? [...assigned, skillId] : assigned };
       }) };
     });
-  }, []);
+  }, [updateWorkspace]);
 
   const addMessage = useCallback((agentId: string, message: AgentMessage) => {
-    setData((current) => ({ ...current, conversations: { ...current.conversations, [agentId]: [...(current.conversations[agentId] ?? []), message] } }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, conversations: { ...current.conversations, [agentId]: [...(current.conversations[agentId] ?? []), message] } }));
+  }, [updateWorkspace]);
 
   const createRoutine = useCallback((input: Omit<Routine, 'id' | 'enabled'>) => {
-    setData((current) => ({ ...current, routines: [{ ...input, id: `routine-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, enabled: true }, ...current.routines] }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, routines: [{ ...input, id: `routine-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, enabled: true }, ...current.routines] }));
+  }, [updateWorkspace]);
 
   const toggleRoutine = useCallback((id: string) => {
-    setData((current) => ({ ...current, routines: current.routines.map((routine) => routine.id === id ? { ...routine, enabled: !routine.enabled } : routine) }));
-  }, []);
+    updateWorkspace((current) => ({ ...current, routines: current.routines.map((routine) => routine.id === id ? { ...routine, enabled: !routine.enabled } : routine) }));
+  }, [updateWorkspace]);
 
-  const saveModel = useCallback((model: ModelSettings) => setData((current) => ({ ...current, model })), []);
+  const saveModel = useCallback((model: ModelSettings) => updateWorkspace((current) => ({ ...current, model })), [updateWorkspace]);
   const resetWorkspace = useCallback(async () => {
     await AsyncStorage.removeItem(STORAGE_KEY);
-    setData(initialWorkspace);
-  }, []);
+    persistenceEnabled.current = true;
+    setStorageProblem(null);
+    updateWorkspace(() => initialWorkspace);
+  }, [updateWorkspace]);
 
-  const value = useMemo(() => ({ ...data, ready, createAgent, updateCompanyName, createBranch, createCompanyTask, updateCompanyTask, createSkill, deleteSkill, createFounder, updateFounder, deleteFounder, toggleAgentSkill, addMessage, createRoutine, toggleRoutine, saveModel, resetWorkspace }), [data, ready, createAgent, updateCompanyName, createBranch, createCompanyTask, updateCompanyTask, createSkill, deleteSkill, createFounder, updateFounder, deleteFounder, toggleAgentSkill, addMessage, createRoutine, toggleRoutine, saveModel, resetWorkspace]);
+  const value = useMemo(() => ({ ...data, ready, storageProblem, createAgent, updateCompanyName, createBranch, createCompanyTask, updateCompanyTask, createSkill, deleteSkill, createFounder, updateFounder, deleteFounder, toggleAgentSkill, addMessage, createRoutine, toggleRoutine, saveModel, resetWorkspace }), [data, ready, storageProblem, createAgent, updateCompanyName, createBranch, createCompanyTask, updateCompanyTask, createSkill, deleteSkill, createFounder, updateFounder, deleteFounder, toggleAgentSkill, addMessage, createRoutine, toggleRoutine, saveModel, resetWorkspace]);
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }
 

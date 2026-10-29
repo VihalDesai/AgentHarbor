@@ -4,6 +4,7 @@
 
 - Custom OpenAI-compatible provider URLs now accept either a base URL or a full `/chat/completions` endpoint. Connection errors return actionable, non-secret messages.
 - The desktop asset server now checks path containment with `path.relative`, sends frame/object/base security headers, disables webviews, and denies Electron permission requests.
+- Workspace hydration now preserves stored data after a storage read/parse failure instead of automatically overwriting it with starter data. Changes made while hydration is pending are applied after the saved workspace loads.
 - Electron is pinned to 45.0.0. The dependency graph uses Zod 4.6.7 for Expo CLI, `node-forge` 1.4.2 for Expo signing tools, and a local CommonJS adaptation of the fixed `decode-uri-component` 0.5.1 decoder for Expo Router's CommonJS consumer.
 
 ## Remaining dependency finding

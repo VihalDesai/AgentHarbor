@@ -1,6 +1,6 @@
 {
   "name": "agentharbor-desktop",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "AI Agents Company desktop application",
   "author": "AgentHarbor contributors",
   "main": "main.cjs",
